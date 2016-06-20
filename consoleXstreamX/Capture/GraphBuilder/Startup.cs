@@ -29,7 +29,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             VideoCapture.CaptureGraph = new FilterGraphNoThread() as IGraphBuilder;
             //VideoCapture.CaptureGraph = new FilterGraph() as IGraphBuilder;
 
-            if (!new Graph().BuildGraph())
+            if (!new Graph().Create())
             {
                 Debug.Log("[ERR] Error building graph");
                 return;

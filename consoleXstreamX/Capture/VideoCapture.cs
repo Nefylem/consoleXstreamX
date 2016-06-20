@@ -12,6 +12,23 @@ namespace consoleXstreamX.Capture
             new Startup().Execute();
         }
 
+        public static void ResetDisplay()
+        {
+            new Display().Setup();
+        }
+
+        public static void ClearGraph()
+        {
+            CaptureGraph = null;
+            MediaControl = null;
+            MediaEvent = null;
+            IamAvd = null;
+            VideoDef = null;
+            VideoPreview = null;
+            XBar = null;
+            VideoWindow = null;
+        }
+
         public static Form1 Home;
         public static int CurrentVideoDevice;
         public static int CurrentAudioDevice;
@@ -53,23 +70,6 @@ namespace consoleXstreamX.Capture
         public static IBaseFilter CaptureDevice;
         public static IBaseFilter CaptureFeed;
         public static AMMediaType Resolution;
-
-        public static void ResetDisplay()
-        {
-            new Display().Setup();
-        }
-
-        public static void ClearGraph()
-        {
-            CaptureGraph = null;
-            MediaControl = null;
-            MediaEvent = null;
-            IamAvd = null;
-            VideoDef = null;
-            VideoPreview = null;
-            XBar = null;
-            VideoWindow = null;
-        }
 
         public class VideoCaptureDevices
         {

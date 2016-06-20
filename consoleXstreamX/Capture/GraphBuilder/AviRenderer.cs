@@ -10,7 +10,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
 {
     class AviRenderer
     {
-        public void Create(out string videoIn, out string videoOut, ref string pDevice, ref string pVideoOut, ref IBaseFilter pRen)
+        public void Create(string pDevice, ref string pVideoOut, ref IBaseFilter pRen)
         {
             var pin = new Pin();
             Debug.Log("");
@@ -20,8 +20,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
             Debug.Log("-> " + DsError.GetErrorText(hr));
 
             var pinList = pin.List(pAviDecompressor);
-            videoIn = pin.Assume("XForm", pinList.In);
-            videoOut = pin.Assume("XForm", pinList.Out);
+            var videoIn = pin.Assume("XForm", pinList.In);
+            var videoOut = pin.Assume("XForm", pinList.Out);
 
             Debug.Log("");
             Debug.Log($"***   Connect {pDevice} ({pVideoOut}) to AVI Decompressor ({videoIn})");
