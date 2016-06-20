@@ -12,6 +12,12 @@ namespace consoleXstreamX.Debugging
     {
         internal static void Log(string write)
         {
+            var path = Configuration.Value.LogPath;
+            if (!string.IsNullOrEmpty(path)) path += @"\";
+            path += @"Logs\";
+
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
             var sender = new StackFrame(1).GetMethod();
             if (sender?.DeclaringType == null)
             {
@@ -22,7 +28,7 @@ namespace consoleXstreamX.Debugging
             var type = sender.DeclaringType.FullName;
             var name = sender.Name;
             var logFile = SetLogFile(type);
-            Write(logFile, type, name, write);
+            Write(path + logFile, type, name, write);
         }
 
         private static async void Write(string logFile, string type, string name, string write)
@@ -34,7 +40,7 @@ namespace consoleXstreamX.Debugging
             }
 
             LastDebugLevel = level;
-            if (level >= Configuration.Value.SystemDebugLevel) return;
+            if (level > Configuration.Value.SystemDebugLevel) return;
 
             await WriteTextAsync(logFile, write);
         }

@@ -8,11 +8,12 @@ namespace consoleXstreamX.Capture.Analyse
     {
         public void List()
         {
+            Debug.Log("");
             Debug.Log("[0] Finding resolutions for Video Capture Devices");
             for (var count = 0; count < VideoCapture.CaptureDevices.Count; count++)
             {
                 var device = VideoCapture.CaptureDevices[count];
-                Debug.Log($"[1] -= Viewing {device.Title} =-");
+                Debug.Log($"[1] -= Finding Resolutions for {device.Title} =-");
 
                 var dev = DsDevice.GetDevicesOfCat(FilterCategory.VideoInputDevice)[count];
                 var filterGraph = (IFilterGraph3)new FilterGraphNoThread();
@@ -41,9 +42,10 @@ namespace consoleXstreamX.Capture.Analyse
                         Type = type,
                         MediaType = media
                     });
-                    Debug.Log($"[2] {v.BmiHeader.Width} x {v.BmiHeader.Height} ({type}");
+                    Debug.Log($"[2] {v.BmiHeader.Width} x {v.BmiHeader.Height} ({type})");
                 }
             }
+            Debug.Log("");
         }
 
         private static string CheckMediaType(AMMediaType media)

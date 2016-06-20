@@ -16,11 +16,15 @@
             SetAudio();
         }
 
-        private void SetAudio()
+        public void SetAudio()
         {
             if (VideoCapture.AudioDevices == null || VideoCapture.AudioDevices.Count == 0) return;
             var index = VideoCapture.AudioDevices.IndexOf("Default WaveOut Device");
-            if (index == -1) return;
+            if (index == -1)
+            {
+                VideoCapture.CurrentAudioDevice = 0;
+                return;
+            }
             VideoCapture.CurrentAudioDevice = index;
         }
     }

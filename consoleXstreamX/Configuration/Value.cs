@@ -42,7 +42,8 @@ namespace consoleXstreamX.Configuration
         public static string SetResolution;
 
         //Debug
-        public static int SystemDebugLevel = 0;
+        public static string LogPath;
+        public static int SystemDebugLevel = 5;
         public static int DetailedLogs = 0;
     }
 }

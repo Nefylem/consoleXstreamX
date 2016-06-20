@@ -5,14 +5,23 @@ namespace consoleXstreamX.Capture
 {
     internal static class VideoCapture
     {
-        internal static void Startup()
+        internal static void Startup(Form1 form1)
         {
             new Startup().Execute();
             var b = 1;
         }
 
+        public static Form1 Home;
         public static int CurrentVideoDevice;
         public static int CurrentAudioDevice;
+        public static int CurrentActiveDevice;
+        public static int CurrentActiveResolution;
+        public static int CurrentResolutionIndex;
+
+        public static string CurrentVideo;
+        public static string CurrentVideoShort;
+        public static string CurrentAudio;
+        public static string CurrentResolution;
 
         public static string CrossbarAudio;
         public static string CrossbarVideo;
@@ -29,6 +38,7 @@ namespace consoleXstreamX.Capture
         public static bool InitializeGraph;
         public static bool RestartGraph;
         public static bool ActiveVideo;
+        public static bool ActiveCrossbar;
 
         public static IMediaControl MediaControl;
         public static IGraphBuilder CaptureGraph;
@@ -39,9 +49,9 @@ namespace consoleXstreamX.Capture
         public static IAMCrossbar XBar;
         public static IVideoWindow VideoWindow;
 
+        public static string CaptureFeedIn;
         public static IBaseFilter CaptureDevice;
         public static IBaseFilter CaptureFeed;
-        public static string CaptureFeedIn;
         public static AMMediaType Resolution;
 
         public static void ClearGraph()
@@ -59,6 +69,7 @@ namespace consoleXstreamX.Capture
         public class VideoCaptureDevices
         {
             public string Title;
+            public int CurrentResolution;
             public List<VideoCaptureResolution> Resolution;
         }
 
@@ -68,6 +79,11 @@ namespace consoleXstreamX.Capture
             public string Type;
             public int Width;
             public int Height;
+
+            public string GetRes()
+            {
+                return $"{Width} x {Height} ({Type})";
+            }
         }
     }
 }

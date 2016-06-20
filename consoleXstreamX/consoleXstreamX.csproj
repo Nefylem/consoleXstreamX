@@ -52,14 +52,22 @@
     <Compile Include="Capture\Analyse\AudioRenderer.cs" />
     <Compile Include="Capture\Analyse\CaptureResolution.cs" />
     <Compile Include="Capture\Analyse\VideoInput.cs" />
+    <Compile Include="Capture\GraphBuilder\Crossbar.cs" />
     <Compile Include="Capture\GraphBuilder\Display.cs" />
+    <Compile Include="Capture\GraphBuilder\Filter.cs" />
     <Compile Include="Capture\GraphBuilder\Graph.cs" />
+    <Compile Include="Capture\GraphBuilder\Pin.cs" />
+    <Compile Include="Capture\GraphBuilder\Resolution.cs" />
+    <Compile Include="Capture\GraphBuilder\SampleGrabber.cs" />
+    <Compile Include="Capture\GraphBuilder\SampleGrabberCallback.cs" />
+    <Compile Include="Capture\GraphBuilder\SmartTee.cs" />
     <Compile Include="Capture\GraphBuilder\Startup.cs" />
     <Compile Include="Capture\Settings\UserSettings.cs" />
     <Compile Include="Capture\Startup.cs" />
     <Compile Include="Capture\VideoCapture.cs" />
     <Compile Include="Configuration\Value.cs" />
     <Compile Include="Debugging\Debug.cs" />
+    <Compile Include="Debugging\Logging.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

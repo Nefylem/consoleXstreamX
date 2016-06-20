@@ -10,7 +10,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
         {
             Debug.Log("[0] Build capture graph");
 
-            if (VideoCapture.CurrentVideoDevice <= -1 || (VideoCapture.CurrentVideoDevice < VideoCapture.CaptureDevices.Count))
+            if (VideoCapture.CurrentVideoDevice <= -1 || (VideoCapture.CurrentVideoDevice > VideoCapture.CaptureDevices.Count))
             {
                 Debug.Log($"[0] Unknown capture device {VideoCapture.CurrentVideoDevice}");
                 return;
@@ -45,7 +45,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             if (VideoCapture.MediaControl != null)
             {
                 var hr = VideoCapture.MediaControl.Run();
-                Debug.Log("[ERR] " + DsError.GetErrorText(hr));
+                Debug.Log("[2] " + DsError.GetErrorText(hr));
             }
 
             VideoCapture.ActiveVideo = true;

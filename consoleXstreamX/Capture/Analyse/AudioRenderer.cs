@@ -8,8 +8,9 @@ namespace consoleXstreamX.Capture.Analyse
     {
         public void Find()
         {
+            Debug.Log("");
             VideoCapture.AudioDevices = new List<string>();
-            Debug.Log("[0] Find audio devices");
+            Debug.Log("[0] Listing audio devices");
             var audio = VideoCapture.AudioDevices;
 
             var devObject = DsDevice.GetDevicesOfCat(FilterCategory.AudioRendererCategory);

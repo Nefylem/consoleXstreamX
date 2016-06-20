@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using consoleXstreamX.Capture.Settings;
+using consoleXstreamX.Debugging;
 using DirectShowLib;
 
 namespace consoleXstreamX.Capture.GraphBuilder
@@ -11,122 +10,51 @@ namespace consoleXstreamX.Capture.GraphBuilder
     {
         public bool BuildGraph()
         {
-            /*
-            if (_class.Capture.CurrentDevice <= -1 ||
-                _class.Capture.CurrentDevice >= _class.Var.VideoCaptureDevice.Count) return true;
+            var previewIn = "";
+            var previewOut = "";
 
-            var strVideoDevice = _class.Var.VideoCaptureDevice[_class.Capture.CurrentDevice];
-            var strShortName = FindCaptureName(strVideoDevice);
+            var crossbar = new Crossbar();
 
-            if (_class.Var.VideoResolutionIndex > _class.Resolution.List.Count)
-                _class.Var.VideoResolutionIndex = 0;
-
-            if (_class.Audio.Output > _class.Audio.Devices.Count)
+            if (VideoCapture.CurrentVideoDevice <= -1 || (VideoCapture.CurrentVideoDevice > VideoCapture.CaptureDevices.Count))
             {
-                _class.Audio.Output = -1;
-                _class.Audio.Find();
-            }
-
-            _class.Debug.Log("[2] VCD: " + strVideoDevice);
-            _class.Debug.Log("[2] VCDID: " + strShortName);
-            _class.Debug.Log("[2] RES: " + _class.Resolution.List[_class.Var.VideoResolutionIndex]);
-            _class.Debug.Log("[2] AOD: " + _class.Audio.Devices[_class.Audio.Output]);
-
-            _class.Var.VideoDevice = strVideoDevice;
-            _class.Var.AudioDevice = _class.Audio.Devices[_class.Audio.Output];
-
-            //Filter lists definitions
-            var strCrossVideoOut = "";
-            var strCrossAudioOut = "";
-            var strAvIin = "";
-            var strAvIout = "";
-            var strVideoIn = "";
-            var strPreviewIn = "";
-            var strPreviewOut = "";
-            var strTempOut = "";
-
-            //graph builder
-            _class.Debug.Log("");
-            _class.Debug.Log("[0] Create new graph");
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            var pBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
-            var hr = pBuilder.SetFiltergraph(_class.Graph.CaptureGraph);
-            _class.Debug.Log("[2] [OK] " + DsError.GetErrorText(hr));
-            _class.Debug.Log("");
-
-            //_class.Graph.VideoWindow = (IVideoWindow)_class.Graph.CaptureGraph;            //Open the window
-
-            //Primary Capture Device
-            var pCaptureDevice = _class.GraphFilter.Set(FilterCategory.VideoInputDevice, strVideoDevice, out strTempOut);
-            _class.Debug.Log("");
-            if (pCaptureDevice == null)
-            {
-                _class.Debug.Log("[ERR] Cant create capture device. Graph cannot continue");
+                Debug.Log($"[0] Unknown capture device {VideoCapture.CurrentVideoDevice}");
                 return false;
             }
 
-            _class.Graph.CaptureDevice = pCaptureDevice;
+            CreateDevice();
+            CreateGraph();
+            var pCaptureDevice = CreateVideoCapture();
+            var pins = AssignVideoConnectors(pCaptureDevice);
 
-            //Video capture in/output
-            _class.GraphPin.ListPin(pCaptureDevice);
-            var strCaptureVideoOut = _class.GraphPin.AssumePinOut("Capture", "Video");
-            if (strCaptureVideoOut.Length == 0) strCaptureVideoOut = _class.GraphPin.AssumePinOut("Capturar", "vídeo");     //Alias for Deen0x spanish card
-            var strCaptureAudioOut = _class.GraphPin.AssumePinOut("Audio");
+            VideoCapture.IamAvd = pCaptureDevice as IAMAnalogVideoDecoder;
 
-            var strCaptureVideoIn = _class.GraphPin.AssumePinIn("Video");
-            if (strCaptureVideoIn.Length == 0) strCaptureVideoIn = _class.GraphPin.AssumePinIn("Capturar", "vídeo");
-
-            var strCaptureAudioIn = _class.GraphPin.AssumePinIn("Audio");
-
-            _class.Debug.Log("[0]");
-            _class.Debug.Log("<Video Out>" + strCaptureVideoOut);
-            _class.Debug.Log("<Audio Out>" + strCaptureAudioOut);
-            _class.Debug.Log("<Video In>" + strCaptureVideoIn);
-            _class.Debug.Log("<Audio In>" + strCaptureAudioIn);
-            _class.Debug.Log("");
-
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            _class.Graph.IamAvd = pCaptureDevice as IAMAnalogVideoDecoder;
-
-            //Create user crossbar if needed
-            if (_class.Var.UseCrossbar)
-                if (_class.GraphCrossbar.createCrossbar(ref strCrossAudioOut, ref strCrossVideoOut, strCaptureVideoIn, strCaptureAudioIn, strShortName, pCaptureDevice))
-                    _class.GraphCrossbar.checkCrossbar();
-
-            _class.Debug.Log("");
-
-            //Set resolution
-            _class.Debug.Log("[0] Checking capture resolution");
-
-            if (_class.Var.VideoResolutionIndex == 0 || _class.System.IsAutoSetCaptureResolution)
-                _class.GraphResolution.Get();
-
-            if (_class.Var.VideoResolutionIndex > 0)
-                _class.GraphResolution.Set(pCaptureDevice, strCaptureVideoOut);
-            else
-                _class.Debug.Log("[0] [WARN] Cant find capture resolution - no input or unknown resolution type");
-
-            var pRen = pCaptureDevice;
-            var strPinOut = strCaptureVideoOut;
-            var strDevice = strVideoDevice;
-
-            //if (_class.Var.UseSampleGrabber)
-            //    _class.SampleGrabber.createSampleGrabber(ref strPreviewIn, ref strPreviewOut, ref strDevice, ref strPinOut, ref pRen);
-
-            if (_class.Var.CreateSmartTee)
+            if (VideoCapture.UseCrossbar)
             {
-                _class.SmartTee.createSmartTee(ref strPreviewIn, ref strPreviewOut, ref strDevice, ref strPinOut, ref pRen);
-
-                _class.Graph.CaptureFeed = pRen;
-                _class.Graph.CaptureFeedIn = strPreviewIn;
+                var xbar = crossbar.Create(pins.Video.In, pins.Audio.In, VideoCapture.CurrentVideoShort, pCaptureDevice);
+                if (xbar.Found) crossbar.Check();
             }
 
-            IBaseFilter smartTeeBase = null;
-            if (_class.System.IsVr)
-                smartTeeBase = pRen;
+            SetCaptureResolution(pCaptureDevice, pins.Video.Out);
+
+            var pRen = pCaptureDevice;
+            var pDevice = VideoCapture.CurrentVideo;
+            var pVideoOut = pins.Video.Out;
+
+            if (VideoCapture.UseSampleGrabber) new SampleGrabber().Create(ref previewIn, ref previewOut, ref pDevice, ref pVideoOut, ref pRen);
+            if (VideoCapture.CreateSmartTee)
+            {
+                new SmartTee().Create(out previewIn, out previewOut, ref pDevice, ref pVideoOut, ref pRen);
+
+                VideoCapture.CaptureFeed = pRen;
+                VideoCapture.CaptureFeedIn = previewIn;
+            }
 
             if (_class.Var.CreateAviRender)
                 _class.AviRender.Create(ref strAvIin, ref strAvIout, ref strDevice, ref strPinOut, ref pRen);
+
+            var b = 1;
+
+            /*
 
             //Video renderer
             _class.Debug.Log("");
@@ -218,7 +146,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
         /*
          * Looks for a unique identifier (eg Avermedia U3 extremecap will return Avermedia)
          * If there's more than one avermedia card, will look for the next available unique name
-         * Finall, if there's two avermedia u3 on there, will still only return Avermedia
+         * Finally, if there's two avermedia u3 on there, will still only return Avermedia
          */
         private string FindCaptureName(string device)
         {
@@ -257,5 +185,92 @@ namespace consoleXstreamX.Capture.GraphBuilder
             return result;
         }
 
+
+        private void CreateDevice()
+        {
+            var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
+            if (device.CurrentResolution > device.Resolution.Count) device.CurrentResolution = 0;
+
+            if (VideoCapture.CurrentAudioDevice > VideoCapture.AudioDevices.Count) new UserSettings().SetAudio();
+
+            VideoCapture.CurrentVideo = device.Title;
+            VideoCapture.CurrentVideoShort = FindCaptureName(device.Title);
+            VideoCapture.CurrentAudio = VideoCapture.AudioDevices[VideoCapture.CurrentAudioDevice];
+            VideoCapture.CurrentResolution = device.Resolution[device.CurrentResolution].GetRes();
+
+            Debug.Log($"[2] Video Capture Device: {VideoCapture.CurrentVideo}");
+            Debug.Log($"[2] Video Capture Device ID: {VideoCapture.CurrentVideoShort}");
+            Debug.Log($"[2] Resolution: {VideoCapture.CurrentResolution})");
+            Debug.Log($"[2] Audio Renderer: {VideoCapture.CurrentAudio}");
+        }
+
+        private void CreateGraph()
+        {
+            Debug.Log("");
+            Debug.Log("[0] Create new graph");
+            var pBuilder = (ICaptureGraphBuilder2)new CaptureGraphBuilder2();
+            var hr = pBuilder.SetFiltergraph(VideoCapture.CaptureGraph);
+            Debug.Log("[2] [OK] " + DsError.GetErrorText(hr));
+            Debug.Log("");
+        }
+
+        private IBaseFilter CreateVideoCapture()
+        {
+            string temp;
+
+            var pCaptureDevice = new Filter().Set(FilterCategory.VideoInputDevice, VideoCapture.CurrentVideo, out temp);
+            if (pCaptureDevice == null)
+            {
+                Debug.Log("");
+                Debug.Log("[ERR] Cant create capture device. Graph cannot continue");
+                return null;
+            }
+            VideoCapture.CaptureDevice = pCaptureDevice;
+            return pCaptureDevice;
+        }
+
+        private Pin.CapturePins AssignVideoConnectors(IBaseFilter pCaptureDevice)
+        {
+            var pin = new Pin();
+            var result = new Pin.CapturePins
+            {
+                Video = new Pin.Node(),
+                Audio = new Pin.Node()
+            };
+
+            var pinList = pin.List(pCaptureDevice);
+            result.Video.Out = pin.AssumePin("Capture", "Video", pinList.Out);
+            result.Audio.Out = pin.AssumePin("Audio", pinList.Out);
+
+            result.Video.In = pin.AssumePin("Video", pinList.In);
+            result.Audio.In = pin.AssumePin("Audio", pinList.In);
+
+            //Alias for Deen0x's spanish card
+            if (string.IsNullOrEmpty(result.Video.Out)) result.Video.Out = pin.AssumePin("Capturar", "vídeo", pinList.Out);     
+            if (string.IsNullOrEmpty(result.Video.In)) result.Video.In = pin.AssumePin("Capturar", "vídeo", pinList.In);
+
+            Debug.Log("[0]");
+            Debug.Log("<Video Out>" + result.Video.Out);
+            Debug.Log("<Audio Out>" + result.Audio.Out);
+            Debug.Log("<Video In>" + result.Video.In);
+            Debug.Log("<Audio In>" + result.Audio.In);
+            Debug.Log("");
+
+            return result;
+        }
+
+        private void SetCaptureResolution(IBaseFilter pCaptureDevice, string videoOut)
+        {
+            Debug.Log("[0] Checking capture resolution");
+            var resolution = new Resolution();
+            var index = resolution.Get();
+
+            if (index > 0)
+            {
+                resolution.Set(pCaptureDevice, videoOut);
+                return;
+            }
+            Debug.Log("[0] [WARN] Cant find capture resolution - no input or unknown resolution type");
+        }
     }
 }
