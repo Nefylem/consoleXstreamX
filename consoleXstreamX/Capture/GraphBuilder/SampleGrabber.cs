@@ -19,8 +19,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
             if (hr != 0) Debug.Log("-> " + DsError.GetErrorText(hr));
 
             var pinList = pin.List(pSampleGrabber);
-            var sampleIn = pin.AssumePin("Input", pinList.In);
-            var sampleOut = pin.AssumePin("Output", pinList.Out);
+            var sampleIn = pin.Assume("Input", pinList.In);
+            var sampleOut = pin.Assume("Output", pinList.Out);
 
             Debug.Log("Set samplegrabber resolution feed");
             if (VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].Resolution.Count > 0)

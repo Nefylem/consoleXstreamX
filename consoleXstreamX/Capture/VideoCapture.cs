@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using consoleXstreamX.Capture.GraphBuilder;
 using DirectShowLib;
 
 namespace consoleXstreamX.Capture
@@ -7,15 +8,14 @@ namespace consoleXstreamX.Capture
     {
         internal static void Startup(Form1 form1)
         {
+            Home = form1;
             new Startup().Execute();
-            var b = 1;
         }
 
         public static Form1 Home;
         public static int CurrentVideoDevice;
         public static int CurrentAudioDevice;
         public static int CurrentActiveDevice;
-        public static int CurrentActiveResolution;
         public static int CurrentResolutionIndex;
 
         public static string CurrentVideo;
@@ -53,6 +53,11 @@ namespace consoleXstreamX.Capture
         public static IBaseFilter CaptureDevice;
         public static IBaseFilter CaptureFeed;
         public static AMMediaType Resolution;
+
+        public static void ResetDisplay()
+        {
+            new Display().Setup();
+        }
 
         public static void ClearGraph()
         {

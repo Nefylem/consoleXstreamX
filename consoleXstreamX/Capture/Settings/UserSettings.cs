@@ -6,7 +6,7 @@
         {
             //Defaults
             VideoCapture.UseCrossbar = true;
-            VideoCapture.CreateSmartTee = true;
+            VideoCapture.CreateSmartTee = false;
             VideoCapture.CreateAviRenderer = true;
             VideoCapture.UseSampleGrabber = true;
             VideoCapture.CurrentAudioDevice = 0;

@@ -32,8 +32,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
                 results.Found = true;
 
                 var pinList = new Pin().List(pCrossbar);
-                results.Audio = pin.AssumePin("Audio", pinList.Out);
-                results.Video = pin.AssumePin("Video", pinList.Out);
+                results.Audio = pin.Assume("Audio", pinList.Out);
+                results.Video = pin.Assume("Video", pinList.Out);
                 Debug.Log("<Audio>" + results.Audio);
                 Debug.Log("<Video>" + results.Video);
 

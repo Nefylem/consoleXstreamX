@@ -74,13 +74,18 @@ namespace consoleXstreamX.Capture.GraphBuilder
             return null;
         }
 
-        public string AssumePin(string search, List<string> list)
+        public string Assume(string search, List<string> list)
         {
-            var index = list.FindIndex(x => x.Equals(search, StringComparison.CurrentCultureIgnoreCase));
-            return index > -1 ? list[index] : "";
+            foreach (var item in list)
+            {
+                if (item.IndexOf(search, StringComparison.CurrentCultureIgnoreCase) > -1) return item;
+            }
+            return "";
+            //var index = list.FindIndex(x => x.Equals(search, StringComparison.CurrentCultureIgnoreCase));
+            //return index > -1 ? list[index] : "";
         }
 
-        public string AssumePin(string search, string type, List<string> list)
+        public string Assume(string search, string type, List<string> list)
         {
             if (string.Equals(type, "vídeo", StringComparison.CurrentCultureIgnoreCase)) type = "video";
 

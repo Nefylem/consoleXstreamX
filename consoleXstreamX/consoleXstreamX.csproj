@@ -52,6 +52,8 @@
     <Compile Include="Capture\Analyse\AudioRenderer.cs" />
     <Compile Include="Capture\Analyse\CaptureResolution.cs" />
     <Compile Include="Capture\Analyse\VideoInput.cs" />
+    <Compile Include="Capture\GraphBuilder\AudioRender.cs" />
+    <Compile Include="Capture\GraphBuilder\AviRenderer.cs" />
     <Compile Include="Capture\GraphBuilder\Crossbar.cs" />
     <Compile Include="Capture\GraphBuilder\Display.cs" />
     <Compile Include="Capture\GraphBuilder\Filter.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Capture\GraphBuilder\SampleGrabberCallback.cs" />
     <Compile Include="Capture\GraphBuilder\SmartTee.cs" />
     <Compile Include="Capture\GraphBuilder\Startup.cs" />
+    <Compile Include="Capture\GraphBuilder\VideoRender.cs" />
     <Compile Include="Capture\Settings\UserSettings.cs" />
     <Compile Include="Capture\Startup.cs" />
     <Compile Include="Capture\VideoCapture.cs" />

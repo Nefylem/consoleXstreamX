@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,29 @@ namespace consoleXstreamX
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            FormBorderStyle = FormBorderStyle.None;
+            Top = 0;
+            Left = 0;
+            Width = Screen.PrimaryScreen.WorkingArea.Width;
+            Height = Screen.PrimaryScreen.WorkingArea.Height;
+
+            display.Dock = DockStyle.Fill;
+            display.BackColor = Color.Black;
+
             new Logging().Cleanup();
             VideoCapture.Startup(this);
+        }
+
+        public void FocusWindow()
+        {
+            display.BringToFront();
+            display.Focus();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            display.Dock = DockStyle.Fill;
+            VideoCapture.ResetDisplay();
         }
     }
 }

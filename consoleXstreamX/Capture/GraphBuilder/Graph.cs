@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using consoleXstreamX.Capture.Settings;
 using consoleXstreamX.Debugging;
@@ -12,6 +13,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
         {
             var previewIn = "";
             var previewOut = "";
+            var videoIn = "";
+            var videoOut = "";
 
             var crossbar = new Crossbar();
 
@@ -49,97 +52,9 @@ namespace consoleXstreamX.Capture.GraphBuilder
                 VideoCapture.CaptureFeedIn = previewIn;
             }
 
-            if (_class.Var.CreateAviRender)
-                _class.AviRender.Create(ref strAvIin, ref strAvIout, ref strDevice, ref strPinOut, ref pRen);
-
-            var b = 1;
-
-            /*
-
-            //Video renderer
-            _class.Debug.Log("");
-            _class.Debug.Log("[0]***   Create Video Renderer");
-            Guid CLSID_ActiveVideo = new Guid("{B87BEB7B-8D29-423F-AE4D-6582C10175AC}");
-
-            IBaseFilter pVideoRenderer = (IBaseFilter)Activator.CreateInstance(Type.GetTypeFromCLSID(CLSID_ActiveVideo));
-            hr = _class.Graph.CaptureGraph.AddFilter(pVideoRenderer, "Video Renderer");
-            if (hr == 0) { _class.Debug.Log("[1] [OK] Created video renderer"); }
-            else
-            {
-                _class.Debug.Log("[1] [FAIL] Cant create video renderer");
-                _class.Debug.Log("-> " + DsError.GetErrorText(hr));
-            }
-
-            _class.Debug.Log("");
-            _class.Debug.Log("***   Listing Video Renderer pins");
-            _class.GraphPin.ListPin(pVideoRenderer);
-            strVideoIn = _class.GraphPin.AssumePinIn("Input");
-            _class.Debug.Log("<Video>" + strVideoIn);
-            _class.Debug.Log("");
-
-            _class.Debug.Log("***   Connect AVI Decompressor (" + strPinOut + ") to Video Renderer (" + strVideoIn + ")");
-            hr = _class.Graph.CaptureGraph.ConnectDirect(_class.GraphPin.GetPin(pRen, strPinOut), _class.GraphPin.GetPin(pVideoRenderer, strVideoIn), null);
-            if (hr == 0) { _class.Debug.Log("[OK] Connected AVI to video renderer"); }
-            else
-            {
-                _class.Debug.Log("[FAIL] Can't connect AVI to video renderer");
-                _class.Debug.Log("-> " + DsError.GetErrorText(hr));
-            }
-
-            _class.Graph.VideoDef = pVideoRenderer as IBasicVideo;
-            _class.Graph.VideoWindow = pVideoRenderer as IVideoWindow;
-
-            if (_class.System.IsVr)
-            {
-                _class.Debug.Log("Create VR View");
-
-                pRen = smartTeeBase;
-                strPinOut = "Capture";
-
-                IBaseFilter pAVIDecompressor2 = (IBaseFilter)new AVIDec();
-                hr = _class.Graph.CaptureGraph.AddFilter(pAVIDecompressor2, "AVI Decompressor VR");
-                _class.Debug.Log("-> " + DsError.GetErrorText(hr));
-
-                hr = _class.Graph.CaptureGraph.ConnectDirect(_class.GraphPin.GetPin(pRen, strPinOut), _class.GraphPin.GetPin(pAVIDecompressor2, "XForm In"), null);
-                _class.Debug.Log("-> " + DsError.GetErrorText(hr));
-
-                IBaseFilter pVideoRenderer2 = (IBaseFilter)Activator.CreateInstance(Type.GetTypeFromCLSID(CLSID_ActiveVideo));
-                hr = _class.Graph.CaptureGraph.AddFilter(pVideoRenderer2, "Video Renderer VR");
-                hr = _class.Graph.CaptureGraph.ConnectDirect(_class.GraphPin.GetPin(pAVIDecompressor2, "XForm Out"), _class.GraphPin.GetPin(pVideoRenderer2, "VMR Input0"), null);
-
-                _class.Graph.VideoWindowVr = pVideoRenderer2 as IVideoWindow;
-            }
-
-            //Audio device
-            if (_class.Audio.Output > -1 && _class.Audio.Output < _class.Audio.Devices.Count)
-            {
-                _class.Var.DeviceId = 0;               //Dont need multiple devices, set back to 0
-
-                _class.Debug.Log("[0]");
-                _class.Debug.Log("***   Create " + _class.Audio.Devices[_class.Audio.Output] + " audio device");
-                IBaseFilter pAudio = null;
-
-                pAudio = _class.GraphFilter.Set(FilterCategory.AudioRendererCategory, _class.Audio.Devices[_class.Audio.Output], out strTempOut);
-                hr = _class.Graph.CaptureGraph.AddFilter(pAudio, "Audio Device");
-                _class.Debug.Log("-> " + DsError.GetErrorText(hr));
-
-                if (pAudio != null)
-                {
-                    _class.Debug.Log("[1]");
-                    _class.Debug.Log("***   Listing " + _class.Audio.Devices[_class.Audio.Output] + " pins");
-
-                    _class.GraphPin.ListPin(pAudio);
-                    var strAudioIn = _class.GraphPin.AssumePinIn("Audio");
-                    _class.Debug.Log("<Audio>" + strAudioIn);
-                    _class.Debug.Log("");
-
-                    //connect Capture Device and Audio Device
-                    _class.Debug.Log("***   Connect " + strVideoDevice + " (" + strCaptureAudioOut + ") to " + _class.Audio.Devices[_class.Audio.Output] + " [Audio] (" + strAudioIn + ")");
-                    hr = _class.Graph.CaptureGraph.ConnectDirect(_class.GraphPin.GetPin(pCaptureDevice, strCaptureAudioOut), _class.GraphPin.GetPin(pAudio, strAudioIn), null);
-                    _class.Debug.Log("-> " + DsError.GetErrorText(hr));
-                }
-            }
-            */
+            if (VideoCapture.CreateAviRenderer) new AviRenderer().Create(out videoIn, out videoOut, ref pDevice, ref pVideoOut, ref pRen);
+            new VideoRender().Create(pVideoOut, pRen);
+            new AudioRender().Create(pins.Audio.Out, pCaptureDevice);
             return true;
         }
 
@@ -239,15 +154,15 @@ namespace consoleXstreamX.Capture.GraphBuilder
             };
 
             var pinList = pin.List(pCaptureDevice);
-            result.Video.Out = pin.AssumePin("Capture", "Video", pinList.Out);
-            result.Audio.Out = pin.AssumePin("Audio", pinList.Out);
+            result.Video.Out = pin.Assume("Capture", "Video", pinList.Out);
+            result.Audio.Out = pin.Assume("Audio", pinList.Out);
 
-            result.Video.In = pin.AssumePin("Video", pinList.In);
-            result.Audio.In = pin.AssumePin("Audio", pinList.In);
+            result.Video.In = pin.Assume("Video", pinList.In);
+            result.Audio.In = pin.Assume("Audio", pinList.In);
 
             //Alias for Deen0x's spanish card
-            if (string.IsNullOrEmpty(result.Video.Out)) result.Video.Out = pin.AssumePin("Capturar", "vídeo", pinList.Out);     
-            if (string.IsNullOrEmpty(result.Video.In)) result.Video.In = pin.AssumePin("Capturar", "vídeo", pinList.In);
+            if (string.IsNullOrEmpty(result.Video.Out)) result.Video.Out = pin.Assume("Capturar", "vídeo", pinList.Out);     
+            if (string.IsNullOrEmpty(result.Video.In)) result.Video.In = pin.Assume("Capturar", "vídeo", pinList.In);
 
             Debug.Log("[0]");
             Debug.Log("<Video Out>" + result.Video.Out);

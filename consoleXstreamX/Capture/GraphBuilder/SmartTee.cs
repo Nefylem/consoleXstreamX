@@ -22,8 +22,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
             Debug.Log("");
 
             var pinList = pin.List(pSmartTee2);
-            previewIn = pin.AssumePin("Input", pinList.In);
-            previewOut = pin.AssumePin("Preview", pinList.Out);
+            previewIn = pin.Assume("Input", pinList.In);
+            previewOut = pin.Assume("Preview", pinList.Out);
 
             Debug.Log("");
             Debug.Log("***   Connect " + pDevice + " (" + pVideoOut + ") to SmartTee Preview Filter (" + previewIn + ")");

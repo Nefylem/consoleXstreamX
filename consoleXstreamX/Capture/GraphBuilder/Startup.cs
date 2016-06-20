@@ -26,7 +26,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
             if (device.Resolution.Count == 0) new CaptureResolution().List();
 
             VideoCapture.ClearGraph();
-            VideoCapture.CaptureGraph = new FilterGraph() as IGraphBuilder;
+            VideoCapture.CaptureGraph = new FilterGraphNoThread() as IGraphBuilder;
+            //VideoCapture.CaptureGraph = new FilterGraph() as IGraphBuilder;
 
             if (!new Graph().BuildGraph())
             {

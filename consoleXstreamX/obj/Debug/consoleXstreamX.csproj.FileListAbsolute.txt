@@ -8,3 +8,13 @@ c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleX
 c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.exe
 c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.pdb
 c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.Form1.resources
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\consoleXstreamX.exe.config
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.exe
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.csprojResolveAssemblyReference.cache
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.Form1.resources
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.Properties.Resources.resources
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.csproj.GenerateResource.Cache
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\consoleXstreamX.exe
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\consoleXstreamX.pdb
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\DirectShowLib-2010.dll
+C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.pdb

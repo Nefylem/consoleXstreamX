@@ -15,6 +15,8 @@ namespace consoleXstreamX.Debugging
             if (!string.IsNullOrEmpty(path)) path += @"\";
             path += @"Logs\";
 
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
             var files = Directory.GetFiles(path, "*.log");
             foreach (var item in files)
             {
