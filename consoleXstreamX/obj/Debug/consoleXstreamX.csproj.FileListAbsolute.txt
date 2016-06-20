@@ -1,0 +1,10 @@
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\consoleXstreamX.exe.config
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\consoleXstreamX.exe
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\consoleXstreamX.pdb
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\DirectShowLib-2010.dll
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.csprojResolveAssemblyReference.cache
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.Properties.Resources.resources
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.csproj.GenerateResource.Cache
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.exe
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.pdb
+c:\users\a.walker\documents\visual studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.Form1.resources
