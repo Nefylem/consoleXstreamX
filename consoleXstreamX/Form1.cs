@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using consoleXstreamX.Capture;
 using consoleXstreamX.Debugging;
+using consoleXstreamX.Define;
+using consoleXstreamX.Input;
 
 namespace consoleXstreamX
 {
@@ -24,17 +26,28 @@ namespace consoleXstreamX
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (!Debugger.IsAttached)
+            {
+                WindowState = FormWindowState.Normal;
+                FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                Bounds = Screen.PrimaryScreen.Bounds;
+                Activate();
+            }
+            /*
             FormBorderStyle = FormBorderStyle.None;
             Top = 0;
             Left = 0;
             Width = Screen.PrimaryScreen.WorkingArea.Width;
             Height = Screen.PrimaryScreen.WorkingArea.Height;
-
+            */
             display.Dock = DockStyle.Fill;
             display.BackColor = Color.Black;
 
+            /*
             new Logging().Cleanup();
             VideoCapture.Startup(this);
+            */
+            timer.Enabled = true;
         }
 
         public void FocusWindow()
@@ -47,6 +60,16 @@ namespace consoleXstreamX
         {
             display.Dock = DockStyle.Fill;
             VideoCapture.ResetDisplay();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            CheckControllerInput();
+        }
+
+        private void CheckControllerInput()
+        {
+            var input = Gamepad.Check(1);
         }
     }
 }

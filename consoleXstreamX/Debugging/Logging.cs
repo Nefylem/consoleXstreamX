@@ -11,7 +11,7 @@ namespace consoleXstreamX.Debugging
     {
         public void Cleanup()
         {
-            var path = Configuration.Value.LogPath;
+            var path = Configuration.Settings.LogPath;
             if (!string.IsNullOrEmpty(path)) path += @"\";
             path += @"Logs\";
 

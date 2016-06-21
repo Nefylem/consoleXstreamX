@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.display = new System.Windows.Forms.PictureBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,15 +42,29 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.display.Location = new System.Drawing.Point(22, 29);
             this.display.Name = "display";
-            this.display.Size = new System.Drawing.Size(100, 50);
+            this.display.Size = new System.Drawing.Size(270, 50);
             this.display.TabIndex = 0;
             this.display.TabStop = false;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(224, 12);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(218, 238);
+            this.listBox1.TabIndex = 1;
+            // 
+            // timer
+            // 
+            this.timer.Interval = 1;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(454, 261);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.display);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -61,6 +78,8 @@
         #endregion
 
         public System.Windows.Forms.PictureBox display;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Timer timer;
     }
 }
 
