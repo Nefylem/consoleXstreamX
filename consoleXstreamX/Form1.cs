@@ -26,28 +26,33 @@ namespace consoleXstreamX
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Setup();
+            /*
+            VideoCapture.Startup(this);
+            */
+            //timer.Enabled = true;
+        }
+
+        private void Setup()
+        {
+            new Logging().Cleanup();
+            Shortcuts.Load();
+            SetWindow();
+        }
+
+        private void SetWindow()
+        {
             if (!Debugger.IsAttached)
             {
+                //Todo: check between fullscreen modes
                 WindowState = FormWindowState.Normal;
                 FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 Bounds = Screen.PrimaryScreen.Bounds;
                 Activate();
             }
-            /*
-            FormBorderStyle = FormBorderStyle.None;
-            Top = 0;
-            Left = 0;
-            Width = Screen.PrimaryScreen.WorkingArea.Width;
-            Height = Screen.PrimaryScreen.WorkingArea.Height;
-            */
+
             display.Dock = DockStyle.Fill;
             display.BackColor = Color.Black;
-
-            /*
-            new Logging().Cleanup();
-            VideoCapture.Startup(this);
-            */
-            timer.Enabled = true;
         }
 
         public void FocusWindow()

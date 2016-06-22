@@ -28,6 +28,7 @@ namespace consoleXstreamX.Debugging
             var type = sender.DeclaringType.FullName;
             var name = sender.Name;
             var logFile = SetLogFile(type);
+            if (write.IndexOf("[ERR]", StringComparison.CurrentCultureIgnoreCase) > -1) logFile = "error.log";
             Write(path + logFile, type, name, write);
         }
 

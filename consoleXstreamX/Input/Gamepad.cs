@@ -92,7 +92,7 @@ namespace consoleXstreamX.Input
                 Menu.Delay = 0;
             }
 
-            if (Settings.UseShortcutKeys) Shortcut.Check(ref output);
+            if (Settings.UseShortcutKeys) Shortcuts.Check(ref output);
 
             return new GamepadOutput()
             {

@@ -1,0 +1,2 @@
+{Back, B} = Home
+{Touchpad, B} = Home
