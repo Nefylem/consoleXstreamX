@@ -53,7 +53,7 @@ namespace consoleXstreamX.Input
                     if (obj == null)
                     {
                         Debug.Log($"[ERR] (shortcuts.txt) Error parsing line '{originalData}' ({item.Trim()} not found)");
-                        return;       //Broken shortcut, dont load partials
+                        return;       
                     }
                     originalValues.Add((int)obj);
 
@@ -62,7 +62,7 @@ namespace consoleXstreamX.Input
                 if (targetObj == null)
                 {
                     Debug.Log($"[ERR] (shortcuts.txt) Error parsing line '{originalData}' ({target.Trim()} not found)");
-                    return;       //Broken shortcut, dont load partials
+                    return;       
                 }
 
                 var targetValue = (int) targetObj;

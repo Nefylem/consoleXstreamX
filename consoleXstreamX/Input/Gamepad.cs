@@ -102,6 +102,8 @@ namespace consoleXstreamX.Input
             };
         }
 
+        //Output is -100 to 100 in both x and y. Reading from a gamepad is circular, output on angles is more like 75, 75 instead. 
+        //This turns a circle into a square basically.
         private static void NormalGamepad(ref double dblLx, ref double dblLy)
         {
             var dblNewX = dblLx;
