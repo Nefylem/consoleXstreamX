@@ -77,9 +77,9 @@ namespace consoleXstreamX.Input
             {
                 if (!Settings.BlockMenuCommand)
                 {
-                    Menu.Delay++;
-                    if (!Menu.Visible)
-                        if (Menu.Delay >= Menu.DelayLimit) Menu.Open();
+                    MenuController.Delay++;
+                    if (!MenuController.Visible)
+                        if (MenuController.Delay >= MenuController.DelayLimit) MenuController.Open();
                 }
 
                 if (Settings.Ps4ControllerMode)
@@ -89,7 +89,7 @@ namespace consoleXstreamX.Input
             }
             else
             {
-                Menu.Delay = 0;
+                MenuController.Delay = 0;
             }
 
             if (Settings.UseShortcutKeys) Shortcuts.Check(ref output);

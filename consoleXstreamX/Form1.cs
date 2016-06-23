@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using consoleXstreamX.Capture;
 using consoleXstreamX.Debugging;
 using consoleXstreamX.Define;
+using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 
 namespace consoleXstreamX
@@ -75,6 +76,11 @@ namespace consoleXstreamX
         private void CheckControllerInput()
         {
             var input = Gamepad.Check(1);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MenuController.Open();
         }
     }
 }

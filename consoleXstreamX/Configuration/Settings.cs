@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace consoleXstreamX.Configuration
 {
@@ -55,6 +56,8 @@ namespace consoleXstreamX.Configuration
         {
             NormalizeControls = true;
             UseShortcutKeys = true;
+            StayOnTop = true;
+            CheckFps = true;
 
             SystemDebugLevel = 5;
             DetailedLogs = 0;
