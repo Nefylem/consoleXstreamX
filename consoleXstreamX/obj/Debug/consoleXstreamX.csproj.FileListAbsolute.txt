@@ -19,3 +19,4 @@ C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\co
 C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\bin\Debug\DirectShowLib-2010.dll
 C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.pdb
 C:\Users\nefyl\OneDrive\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.DisplayMenu.MenuMain.resources
+C:\Users\a.walker\Documents\Visual Studio 2015\Projects\consoleXstreamX\consoleXstreamX\obj\Debug\consoleXstreamX.DisplayMenu.MenuMain.resources

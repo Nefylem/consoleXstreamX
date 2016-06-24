@@ -21,10 +21,10 @@ namespace consoleXstreamX.Input
         public static GamepadOutput Check(int index)
         {
             if (_xboxButtonCount == 0) _xboxButtonCount = Enum.GetNames(typeof(Xbox)).Length;
+            var output = new byte[_xboxButtonCount];
+
             var player = FindPlayerIndex(index);
             var controls = GamePad.GetState(player);
-
-            var output = new byte[_xboxButtonCount];
 
             if (controls.DPad.Left) { output[GamepadMap.Left] = Convert.ToByte(100); }
             if (controls.DPad.Right) { output[GamepadMap.Right] = Convert.ToByte(100); }

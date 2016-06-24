@@ -13,6 +13,7 @@ using consoleXstreamX.Debugging;
 using consoleXstreamX.Define;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
+using consoleXstreamX.Input.Keyboard;
 
 namespace consoleXstreamX
 {
@@ -28,6 +29,7 @@ namespace consoleXstreamX
         private void Form1_Load(object sender, EventArgs e)
         {
             Setup();
+            KeyHook.Enable();
             /*
             VideoCapture.Startup(this);
             */

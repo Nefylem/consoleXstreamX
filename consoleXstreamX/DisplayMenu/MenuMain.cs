@@ -48,6 +48,7 @@ namespace consoleXstreamX.DisplayMenu
             ShowInTaskbar = false;
 
             display.Dock = DockStyle.Fill;
+
             //Make as close to invisible as possible, to stop the menu "flashing" into view
             Width = 1;
             Height = 1;
@@ -74,6 +75,15 @@ namespace consoleXstreamX.DisplayMenu
         private void menuTimer_Tick(object sender, EventArgs e)
         {
             DrawPanel();
+            CheckControls();
+            BringToFront();
+            Focus();
+        }
+
+        private void CheckControls()
+        {
+            //_class.Keyboard.CheckInput();
+            //_class.Gamepad.CheckInput();
         }
 
         private void DrawPanel()

@@ -1,4 +1,9 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using consoleXstreamX.Configuration;
+using consoleXstreamX.Properties;
 
 namespace consoleXstreamX.Drawing
 {
@@ -8,7 +13,11 @@ namespace consoleXstreamX.Drawing
 
         private static Bitmap _display;
         private static Graphics _graph;
+        private static readonly Color MajorFontColor = Color.White;
+        private static readonly Color MinorFontColor = Color.WhiteSmoke;
         private static readonly Brush FontBrush = Brushes.Black;
+        private static readonly Color OutlineColor = Color.Black;
+        private const int OutlineSize = 4;
 
         public enum HorizontalAlignment
         {
@@ -16,6 +25,8 @@ namespace consoleXstreamX.Drawing
             Middle,
             Right
         }
+
+        public static HorizontalAlignment SetHorizontal;
 
         public enum VerticalAlignment
         {
@@ -25,13 +36,23 @@ namespace consoleXstreamX.Drawing
         }
 
         public static VerticalAlignment SetVertical;
-        public static HorizontalAlignment SetHorizontal;
 
         public static bool Outline { get; set; }
         public static float FontSize { get; set; }
 
+        private class OutlineCache
+        {
+            public Bitmap Tile;
+            public string Display;
+            public string Font;
+            public float Size;
+        }
+
+        private static readonly List<OutlineCache> _outlineCache;
+
         static Draw()
         {
+            _outlineCache = new List<OutlineCache>();
             FontSize = 12;
         }
 
@@ -81,70 +102,76 @@ namespace consoleXstreamX.Drawing
 
             if (Outline)
             {
-                OutlineText(x, y, value);
+                OutlineText(rect.X, rect.Y, value);
                 return;
             }
 
-            _graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            _graph.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            _graph.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            _graph.SmoothingMode = SmoothingMode.AntiAlias;
+            _graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            _graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             var textRect = new RectangleF(x, y, x + textSize.Width, y + textSize.Height);
 
             if (SetHorizontal == HorizontalAlignment.Middle)
             {
-                //var offset = ((rect.Width - rect.X) - textRect.Width) / 2;
-                //textRect.X += offset;
+                var rectWidth = textRect.Width - textRect.X;
+                var tileWidth = rect.Width;
+                textRect.X += ((tileWidth - rectWidth) / 2);
             }
             _graph.DrawString(value, font, FontBrush, textRect);
         }
 
-        private static void OutlineText(int intX, int intY, string value)
+        private static void OutlineText(int x, int y, object write)
         {
-            /*
-            if (_listOutline.Count > 0)
+            var value = write.ToString();
+            var cachedImage = _outlineCache.FirstOrDefault(s => s.Display == value && s.Font == FontName && s.Size == FontSize);
+            if (cachedImage != null)
             {
-                for (int intCount = 0; intCount < _listOutline.Count; intCount++)
+                if (SetVertical == VerticalAlignment.Top) y += 5;
+                if (SetVertical == VerticalAlignment.Bottom)
                 {
-                    bool boolFound = true;
-                    if (_listOutline[intCount].strWrite != strWrite) boolFound = false;
-                    if (_listOutline[intCount].strFontName != FontName) boolFound = false;
-                    if (_listOutline[intCount].floatSize != _floatFontSize) boolFound = false;
-
-                    if (boolFound)
-                    {
-                        DrawImage(intX, intY, _listOutline[intCount].bmpImage);
-                        return;
-                    }
+                    var height = cachedImage.Tile.Height;
+                    if (height == 59) height = 50;
+                    y += Resources.tile_low.Height - height;
                 }
+                if (SetHorizontal == HorizontalAlignment.Left) x += 5;
+                if (SetHorizontal == HorizontalAlignment.Middle)
+                {
+                    //Image size doesnt return correctly. So find the font size and go from there
+                    var font = new Font(FontName, FontSize, FontStyle.Bold, GraphicsUnit.Pixel);
+                    var checkSize = _graph.MeasureString(value, font);
+                    var checkText = new RectangleF(x, y, x + checkSize.Width, y + checkSize.Height);
+                    var rectWidth = checkText.Width - checkText.X;
+                    var tileWidth = MenuSettings.CellWidth;
+                    x += (int)((tileWidth - rectWidth) / 2);
+                }
+                Image(x, y, cachedImage.Tile);
+                return;
             }
 
-            Font fontSet = new Font(FontName, _floatFontSize, FontStyle.Bold, GraphicsUnit.Pixel);
-            SizeF textSize = _graph.MeasureString(strWrite, fontSet);
+            var fontSet = new Font(FontName, FontSize + 5, FontStyle.Bold, GraphicsUnit.Pixel);
+            var textSize = _graph.MeasureString(value, fontSet);
 
-            Bitmap bmpFontoutline = new Bitmap((int)textSize.Width + 20, (int)textSize.Height + 20);
-            Graphics graph = Graphics.FromImage(bmpFontoutline);
+            var image = new Bitmap((int)textSize.Width + 1, (int)textSize.Height + 1);
+            var graph = Graphics.FromImage(image);
+            //SolidBrush blueBrush = new SolidBrush(Color.Red);
+            //graph.FillRectangle(blueBrush, 0, 0, image.Width, image.Height);
 
-            StringFormat strFormat = new StringFormat();
-            strFormat.LineAlignment = StringAlignment.Near;
+            var stringFormat = new StringFormat { LineAlignment = StringAlignment.Near };
 
-            graph.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            graph.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            graph.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            graph.SmoothingMode = SmoothingMode.AntiAlias;
+            graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-            Pen penOutline = new Pen(_colOutline, OutlineSize);
-            penOutline.LineJoin = LineJoin.Round;
+            var penOutline = new Pen(OutlineColor, OutlineSize) {LineJoin = LineJoin.Round};
 
-            Rectangle rectText = new Rectangle(intX, intY, (int)(intX + textSize.Width), (int)(intY + textSize.Height));
-            LinearGradientBrush gradBrush = new LinearGradientBrush(rectText, _colorFont, _colorFontMinor, 90);
+            var textRectangle = new Rectangle(x, y, (int)(x + textSize.Width), (int)(y + textSize.Height));
+            var gradBrush = new LinearGradientBrush(textRectangle, MajorFontColor, MinorFontColor, 90);
 
-            RectangleF textRect = new RectangleF(0, 0, textSize.Width, textSize.Height);
+            var textRect = new RectangleF(0, 0, textSize.Width, textSize.Height);
+            var graphPath = new GraphicsPath();
 
-            Brush fontBrush = Brushes.Black;
-
-            GraphicsPath graphPath = new GraphicsPath();
-
-            graphPath.AddString(strWrite, fontSet.FontFamily, (int)fontSet.Style, _floatFontSize, textRect, strFormat);
+            graphPath.AddString(value, fontSet.FontFamily, (int)fontSet.Style, FontSize + 5, textRect, stringFormat);
 
             graph.SmoothingMode = SmoothingMode.AntiAlias;
             graph.PixelOffsetMode = PixelOffsetMode.HighQuality;
@@ -156,19 +183,17 @@ namespace consoleXstreamX.Drawing
             graphPath.Dispose();
             gradBrush.Dispose();
             fontSet.Dispose();
-            strFormat.Dispose();
+            stringFormat.Dispose();
 
-            DrawImage(intX, intY, bmpFontoutline);
+            Image(x, y, image);
 
-            //Store the image
-            _listOutline.Add(new OutlineText());
-
-            int intIndex = _listOutline.Count - 1;
-            _listOutline[intIndex].strWrite = strWrite;
-            _listOutline[intIndex].strFontName = FontName;
-            _listOutline[intIndex].floatSize = _floatFontSize;
-            _listOutline[intIndex].bmpImage = bmpFontoutline;
-            */
+            _outlineCache.Add(new OutlineCache()
+            {
+                Tile = image,
+                Display = value,
+                Font = FontName,
+                Size = FontSize
+            });
         }
 
         public static Bitmap GetImage()

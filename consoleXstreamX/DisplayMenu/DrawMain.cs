@@ -15,7 +15,7 @@ namespace consoleXstreamX.DisplayMenu
             MenuSettings.CellWidth = Properties.Resources.tile_low.Width;
 
             Draw.FontSize = 18f;
-            //Draw.Outline = true;
+            Draw.Outline = true;
             Draw.SetVertical = Draw.VerticalAlignment.Bottom;
             Draw.SetHorizontal = Draw.HorizontalAlignment.Middle;
 
@@ -35,6 +35,9 @@ namespace consoleXstreamX.DisplayMenu
                 y += MenuSettings.CellHeight + 5;
                 x = 10;
             }
+            Draw.Outline = true;
+            Draw.FontSize = 12f;
+
             /*
             //_class.Data.Row.Clear();
 
