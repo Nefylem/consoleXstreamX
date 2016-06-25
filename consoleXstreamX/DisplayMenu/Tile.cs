@@ -42,7 +42,7 @@ namespace consoleXstreamX.DisplayMenu
             else
                 Draw.Image(rect.X, rect.Y, Properties.Resources.tile_low);
 
-            Draw.Text(rect, tile.Display);
+            Draw.Text(rect, tile.Display, null);
             /*
             if (_class.User.Selected == t1.Command)
                 _class.DrawGui.DrawImage(intX - 6, intY - 7, 108, 115, Properties.Resources.imgSubGlow);

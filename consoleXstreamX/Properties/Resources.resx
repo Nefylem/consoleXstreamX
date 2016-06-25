@@ -121,6 +121,15 @@
   <data name="main_menu_back" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\main_menu_back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="shutter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\shutter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="three_dots" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\three_dots.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\tick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="tile_high" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\tile_high.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

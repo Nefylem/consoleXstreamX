@@ -137,7 +137,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             if (hr != 0) { Debug.Log("[ERR] " + DsError.GetErrorText(hr)); }
         }
 
-        public List<string> ListOutputs()
+        public static List<string> ListOutputs()
         {
             var results = new List<string>();
             if (VideoCapture.XBar == null) return results;

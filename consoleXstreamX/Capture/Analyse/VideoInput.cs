@@ -35,7 +35,7 @@ namespace consoleXstreamX.Capture.Analyse
                 VideoCapture.CaptureDevices.Add(new VideoCapture.VideoCaptureDevices()
                 {
                     Title = title,
-                    Resolution = new List<VideoCapture.VideoCaptureResolution>()
+                    Resolution = new List<VideoCapture.VideoCaptureResolution>(),
                 });
             }
             Debug.Log("");

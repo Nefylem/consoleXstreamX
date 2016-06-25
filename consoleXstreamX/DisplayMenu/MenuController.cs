@@ -15,6 +15,8 @@ namespace consoleXstreamX.DisplayMenu
         public static int Delay;
         public static int DelayLimit;
 
+        public static bool Shutdown;
+
         static MenuController()
         {
             Menu = new MenuMain();
@@ -24,6 +26,17 @@ namespace consoleXstreamX.DisplayMenu
         public static void Open()
         {
             Menu.ShowPanel();
+        }
+
+        public static void Close()
+        {
+            Menu.ClosePanel();
+        }
+
+        public static void ExitApplication()
+        {
+            Menu.ClosePanel();
+            Shutdown = true;
         }
     }
 }

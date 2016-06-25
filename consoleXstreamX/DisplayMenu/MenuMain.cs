@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using consoleXstreamX.Configuration;
 using consoleXstreamX.DisplayMenu.MainMenu;
+using consoleXstreamX.DisplayMenu.SubMenu;
 using consoleXstreamX.Drawing;
 
 namespace consoleXstreamX.DisplayMenu
@@ -53,12 +54,19 @@ namespace consoleXstreamX.DisplayMenu
             Width = 1;
             Height = 1;
             Opacity = 0.1;
-
             if (Settings.StayOnTop) TopMost = true;
             Show();
             PositionMenu();
 
             menuTimer.Enabled = true;
+        }
+
+        public void ClosePanel()
+        {
+            //Todo: fade out
+            Shutter.Open = false;
+            menuTimer.Enabled = false;
+            Hide();
         }
 
         private void PositionMenu()
@@ -74,25 +82,30 @@ namespace consoleXstreamX.DisplayMenu
 
         private void menuTimer_Tick(object sender, EventArgs e)
         {
+            MenuCommand.CheckDelays();
+            Fps.Check();
+            Shutter.Check();
+            KeyboardInput.Check();
+            GamepadInput.Check();
+
             DrawPanel();
-            CheckControls();
+
             BringToFront();
             Focus();
         }
 
-        private void CheckControls()
-        {
-            //_class.Keyboard.CheckInput();
-            //_class.Gamepad.CheckInput();
-        }
 
         private void DrawPanel()
         {
             Draw.ClearGraph(Properties.Resources.main_menu_back);
             DrawMain.Execute();
 
-            /*
+            if (Shutter.Open || Shutter.Hide)
+            {
+                DrawShutter.Execute();
+            }
 
+            /*
             if (!_class.Var.IsMainMenu)
             {
                 _class.SubMenu.Draw();
@@ -100,11 +113,10 @@ namespace consoleXstreamX.DisplayMenu
             }
 
             _class.DrawGui.setOutline(false);
-
-            if (Settings.CheckFps)
-                _class.DrawGui.drawText(5, 500, "FPS: " + _class.Fps.Frames);
-
             */
+            if (MenuSettings.ShowFps) Fps.Show();
+                
+             
             display.Image = Draw.GetImage();
 
         }

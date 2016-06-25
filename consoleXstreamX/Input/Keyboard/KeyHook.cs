@@ -35,7 +35,7 @@ namespace consoleXstreamX.Input.Keyboard
 
         private static void SetKey(KeyDefinitions.VKeys obj, bool set)
         {
-            var key = obj.ToString();
+            var key = obj.ToString().ToLower();
             var index = _keys.IndexOf(key);
 
             if (set)
@@ -46,5 +46,12 @@ namespace consoleXstreamX.Input.Keyboard
 
             if (index > -1) _keys.RemoveAt(index);
         }
+
+        public static bool GetKey(string key)
+        {
+            if (key == null) return false;
+            return _keys.IndexOf(key.ToLower()) > -1;
+        }
+
     }
 }

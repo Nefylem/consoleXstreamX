@@ -91,7 +91,7 @@
 
         public System.Windows.Forms.PictureBox display;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Timer timer;
+        public System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button button1;
     }
 }

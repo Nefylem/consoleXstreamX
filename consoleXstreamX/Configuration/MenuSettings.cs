@@ -14,12 +14,17 @@ namespace consoleXstreamX.Configuration
         public static int CellWidth;
         public static int CellHeight;
 
-        public static bool MainMenu;
+        public static int MinimumFps;
+        public static int FpsModifier;
+        public static bool ShowFps;
 
+        public static string CurrentMenu;
         public static string Selected;
 
         public static List<string> History;
         public static List<List<MenuItems>> Tiles;
+
+
 
         public class MenuItems
         {
@@ -33,6 +38,11 @@ namespace consoleXstreamX.Configuration
         static MenuSettings()
         {
             Tiles = new List<List<MenuItems>>();
+
+            MinimumFps = 20;
+            FpsModifier = 6;
+            ShowFps = true;
+
             OffsetX = 0;
             OffsetY = 0;
         }

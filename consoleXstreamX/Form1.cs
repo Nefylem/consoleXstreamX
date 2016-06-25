@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using consoleXstreamX.Capture;
 using consoleXstreamX.Debugging;
-using consoleXstreamX.Define;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 using consoleXstreamX.Input.Keyboard;
@@ -29,11 +22,10 @@ namespace consoleXstreamX
         private void Form1_Load(object sender, EventArgs e)
         {
             Setup();
-            KeyHook.Enable();
+            button1.BringToFront();
             /*
-            VideoCapture.Startup(this);
             */
-            //timer.Enabled = true;
+            timer.Enabled = true;
         }
 
         private void Setup()
@@ -41,6 +33,8 @@ namespace consoleXstreamX
             new Logging().Cleanup();
             Shortcuts.Load();
             SetWindow();
+            KeyHook.Enable();
+            VideoCapture.Startup(this);
         }
 
         private void SetWindow()
@@ -72,7 +66,8 @@ namespace consoleXstreamX
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            CheckControllerInput();
+            if (MenuController.Shutdown) CloseApplication();
+            //CheckControllerInput();
         }
 
         private void CheckControllerInput()
@@ -83,6 +78,14 @@ namespace consoleXstreamX
         private void button1_Click(object sender, EventArgs e)
         {
             MenuController.Open();
+        }
+
+        private void CloseApplication()
+        {
+            timer.Enabled = false;
+            VideoCapture.CloseGraph();
+            Application.DoEvents();
+            Application.Exit();
         }
     }
 }

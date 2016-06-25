@@ -17,7 +17,6 @@ namespace consoleXstreamX.DisplayMenu.MainMenu
             AddItem("Load Profile", "console select");
             AddItem("Save Profile", "save profile");
             AddItem("Power On", "power on");
-            AddItem("", "");
 
             MenuSettings.Tiles.Add(new List<MenuSettings.MenuItems>());
             AddItem("Video Input", "video input");

@@ -77,8 +77,18 @@
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Debugging\Debug.cs" />
     <Compile Include="Debugging\Logging.cs" />
+    <Compile Include="DisplayMenu\Display.cs" />
     <Compile Include="DisplayMenu\DrawMain.cs" />
+    <Compile Include="DisplayMenu\DrawShutter.cs" />
+    <Compile Include="DisplayMenu\Fps.cs" />
+    <Compile Include="DisplayMenu\GamepadInput.cs" />
+    <Compile Include="DisplayMenu\KeyboardInput.cs" />
+    <Compile Include="DisplayMenu\SubMenu\Actions\SelectExit.cs" />
+    <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoDevice.cs" />
+    <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoInput.cs" />
     <Compile Include="DisplayMenu\MainMenu\MainCommands.cs" />
+    <Compile Include="DisplayMenu\MainMenu\MenuActions.cs" />
+    <Compile Include="DisplayMenu\MenuCommand.cs" />
     <Compile Include="DisplayMenu\MenuController.cs" />
     <Compile Include="DisplayMenu\MenuMain.cs">
       <SubType>Form</SubType>
@@ -86,6 +96,8 @@
     <Compile Include="DisplayMenu\MenuMain.Designer.cs">
       <DependentUpon>MenuMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisplayMenu\SubMenu\Shutter.cs" />
+    <Compile Include="DisplayMenu\SubMenu\ShutterCommand.cs" />
     <Compile Include="DisplayMenu\Tile.cs" />
     <Compile Include="Drawing\Draw.cs" />
     <Compile Include="Form1.cs">
@@ -145,6 +157,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\tile_high.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\shutter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\three_dots.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\tick.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

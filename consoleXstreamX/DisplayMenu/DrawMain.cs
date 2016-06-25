@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using consoleXstreamX.Configuration;
+using consoleXstreamX.DisplayMenu.SubMenu;
 using consoleXstreamX.Drawing;
 
 namespace consoleXstreamX.DisplayMenu
@@ -19,13 +21,16 @@ namespace consoleXstreamX.DisplayMenu
             Draw.SetVertical = Draw.VerticalAlignment.Bottom;
             Draw.SetHorizontal = Draw.HorizontalAlignment.Middle;
 
-            foreach (var row in MenuSettings.Tiles)
+            Display.RowPosition = new List<int>();
+
+            foreach (var col in MenuSettings.Tiles)
             {
-                foreach (var tile in row)
+                Display.RowPosition.Add(y);
+                foreach (var tile in col)
                 {
                     var rect = new Rectangle(x, y, MenuSettings.CellWidth, MenuSettings.CellHeight);
 
-                    if (MenuSettings.MainMenu)
+                    if (!Shutter.Open)
                         Tile.Create(rect, tile);
                     else
                         Tile.Create(rect, tile, true);       //Add to the inactive list incase its needed - mainly by mouse move

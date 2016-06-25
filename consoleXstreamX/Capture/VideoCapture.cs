@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using consoleXstreamX.Capture.GraphBuilder;
+using consoleXstreamX.Debugging;
 using DirectShowLib;
 
 namespace consoleXstreamX.Capture
@@ -15,6 +16,14 @@ namespace consoleXstreamX.Capture
         public static void ResetDisplay()
         {
             new Display().Setup();
+        }
+
+        public static void CloseGraph()
+        {
+            Debug.Log("[0] [TRY] Gracefully closing graph");
+            MediaControl?.StopWhenReady();
+            ClearGraph();
+            Debug.Log("[OK] Graph closed");
         }
 
         public static void ClearGraph()
@@ -76,6 +85,17 @@ namespace consoleXstreamX.Capture
             public string Title;
             public int CurrentResolution;
             public List<VideoCaptureResolution> Resolution;
+
+            public List<string> Crossbars
+            {
+                get
+                {
+                    if (_crossbar == null || _crossbar.Count == 0) _crossbar = Crossbar.ListOutputs();
+                    return _crossbar;
+                }
+            }
+
+            private List<string> _crossbar;
         }
 
         public class VideoCaptureResolution

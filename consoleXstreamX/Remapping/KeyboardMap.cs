@@ -29,45 +29,44 @@ namespace consoleXstreamX.Remapping
             [Description("Home")] public string Home;
         }
 
-        public static KeyboardKeys KeyDef;
-        public static KeyboardKeys KeyAltDef;
+        public static KeyboardKeys KeyDefine;
+        public static KeyboardKeys AltKeyDefine;
 
         static KeyboardMap()
         {
-            KeyDef = new KeyboardKeys();
-            KeyAltDef = new KeyboardKeys();
+            KeyDefine = new KeyboardKeys();
+            AltKeyDefine = new KeyboardKeys();
 
-            KeyDef.Up = "DOWN";
-            KeyDef.Down = "UP";
-            KeyDef.Left = "LEFT";
-            KeyDef.Right = "RIGHT";
+            KeyDefine.Up = "UP";
+            KeyDefine.Down = "DOWN";
+            KeyDefine.Left = "LEFT";
+            KeyDefine.Right = "RIGHT";
 
-            KeyDef.Y = "KEY_I";
-            KeyDef.X = "KEY_J";
-            KeyDef.A = "KEY_K";
-            KeyDef.B = "KEY_L";
+            KeyDefine.Y = "KEY_I";
+            KeyDefine.X = "KEY_J";
+            KeyDefine.A = "KEY_K";
+            KeyDefine.B = "KEY_L";
 
-            KeyDef.LtLeft= "KEY_A";
-            KeyDef.LtRight= "KEY_D";
-            KeyDef.LtUp = "KEY_W";
-            KeyDef.LtDown = "KEY_S";
+            KeyDefine.LtLeft = "KEY_A";
+            KeyDefine.LtRight = "KEY_D";
+            KeyDefine.LtUp = "KEY_W";
+            KeyDefine.LtDown = "KEY_S";
 
-            KeyDef.RtLeft = "NUMPAD4";
-            KeyDef.RtRight = "NUMPAD6";
-            KeyDef.RtUp = "NUMPAD8";
-            KeyDef.RtDown = "NUMPAD2";
+            KeyDefine.RtLeft = "NUMPAD4";
+            KeyDefine.RtRight = "NUMPAD6";
+            KeyDefine.RtUp = "NUMPAD8";
+            KeyDefine.RtDown = "NUMPAD2";
 
-            KeyDef.Modifier = "LSHIFT";
-            KeyDef.RightModifier = "RSHIFT";
+            KeyDefine.Modifier = "LSHIFT";
+            KeyDefine.RightModifier = "RSHIFT";
 
-            KeyDef.Back = "ESCAPE";
-            KeyDef.Home = "F2";
-            KeyDef.Start  = "F3";
+            KeyDefine.Back = "ESCAPE";
+            KeyDefine.Home = "F2";
+            KeyDefine.Start  = "F3";
 
-            KeyAltDef.Back = "F4";
-
-            KeyAltDef.A = "RETURN";
-            KeyAltDef.B = "BACK";
+            AltKeyDefine.Back = "F4";
+            AltKeyDefine.A = "RETURN";
+            AltKeyDefine.B = "BACK";
         }
     }
 }
