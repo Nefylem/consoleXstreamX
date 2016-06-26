@@ -33,6 +33,7 @@ namespace consoleXstreamX.DisplayMenu.MainMenu
         public static void ClearSubMenu()
         {
             Shutter.Tiles.Clear();
+            Shutter.CheckedItems.Clear();
             Shutter.Scroll = 0;
             Shutter.Error = "";
             Shutter.Explanation = "";

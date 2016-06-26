@@ -159,6 +159,52 @@ namespace consoleXstreamX.Capture.GraphBuilder
             return results;
         }
 
+        public static CrossbarItems ListOutputByType()
+        {
+            var results = new CrossbarItems
+            {
+                Video = new List<string>(),
+                Audio = new List<string>()
+            };
+
+            if (VideoCapture.XBar == null) return results;
+
+            int inPin;
+            int outPin;
+
+            VideoCapture.XBar.get_PinCounts(out inPin, out outPin);
+            for (var count = 0; count < outPin; count++)
+            {
+                int intRouted;
+                int intPinId;
+                PhysicalConnectorType pinType;
+
+                VideoCapture.XBar.get_CrossbarPinInfo(true, count, out intPinId, out pinType);
+                VideoCapture.XBar.get_IsRoutedTo(count, out intRouted);
+                var name = pinType.ToString();
+                if (string.IsNullOrEmpty(name)) continue;
+                if (name.IndexOf("Video_", StringComparison.CurrentCultureIgnoreCase) > -1)
+                {
+                    results.Video.Add(name);
+                    results.Count++;
+                }
+                if (name.IndexOf("Audio_", StringComparison.CurrentCultureIgnoreCase) > -1)
+                {
+                    results.Audio.Add(name);
+                    results.Count++;
+                }
+            }
+            return results;
+        }
+
+        public static int GetActivePin(string type)
+        {
+            if (VideoCapture.XBar == null) return 0;
+            int result;
+            var connection = string.Equals(type, "video", StringComparison.CurrentCultureIgnoreCase) ? 0 : 1;
+            VideoCapture.XBar.get_IsRoutedTo(connection, out result);
+            return result;
+        }
 
         public class CrossbarPins
         {
@@ -171,6 +217,13 @@ namespace consoleXstreamX.Capture.GraphBuilder
         {
             public int Type;
             public int Pin;
+        }
+
+        public class CrossbarItems
+        {
+            public List<string> Video;
+            public List<string> Audio;
+            public int Count;
         }
     }
 }

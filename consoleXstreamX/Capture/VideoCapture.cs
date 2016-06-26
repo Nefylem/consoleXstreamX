@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Net.Mime;
+using System.Windows.Forms;
 using consoleXstreamX.Capture.GraphBuilder;
 using consoleXstreamX.Debugging;
 using DirectShowLib;
@@ -9,8 +12,27 @@ namespace consoleXstreamX.Capture
     {
         internal static void Startup(Form1 form1)
         {
-            Home = form1;
+            if (form1 != null) Home = form1;
             new Startup().Execute();
+        }
+
+        public static void RunGraph()
+        {
+            new GraphBuilder.Startup().RunGraph();
+        }
+
+        public static void SetWait()
+        {
+            var image = Home.wait;
+            var show = new Bitmap(Home.Width, Home.Height);
+            var graph = Graphics.FromImage(show);
+            var blueBrush = new SolidBrush(Color.Red);
+            graph.FillRectangle(blueBrush, 0, 0, show.Width, show.Height);
+            //todo: Show wait image
+            Home.wait.Image = show;
+            Home.wait.Visible = true;
+            Home.display.Visible = false;
+            Application.DoEvents();
         }
 
         public static void ResetDisplay()
@@ -86,16 +108,36 @@ namespace consoleXstreamX.Capture
             public int CurrentResolution;
             public List<VideoCaptureResolution> Resolution;
 
-            public List<string> Crossbars
+            public string VideoInput
             {
                 get
                 {
-                    if (_crossbar == null || _crossbar.Count == 0) _crossbar = Crossbar.ListOutputs();
+                    var crossbarList = Crossbar.ListOutputByType();
+                    var videoPin = Crossbar.GetActivePin("Video");
+                    return videoPin < crossbarList.Video.Count ? crossbarList.Video[videoPin] : "";
+                }
+            }
+
+            public string AudioInput
+            {
+                get
+                {
+                    var crossbarList = Crossbar.ListOutputByType();
+                    var audioPin = Crossbar.GetActivePin("Audio") - crossbarList.Video.Count;
+                    return audioPin < crossbarList.Audio.Count ? crossbarList.Audio[audioPin] : "";
+                }
+            }
+
+            public Crossbar.CrossbarItems Crossbars
+            {
+                get
+                {
+                    if (_crossbar == null) _crossbar = Crossbar.ListOutputByType();
                     return _crossbar;
                 }
             }
 
-            private List<string> _crossbar;
+            private Crossbar.CrossbarItems _crossbar;
         }
 
         public class VideoCaptureResolution

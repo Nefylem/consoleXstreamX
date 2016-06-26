@@ -33,7 +33,9 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.wait = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wait)).BeginInit();
             this.SuspendLayout();
             // 
             // display
@@ -70,11 +72,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // wait
+            // 
+            this.wait.Location = new System.Drawing.Point(12, 106);
+            this.wait.Name = "wait";
+            this.wait.Size = new System.Drawing.Size(100, 50);
+            this.wait.TabIndex = 3;
+            this.wait.TabStop = false;
+            this.wait.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(454, 261);
+            this.Controls.Add(this.wait);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.display);
@@ -83,6 +95,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wait)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -93,6 +106,7 @@
         private System.Windows.Forms.ListBox listBox1;
         public System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.PictureBox wait;
     }
 }
 

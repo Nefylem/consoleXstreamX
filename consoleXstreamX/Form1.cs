@@ -50,10 +50,18 @@ namespace consoleXstreamX
 
             display.Dock = DockStyle.Fill;
             display.BackColor = Color.Black;
+
+            wait.Dock = DockStyle.Fill;
+            wait.BackColor = Color.Aqua;
         }
 
         public void FocusWindow()
         {
+            if (wait.Visible)
+            {
+                display.Visible = true;
+                wait.Visible = false;
+            }
             display.BringToFront();
             display.Focus();
         }
@@ -77,6 +85,7 @@ namespace consoleXstreamX
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //VideoCapture.SetWait();
             MenuController.Open();
         }
 

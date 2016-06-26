@@ -67,6 +67,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
                 return;
             }
             OkWait = MenuCommand.SetMoveWait()*3;
+            if (string.Equals(MenuSettings.CurrentMenu, "Video Input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Exit", StringComparison.CurrentCultureIgnoreCase)) SelectExit.Execute(Shutter.Selected);
         }
 

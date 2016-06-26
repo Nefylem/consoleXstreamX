@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Net.Configuration;
 using consoleXstreamX.Capture;
 using consoleXstreamX.DisplayMenu.MainMenu;
 
@@ -16,14 +14,25 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
             if (device.Crossbars.Count > 0)
             {
-                foreach (var item in device.Crossbars)
+                var videoPin = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].VideoInput;
+                var audioPin = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].AudioInput;
+                if (!string.IsNullOrEmpty(videoPin)) Shutter.CheckedItems.Add(videoPin);
+                if (!string.IsNullOrEmpty(audioPin)) Shutter.CheckedItems.Add(audioPin);
+
+                foreach (var item in device.Crossbars.Video)
                 {
                     var title = item;
                     if (string.Equals(title, "Video_SerialDigital", StringComparison.CurrentCultureIgnoreCase)) title = "HDMI";
-                    if (string.Equals(title, "video_yryby", StringComparison.CurrentCultureIgnoreCase)) title = "Component";
-                    if (string.Equals(title, "audio_spdifdigital", StringComparison.CurrentCultureIgnoreCase)) title = "Digital Audio";
-                    if (string.Equals(title, "Audio_Line", StringComparison.CurrentCultureIgnoreCase)) title = "Line Audio";
-                    Shutter.AddItem(title, title);
+                    if (string.Equals(title, "Video_YrYbY", StringComparison.CurrentCultureIgnoreCase)) title = "Component";
+                    Shutter.AddItem(title, item, "Video");
+                }
+
+                foreach (var item in device.Crossbars.Audio)
+                {
+                    var title = item;
+                    if (string.Equals(title, "audio_spdifdigital", StringComparison.CurrentCultureIgnoreCase)) title = "Digital";
+                    if (string.Equals(title, "Audio_Line", StringComparison.CurrentCultureIgnoreCase)) title = "Line";
+                    Shutter.AddItem(title, item, "Audio");
                 }
 
                 if (Shutter.Tiles.Count > 0)
@@ -41,6 +50,16 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             }
 
             Shutter.SetActiveRow(1);
+        }
+
+        public static void Execute(string command)
+        {
+            if (command.IndexOf("Video_", StringComparison.CurrentCultureIgnoreCase) > -1)
+                VideoCapture.CrossbarVideo = command;
+            else
+                VideoCapture.CrossbarAudio = command;
+            VideoCapture.SetWait();
+            VideoCapture.RunGraph();
         }
     }
 }

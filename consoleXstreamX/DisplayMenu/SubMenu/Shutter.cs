@@ -6,6 +6,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
     internal static class Shutter
     {
         public static List<MenuSettings.MenuItems> Tiles;
+        public static List<string> CheckedItems; 
         public static int Scroll;
         public static string Error;
         public static string Explanation;
@@ -47,6 +48,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
         {
             Width = Properties.Resources.shutter.Width;
             Tiles = new List<MenuSettings.MenuItems>();
+            CheckedItems = new List<string>();
         }
 
         public static void AddItem(string title, string command, string options = "", string active = "", bool folder = false)
