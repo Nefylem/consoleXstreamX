@@ -24,12 +24,14 @@ namespace consoleXstreamX.Capture.GraphBuilder
             var pins = new VideoConnectors().Make(pCaptureDevice);
 
             VideoCapture.IamAvd = pCaptureDevice as IAMAnalogVideoDecoder;
-
             if (VideoCapture.UseCrossbar)
             {
                 var xbar = crossbar.Create(pins.Video.In, pins.Audio.In, VideoCapture.CurrentVideoShort, pCaptureDevice);
                 if (xbar.Found) Crossbar.Check();
             }
+
+            VideoCapture.CaptureDevice = pCaptureDevice;
+            VideoCapture.CaptureFeedOut = pins.Video.Out;
 
             new VideoResolution().Set(pCaptureDevice, pins.Video.Out);
             var pRen = pCaptureDevice;

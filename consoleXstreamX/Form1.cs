@@ -69,6 +69,7 @@ namespace consoleXstreamX
         private void timer_Tick(object sender, EventArgs e)
         {
             if (MenuController.Shutdown) CloseApplication();
+            if (Settings.AutoSetCaptureResolution) VideoCapture.CheckResolution();
             CheckControllerInput();
         }
 

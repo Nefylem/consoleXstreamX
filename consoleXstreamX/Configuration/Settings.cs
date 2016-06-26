@@ -55,6 +55,7 @@ namespace consoleXstreamX.Configuration
 
         static Settings()
         {
+            AutoSetCaptureResolution = true;
             NormalizeControls = true;
             UseShortcutKeys = true;
             StayOnTop = true;

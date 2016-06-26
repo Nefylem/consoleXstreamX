@@ -107,6 +107,7 @@ namespace consoleXstreamX.Capture
         public static IVideoWindow VideoWindow;
 
         public static string CaptureFeedIn;
+        public static string CaptureFeedOut;
         public static IBaseFilter CaptureDevice;
         public static IBaseFilter CaptureFeed;
         public static AMMediaType Resolution;
@@ -155,6 +156,7 @@ namespace consoleXstreamX.Capture
             public string Type;
             public int Width;
             public int Height;
+            public int Index;
 
             public string GetRes()
             {

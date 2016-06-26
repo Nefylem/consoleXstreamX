@@ -40,7 +40,8 @@ namespace consoleXstreamX.Capture.Analyse
                         Height = v.BmiHeader.Height,
                         Width = v.BmiHeader.Width,
                         Type = type,
-                        MediaType = media
+                        MediaType = media,
+                        Index = i
                     });
                     Debug.Log($"[2] {v.BmiHeader.Width} x {v.BmiHeader.Height} ({type})");
                 }

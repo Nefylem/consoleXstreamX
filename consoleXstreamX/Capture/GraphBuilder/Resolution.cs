@@ -1,4 +1,5 @@
-﻿using consoleXstreamX.Debugging;
+﻿using System.Linq;
+using consoleXstreamX.Debugging;
 using DirectShowLib;
 
 namespace consoleXstreamX.Capture.GraphBuilder
@@ -15,6 +16,9 @@ namespace consoleXstreamX.Capture.GraphBuilder
 
             //System.AutoChangeResolution(lineCount);
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
+            var res = device.Resolution.FirstOrDefault(s => s.Height == lineCount);
+            if (res != null) VideoCapture.CurrentResolutionIndex = res.Index;
+            /*
             for (var count = 0; count < device.Resolution.Count; count++)
             {
                 if (lineCount == device.Resolution[count].Height)
@@ -22,10 +26,11 @@ namespace consoleXstreamX.Capture.GraphBuilder
                     VideoCapture.CurrentResolutionIndex = count;
                 }
             }
+            */
             return VideoCapture.CurrentResolutionIndex;
         }
 
-        public int Set(IBaseFilter pCaptureDevice, string strCaptureVideoOut)
+        public int Set(IBaseFilter pCaptureDevice, string captureVideoOut)
         {
             var pin = new Pin();
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
@@ -37,8 +42,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
 
             Debug.Log($"[3] set resolution {device.Resolution[VideoCapture.CurrentResolutionIndex].GetRes()}");
             VideoCapture.Resolution = device.Resolution[VideoCapture.CurrentResolutionIndex].MediaType;
-
-            var hr = ((IAMStreamConfig)pin.Get(pCaptureDevice, strCaptureVideoOut)).SetFormat(VideoCapture.Resolution);
+            device.CurrentResolution = VideoCapture.CurrentResolutionIndex;
+            var hr = ((IAMStreamConfig)pin.Get(pCaptureDevice, captureVideoOut)).SetFormat(VideoCapture.Resolution);
             if (hr == 0)
             {
                 Debug.Log($"[OK] Set resolution {device.Resolution[VideoCapture.CurrentResolutionIndex].GetRes()}");

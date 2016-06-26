@@ -8,6 +8,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
     {
         public void RunGraph()
         {
+            VideoCapture.ActiveVideo = false;
             Debug.Log("[0] Build capture graph");
 
             if (VideoCapture.CurrentVideoDevice <= -1 || (VideoCapture.CurrentVideoDevice > VideoCapture.CaptureDevices.Count))

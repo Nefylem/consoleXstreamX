@@ -50,7 +50,10 @@ namespace consoleXstreamX.Input.Keyboard
         public static bool GetKey(string key)
         {
             if (key == null) return false;
-            return _keys.IndexOf(key.ToLower()) > -1;
+            var index = _keys.IndexOf(key.ToLower());
+            if (index == -1) return false;
+            _keys.RemoveAt(index);
+            return true;
         }
     }
 }
