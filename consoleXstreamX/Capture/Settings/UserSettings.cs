@@ -8,7 +8,7 @@
             VideoCapture.UseCrossbar = true;
             VideoCapture.CreateSmartTee = false;
             VideoCapture.CreateAviRenderer = true;
-            VideoCapture.UseSampleGrabber = true;
+            VideoCapture.UseSampleGrabber = false;
             VideoCapture.CurrentAudioDevice = 0;
             VideoCapture.CurrentVideoDevice = 0;
 

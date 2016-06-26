@@ -14,6 +14,8 @@ namespace consoleXstreamX.DisplayMenu
         private static int _okWait;
         private static int _backWait;
 
+        private static bool _blockBack;
+
         public static int OkWait
         {
             get { return _okWait; }
@@ -39,8 +41,18 @@ namespace consoleXstreamX.DisplayMenu
             if (string.Equals(command, "left", StringComparison.CurrentCultureIgnoreCase)) MoveLeft();
             if (string.Equals(command, "right", StringComparison.CurrentCultureIgnoreCase)) MoveRight();
             if (string.Equals(command, "ok", StringComparison.CurrentCultureIgnoreCase)) SetOk();
+            if (string.Equals(command, "back", StringComparison.CurrentCultureIgnoreCase)) CloseMenu();
         }
 
+        private static void CloseMenu()
+        {
+            if (BackWait > 0)
+            {
+                _blockBack = true;
+                return;
+            }
+            MenuController.Close();
+        }
         private static void SetOk()
         {
             if (_okWait > 0)
@@ -111,7 +123,13 @@ namespace consoleXstreamX.DisplayMenu
             if (_leftWait > 0) _leftWait--;
             if (_rightWait > 0) _rightWait--;
             if (_okWait > 0) _okWait--;
-            if (_backWait > 0) _backWait--;
+            if (_backWait > 0)
+            {
+                if (_blockBack)
+                    _blockBack = false;
+                else
+                    _backWait--;
+            }
             ShutterCommand.CheckDelays();
         }
 

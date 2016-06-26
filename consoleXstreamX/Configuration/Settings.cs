@@ -33,6 +33,7 @@ namespace consoleXstreamX.Configuration
         public static bool AutoSetCaptureResolution;
         public static string RefreshRate;
         public static string DisplayResolution;
+        public static bool Fullscreen;
 
         //Output
         public static bool UseCronusMax;

@@ -30,9 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.display = new System.Windows.Forms.PictureBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.wait = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wait)).BeginInit();
@@ -49,28 +47,10 @@
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(224, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(218, 238);
-            this.listBox1.TabIndex = 1;
-            // 
             // timer
             // 
             this.timer.Interval = 1;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 203);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // wait
             // 
@@ -87,8 +67,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(454, 261);
             this.Controls.Add(this.wait);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.display);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -103,9 +81,7 @@
         #endregion
 
         public System.Windows.Forms.PictureBox display;
-        private System.Windows.Forms.ListBox listBox1;
         public System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.Button button1;
         public System.Windows.Forms.PictureBox wait;
     }
 }

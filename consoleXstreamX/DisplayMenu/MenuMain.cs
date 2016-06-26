@@ -57,7 +57,7 @@ namespace consoleXstreamX.DisplayMenu
             if (Settings.StayOnTop) TopMost = true;
             Show();
             PositionMenu();
-
+            MenuCommand.BackWait = 20;
             menuTimer.Enabled = true;
         }
 

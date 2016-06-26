@@ -84,32 +84,15 @@ namespace consoleXstreamX.Capture.GraphBuilder
             VideoCapture.CrossbarVideo = "";
         }
 
-        public void SetCrossbar(string strSet)
+        private static CrossbarTarget Find(string type, string description)
         {
-            /*
-            if (strSet.Length > "video_".Length)
-            {
-                if (strSet.Substring(0, "video_".Length).ToLower() == "video_")
-                    _class.Var.CrossbarVideo = strSet;
-
-                if (strSet.Substring(0, "audio_".Length).ToLower() == "audio_")
-                    _class.Var.CrossbarAudio = strSet;
-            }
-            */
-        }
-
-
-        private static CrossbarTarget Find(string video, string audio)
-        {
-            Debug.Log("find crossbar Settings " + video + " / " + audio);
             var result = new CrossbarTarget();
-
-            var outputs = ListOutputs();
+            var outputs = ListOutputByType();
             if (outputs.Count == 0) return result;
 
-            for (var count = 0; count < outputs.Count; count++)
+            for (var count = 0; count < outputs.Video.Count; count++)
             {
-                if (string.Equals(outputs[count], video, StringComparison.CurrentCultureIgnoreCase))
+                if (string.Equals(outputs.Video[count], type, StringComparison.CurrentCultureIgnoreCase))
                 {
                     return new CrossbarTarget()
                     {
@@ -117,15 +100,17 @@ namespace consoleXstreamX.Capture.GraphBuilder
                         Pin = count
                     };
                 }
-                if (string.Equals(outputs[count], video, StringComparison.CurrentCultureIgnoreCase))
+            }
+            for (var count = 0; count < outputs.Audio.Count; count++)
+            {
+                if (string.Equals(outputs.Audio[count], type, StringComparison.CurrentCultureIgnoreCase))
                 {
                     return new CrossbarTarget()
                     {
                         Type = 1,
-                        Pin = count
+                        Pin = outputs.Video.Count + count
                     };
                 }
-
             }
             return result;
         }

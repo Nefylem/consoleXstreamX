@@ -50,7 +50,8 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
             if (MenuSettings.History.Count > 0) MenuSettings.History.RemoveAt(MenuSettings.History.Count - 1);
             if (MenuSettings.History.Count == 0)
             {
-                MenuCommand.OkWait = 5;
+                MenuCommand.OkWait = 10;
+                MenuCommand.BackWait = 10;
                 Shutter.Hide = true;
             }
             else
@@ -65,6 +66,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
             OkWait = MenuCommand.SetMoveWait()*3;
             if (string.Equals(MenuSettings.CurrentMenu, "Video Input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Device", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDevice.Execute(Shutter.Selected);
+            if (string.Equals(MenuSettings.CurrentMenu, "Video Display", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDisplay.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Exit", StringComparison.CurrentCultureIgnoreCase)) SelectExit.Execute(Shutter.Selected);
         }
 

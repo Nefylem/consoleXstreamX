@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using consoleXstreamX.Capture;
+using consoleXstreamX.Configuration;
 using consoleXstreamX.Debugging;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 using consoleXstreamX.Input.Keyboard;
-using consoleXstreamX.Remapping;
 
 namespace consoleXstreamX
 {
@@ -23,9 +22,6 @@ namespace consoleXstreamX
         private void Form1_Load(object sender, EventArgs e)
         {
             Setup();
-            button1.BringToFront();
-            /*
-            */
             timer.Enabled = true;
         }
 
@@ -40,14 +36,11 @@ namespace consoleXstreamX
 
         private void SetWindow()
         {
-            if (!Debugger.IsAttached)
-            {
-                //Todo: check between fullscreen modes
-                WindowState = FormWindowState.Normal;
-                FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-                Bounds = Screen.PrimaryScreen.Bounds;
-                Activate();
-            }
+            //Todo: check between fullscreen modes
+            WindowState = FormWindowState.Normal;
+            FormBorderStyle = FormBorderStyle.None;
+            Bounds = Screen.PrimaryScreen.Bounds;
+            Activate();
 
             display.Dock = DockStyle.Fill;
             display.BackColor = Color.Black;
@@ -76,21 +69,13 @@ namespace consoleXstreamX
         private void timer_Tick(object sender, EventArgs e)
         {
             if (MenuController.Shutdown) CloseApplication();
-            if (KeyHook.GetKey(KeyboardMap.AltKeyDefine.A))
-                Text = "Enter";
-            else Text = "Release";
-            //CheckControllerInput();
+            CheckControllerInput();
         }
 
         private void CheckControllerInput()
         {
             var input = Gamepad.Check(1);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //VideoCapture.SetWait();
-            MenuController.Open();
+            if (KeyHook.GetKey("ESCAPE")) MenuController.Open();
         }
 
         private void CloseApplication()
@@ -99,6 +84,22 @@ namespace consoleXstreamX
             VideoCapture.CloseGraph();
             Application.DoEvents();
             Application.Exit();
+        }
+
+        public void SetFullscreen()
+        {
+            if (Settings.Fullscreen)
+            {
+                WindowState = FormWindowState.Maximized;
+                FormBorderStyle = FormBorderStyle.None;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+                FormBorderStyle = FormBorderStyle.None;
+                Bounds = Screen.PrimaryScreen.Bounds;
+                Activate();
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             {
                 _intSampleFrame++;
             }
+
             /*
             if (VideoCapture.IamAvd == null) return 0;
             int lineCount;

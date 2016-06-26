@@ -15,7 +15,7 @@ namespace consoleXstreamX.DisplayMenu.MainMenu
         {
             if (string.Equals(command, "video input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Show();
             if (string.Equals(command, "video device", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDevice.Show();
-
+            if (string.Equals(command, "video display", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDisplay.Show();
             if (string.Equals(command, "exit", StringComparison.CurrentCultureIgnoreCase))
             {
                 SelectExit.Show();

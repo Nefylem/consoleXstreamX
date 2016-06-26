@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Net.Mime;
 using System.Windows.Forms;
 using consoleXstreamX.Capture.GraphBuilder;
 using consoleXstreamX.Debugging;
@@ -23,7 +22,12 @@ namespace consoleXstreamX.Capture
 
         public static void ChangeCrossbarConnection()
         {
-            if (XBar != null) Crossbar.Check();
+            Crossbar.Check();
+        }
+
+        public static void CheckResolution()
+        {
+            ResolutionController.Check();
         }
 
         public static void SetWait()

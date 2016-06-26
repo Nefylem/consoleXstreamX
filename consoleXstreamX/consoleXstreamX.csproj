@@ -86,6 +86,7 @@
     <Compile Include="DisplayMenu\KeyboardInput.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectExit.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoDevice.cs" />
+    <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoDisplay.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoInput.cs" />
     <Compile Include="DisplayMenu\MainMenu\MainCommands.cs" />
     <Compile Include="DisplayMenu\MainMenu\MenuActions.cs" />

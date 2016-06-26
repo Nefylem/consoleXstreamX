@@ -25,11 +25,15 @@ namespace consoleXstreamX.DisplayMenu
 
         public static void Open()
         {
+            if (Visible) return;
+            Visible = true;
             Menu.ShowPanel();
         }
 
         public static void Close()
         {
+            if (!Visible) return;
+            Visible = false;
             Menu.ClosePanel();
         }
 
