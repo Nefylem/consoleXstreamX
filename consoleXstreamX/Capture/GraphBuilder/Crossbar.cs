@@ -59,7 +59,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             return results;
         }
 
-        public void Check()
+        public static void Check()
         {
             if (VideoCapture.XBar == null) return;
 
@@ -76,7 +76,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             }
         }
 
-        private void Set(string type, string description)
+        private static void Set(string type, string description)
         {
             var changeXbar = Find(type, "");
             Debug.Log($"Change crossbar command ({description}): {changeXbar.Type} / {changeXbar.Pin}");
@@ -99,7 +99,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
         }
 
 
-        private CrossbarTarget Find(string video, string audio)
+        private static CrossbarTarget Find(string video, string audio)
         {
             Debug.Log("find crossbar Settings " + video + " / " + audio);
             var result = new CrossbarTarget();
@@ -130,7 +130,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             return result;
         }
 
-        public void Change(CrossbarTarget target)
+        public static void Change(CrossbarTarget target)
         {
             if (VideoCapture.XBar == null) return;
             var hr = VideoCapture.XBar.Route(target.Type, target.Pin);

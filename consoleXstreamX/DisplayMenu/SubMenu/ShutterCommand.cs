@@ -61,13 +61,10 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
 
         private static void MenuOk()
         {
-            if (OkWait > 0)
-            {
-                OkWait++;
-                return;
-            }
+            if (OkWait > 0) return;
             OkWait = MenuCommand.SetMoveWait()*3;
             if (string.Equals(MenuSettings.CurrentMenu, "Video Input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Execute(Shutter.Selected);
+            if (string.Equals(MenuSettings.CurrentMenu, "Video Device", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDevice.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Exit", StringComparison.CurrentCultureIgnoreCase)) SelectExit.Execute(Shutter.Selected);
         }
 

@@ -31,5 +31,14 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             }
             Shutter.SetActiveRow(1);
         }
+
+        public static void Execute(string command)
+        {
+            //var record = VideoCapture.CaptureDevices.FirstOrDefault(s => s.Title == command);
+            var index = VideoCapture.CaptureDevices.FindIndex(s => s.Title == command);
+            if (index == -1) return;
+            VideoCapture.CurrentVideoDevice = index;
+            VideoCapture.RunGraph();
+        }
     }
 }

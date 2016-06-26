@@ -268,17 +268,11 @@ namespace consoleXstreamX.Input.Keyboard
         /// </summary>
         private IntPtr HookFunc(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (nCode >= 0)
-            {
-                int iwParam = wParam.ToInt32();
+            if (nCode < 0) return CallNextHookEx(hookID, nCode, wParam, lParam);
 
-                if ((iwParam == WmKeydown || iwParam == WmSyskeydown))
-                    if (KeyDown != null)
-                        KeyDown((VKeys)Marshal.ReadInt32(lParam));
-                if ((iwParam == WmKeyup || iwParam == WmSyskeyup))
-                    if (KeyUp != null)
-                        KeyUp((VKeys)Marshal.ReadInt32(lParam));
-            }
+            var iwParam = wParam.ToInt32();
+            if ((iwParam == WmKeydown || iwParam == WmSyskeydown)) KeyDown?.Invoke((VKeys)Marshal.ReadInt32(lParam));
+            if ((iwParam == WmKeyup || iwParam == WmSyskeyup)) KeyUp?.Invoke((VKeys)Marshal.ReadInt32(lParam));
 
             return CallNextHookEx(hookID, nCode, wParam, lParam);
         }

@@ -7,6 +7,7 @@ using consoleXstreamX.Debugging;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 using consoleXstreamX.Input.Keyboard;
+using consoleXstreamX.Remapping;
 
 namespace consoleXstreamX
 {
@@ -75,6 +76,9 @@ namespace consoleXstreamX
         private void timer_Tick(object sender, EventArgs e)
         {
             if (MenuController.Shutdown) CloseApplication();
+            if (KeyHook.GetKey(KeyboardMap.AltKeyDefine.A))
+                Text = "Enter";
+            else Text = "Release";
             //CheckControllerInput();
         }
 

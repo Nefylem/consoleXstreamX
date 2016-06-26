@@ -21,6 +21,11 @@ namespace consoleXstreamX.Capture
             new GraphBuilder.Startup().RunGraph();
         }
 
+        public static void ChangeCrossbarConnection()
+        {
+            if (XBar != null) Crossbar.Check();
+        }
+
         public static void SetWait()
         {
             var image = Home.wait;

@@ -12,6 +12,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
         private Form1 _form1;
         private string _strFpsCheck;
         private int _intSampleFrame;
+        private int _numberOfLines;
 
         public void GetForm1Handle(Form1 inForm) { _form1 = inForm; }
 
@@ -27,7 +28,16 @@ namespace consoleXstreamX.Capture.GraphBuilder
             {
                 _intSampleFrame++;
             }
+            /*
+            if (VideoCapture.IamAvd == null) return 0;
+            int lineCount;
+            VideoCapture.IamAvd.get_NumberOfLines(out lineCount);
+            if (_numberOfLines == 0) _numberOfLines = lineCount;
+            if (_numberOfLines == lineCount) return 0;
 
+            _numberOfLines = lineCount;
+            ResolutionController.ChangeResolution(lineCount);
+            */
             return 0;
         }
 

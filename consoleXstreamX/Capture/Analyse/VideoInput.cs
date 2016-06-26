@@ -28,7 +28,7 @@ namespace consoleXstreamX.Capture.Analyse
 
                 while (VideoCapture.CaptureDevices.FirstOrDefault(s => s.Title == title) != null)
                 {
-                    title = $"{obj.Name} ({deviceId}";
+                    title = $"{obj.Name} ({deviceId})";
                     deviceId++;
                 }
 

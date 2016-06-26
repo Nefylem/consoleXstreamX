@@ -28,7 +28,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             if (VideoCapture.UseCrossbar)
             {
                 var xbar = crossbar.Create(pins.Video.In, pins.Audio.In, VideoCapture.CurrentVideoShort, pCaptureDevice);
-                if (xbar.Found) crossbar.Check();
+                if (xbar.Found) Crossbar.Check();
             }
 
             new VideoResolution().Set(pCaptureDevice, pins.Video.Out);

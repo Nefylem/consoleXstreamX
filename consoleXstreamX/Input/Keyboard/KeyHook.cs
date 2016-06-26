@@ -44,7 +44,7 @@ namespace consoleXstreamX.Input.Keyboard
                 return;
             }
 
-            if (index > -1) _keys.RemoveAt(index);
+            if (index > -1) _keys.Remove(key);
         }
 
         public static bool GetKey(string key)
@@ -52,6 +52,5 @@ namespace consoleXstreamX.Input.Keyboard
             if (key == null) return false;
             return _keys.IndexOf(key.ToLower()) > -1;
         }
-
     }
 }

@@ -54,12 +54,25 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
 
         public static void Execute(string command)
         {
+            MenuCommand.OkWait = 10;
             if (command.IndexOf("Video_", StringComparison.CurrentCultureIgnoreCase) > -1)
                 VideoCapture.CrossbarVideo = command;
             else
                 VideoCapture.CrossbarAudio = command;
-            VideoCapture.SetWait();
-            VideoCapture.RunGraph();
+
+            VideoCapture.MediaControl.StopWhenReady();
+            VideoCapture.ChangeCrossbarConnection();
+            VideoCapture.MediaControl.Run();
+            ResetSelected();
+        }
+
+        private static void ResetSelected()
+        {
+            Shutter.CheckedItems.Clear();
+            var videoPin = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].VideoInput;
+            var audioPin = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].AudioInput;
+            if (!string.IsNullOrEmpty(videoPin)) Shutter.CheckedItems.Add(videoPin);
+            if (!string.IsNullOrEmpty(audioPin)) Shutter.CheckedItems.Add(audioPin);
         }
     }
 }
