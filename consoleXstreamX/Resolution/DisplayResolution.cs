@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using consoleXstreamX.DisplayMenu;
 
 namespace consoleXstreamX.Resolution
@@ -11,8 +12,9 @@ namespace consoleXstreamX.Resolution
     {
         public static void Change(int height)
         {
+            if (Screen.PrimaryScreen.Bounds.Height == height) return;
             var currentResolution = VideoResolution.Get(Configuration.Settings.GraphicsCardId);
-            if (currentResolution.Height == height) return;
+            //if (currentResolution.Height == height) return;
 
             var availableResolution = VideoResolution.List(Configuration.Settings.GraphicsCardId);
             if (availableResolution.Count == 0) return;
