@@ -7,6 +7,7 @@ using consoleXstreamX.Debugging;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 using consoleXstreamX.Input.Keyboard;
+using consoleXstreamX.Resolution;
 
 namespace consoleXstreamX
 {
@@ -27,6 +28,7 @@ namespace consoleXstreamX
 
         private void Setup()
         {
+            //Todo: get the starting display resolution so we can swap back to it when exiting
             new Logging().Cleanup();
             Shortcuts.Load();
             SetWindow();
@@ -69,8 +71,15 @@ namespace consoleXstreamX
         private void timer_Tick(object sender, EventArgs e)
         {
             if (MenuController.Shutdown) CloseApplication();
-            if (Settings.AutoSetCaptureResolution) VideoCapture.CheckResolution();
+            CheckResolution();
             CheckControllerInput();
+        }
+
+        private void CheckResolution()
+        {
+            var height = 0;
+            if (Settings.AutoSetCaptureResolution) height = VideoCapture.CheckResolution();
+            if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
         }
 
         private void CheckControllerInput()

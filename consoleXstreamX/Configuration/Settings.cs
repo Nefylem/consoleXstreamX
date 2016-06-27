@@ -31,9 +31,11 @@ namespace consoleXstreamX.Configuration
         public static bool StayOnTop;
         public static bool AutoSetDisplayResolution;
         public static bool AutoSetCaptureResolution;
+        public static bool Fullscreen;
         public static string RefreshRate;
         public static string DisplayResolution;
-        public static bool Fullscreen;
+        public static string GraphicsCard;
+        public static int GraphicsCardId;
 
         //Output
         public static bool UseCronusMax;
@@ -55,6 +57,7 @@ namespace consoleXstreamX.Configuration
 
         static Settings()
         {
+            AutoSetDisplayResolution = true;
             AutoSetCaptureResolution = true;
             NormalizeControls = true;
             UseShortcutKeys = true;

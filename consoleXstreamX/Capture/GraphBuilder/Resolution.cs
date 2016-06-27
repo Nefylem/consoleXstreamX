@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using consoleXstreamX.Debugging;
+using consoleXstreamX.Resolution;
 using DirectShowLib;
 
 namespace consoleXstreamX.Capture.GraphBuilder
@@ -14,19 +15,12 @@ namespace consoleXstreamX.Capture.GraphBuilder
 
             if (lineCount <= 0) return 0;
 
-            //System.AutoChangeResolution(lineCount);
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
             var res = device.Resolution.FirstOrDefault(s => s.Height == lineCount);
             if (res != null) VideoCapture.CurrentResolutionIndex = res.Index;
-            /*
-            for (var count = 0; count < device.Resolution.Count; count++)
-            {
-                if (lineCount == device.Resolution[count].Height)
-                {
-                    VideoCapture.CurrentResolutionIndex = count;
-                }
-            }
-            */
+            //DisplayResolution.Change(lineCount);
+
+            //todo: check if the avi renderer is breaking the graph at low resolutions
             return VideoCapture.CurrentResolutionIndex;
         }
 

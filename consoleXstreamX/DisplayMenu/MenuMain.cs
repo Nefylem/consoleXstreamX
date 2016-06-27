@@ -88,6 +88,7 @@ namespace consoleXstreamX.DisplayMenu
             KeyboardInput.Check();
             GamepadInput.Check();
 
+            PositionMenu();
             DrawPanel();
 
             BringToFront();

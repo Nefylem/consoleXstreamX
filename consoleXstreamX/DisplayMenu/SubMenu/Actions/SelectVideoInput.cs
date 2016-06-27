@@ -56,13 +56,18 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
         {
             MenuCommand.OkWait = 10;
             if (command.IndexOf("Video_", StringComparison.CurrentCultureIgnoreCase) > -1)
+            {
                 VideoCapture.CrossbarVideo = command;
+                if (string.Equals(command, "Video_SerialDigital", StringComparison.CurrentCultureIgnoreCase)) VideoCapture.CrossbarAudio = "audio_spdifdigital";
+                if (string.Equals(command, "Video_YrYbY", StringComparison.CurrentCultureIgnoreCase)) VideoCapture.CrossbarAudio = "Audio_Line";
+            }
             else
                 VideoCapture.CrossbarAudio = command;
 
-            VideoCapture.MediaControl.StopWhenReady();
+            //VideoCapture.MediaControl.StopWhenReady();
             VideoCapture.ChangeCrossbarConnection();
             VideoCapture.MediaControl.Run();
+
             ResetSelected();
         }
 

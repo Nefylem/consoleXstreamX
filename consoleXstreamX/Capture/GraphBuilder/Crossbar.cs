@@ -101,6 +101,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
                     };
                 }
             }
+
             for (var count = 0; count < outputs.Audio.Count; count++)
             {
                 if (string.Equals(outputs.Audio[count], type, StringComparison.CurrentCultureIgnoreCase))
@@ -112,6 +113,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
                     };
                 }
             }
+
             return result;
         }
 

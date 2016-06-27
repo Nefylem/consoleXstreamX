@@ -25,9 +25,9 @@ namespace consoleXstreamX.Capture
             Crossbar.Check();
         }
 
-        public static void CheckResolution()
+        public static int CheckResolution()
         {
-            ResolutionController.Check();
+            return ResolutionController.Check();
         }
 
         public static void SetWait()
