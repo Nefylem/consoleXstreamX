@@ -72,6 +72,7 @@ namespace consoleXstreamX.Debugging
         private static string SetLogFile(string type)
         {
             if (type.IndexOf(".capture.", StringComparison.CurrentCultureIgnoreCase) > -1) return "video.log";
+            if (type.IndexOf(".titanone.", StringComparison.CurrentCultureIgnoreCase) > -1) return "titanone.log";
             return "cxsx.log";
         }
 

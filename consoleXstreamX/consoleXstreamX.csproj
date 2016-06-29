@@ -75,6 +75,7 @@
     <Compile Include="Capture\Startup.cs" />
     <Compile Include="Capture\VideoCapture.cs" />
     <Compile Include="Configuration\MenuSettings.cs" />
+    <Compile Include="Configuration\Player.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Debugging\Debug.cs" />
     <Compile Include="Debugging\Logging.cs" />
@@ -101,6 +102,9 @@
     <Compile Include="DisplayMenu\SubMenu\Shutter.cs" />
     <Compile Include="DisplayMenu\SubMenu\ShutterCommand.cs" />
     <Compile Include="DisplayMenu\Tile.cs" />
+    <Compile Include="Output\CronusmaxPlus.cs" />
+    <Compile Include="Output\Titanone.cs" />
+    <Compile Include="Output\CmPlus.cs" />
     <Compile Include="Resolution\DisplayResolution.cs" />
     <Compile Include="Drawing\Draw.cs" />
     <Compile Include="Form1.cs">
@@ -150,7 +154,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Output\" />
     <Folder Include="Remap\" />
   </ItemGroup>
   <ItemGroup>

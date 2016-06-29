@@ -7,6 +7,7 @@ using consoleXstreamX.Debugging;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 using consoleXstreamX.Input.Keyboard;
+using consoleXstreamX.Output;
 using consoleXstreamX.Resolution;
 
 namespace consoleXstreamX
@@ -85,6 +86,7 @@ namespace consoleXstreamX
         private void CheckControllerInput()
         {
             var input = Gamepad.Check(1);
+            CmPlus.Send(input);
             if (KeyHook.GetKey("ESCAPE")) MenuController.Open();
         }
 
