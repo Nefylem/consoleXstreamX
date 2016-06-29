@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace consoleXstreamX.Configuration
 {
-    class Player
+    internal static class Player
     {
     }
 }

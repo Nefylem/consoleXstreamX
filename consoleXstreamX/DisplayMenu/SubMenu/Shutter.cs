@@ -72,7 +72,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
             End = Start + MenuSettings.CellHeight;
             Height = 0;
 
-            if (Fps.Count > 0)
+            if (Fps.Count > 10)
                 SlideSpeed = Fps.Count/3;
             else
                 SlideSpeed = 10;

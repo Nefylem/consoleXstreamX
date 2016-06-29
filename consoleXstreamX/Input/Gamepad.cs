@@ -9,7 +9,7 @@ namespace consoleXstreamX.Input
     internal static class Gamepad
     {
         public static int PressHome;
-        private static int _xboxButtonCount = 0;
+        private static int _xboxButtonCount;
 
         public class GamepadOutput
         {
@@ -130,6 +130,16 @@ namespace consoleXstreamX.Input
             //Return values
             dblLx = dblNewX;
             dblLy = dblNewY;
+        }
+
+        public static void SetState(int index, double leftMotor, double rightMotor)
+        {
+            var vibration = new XInputVibration()
+            {
+                LeftMotorSpeed = (ushort)(65535d * leftMotor),
+                RightMotorSpeed = (ushort)(65535d * rightMotor)
+            };
+            Imports.XInputSetState(index, ref vibration);
         }
 
         private static PlayerIndex FindPlayerIndex(int index)

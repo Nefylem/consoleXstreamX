@@ -35,16 +35,21 @@ namespace consoleXstreamX
             SetWindow();
             KeyHook.Enable();
             VideoCapture.Startup(this);
+            if (Settings.UseCronusMaxPlus) CronusmaxPlus.Open();
         }
 
         private void SetWindow()
         {
-            //Todo: check between fullscreen modes
+            
             WindowState = FormWindowState.Normal;
             FormBorderStyle = FormBorderStyle.None;
             Bounds = Screen.PrimaryScreen.Bounds;
             Activate();
-
+            /*
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
+            Activate();
+            */
             display.Dock = DockStyle.Fill;
             display.BackColor = Color.Black;
 
@@ -74,13 +79,14 @@ namespace consoleXstreamX
             if (MenuController.Shutdown) CloseApplication();
             CheckResolution();
             CheckControllerInput();
+
         }
 
         private void CheckResolution()
         {
             var height = 0;
             if (Settings.AutoSetCaptureResolution) height = VideoCapture.CheckResolution();
-            if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
+            //if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
         }
 
         private void CheckControllerInput()
@@ -94,6 +100,7 @@ namespace consoleXstreamX
         {
             timer.Enabled = false;
             VideoCapture.CloseGraph();
+            CronusmaxPlus.Close();
             Application.DoEvents();
             Application.Exit();
         }

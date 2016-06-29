@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using consoleXstreamX.Debugging;
 
 namespace consoleXstreamX.Output
 {
-    class CronusmaxPlus
+    internal static class CronusmaxPlus
     {
         [DllImport("kernel32.dll")]
         public static extern IntPtr LoadLibrary(string dllToLoad);
@@ -83,7 +84,7 @@ namespace consoleXstreamX.Output
         public static GcapiCalcpresstimePtr PressTime;
         public static GcapiUnloadPtr Unload;
 
-        public void Open()
+        public static void Open()
         {
             Debug.Log("[0] Opening ControllerMax api");
             var file = FindDll();
@@ -172,7 +173,7 @@ namespace consoleXstreamX.Output
             return pointer;
         }
 
-        public void Close()
+        public static void Close()
         {
             Unload?.Invoke();
 

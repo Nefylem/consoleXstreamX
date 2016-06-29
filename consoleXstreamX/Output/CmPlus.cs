@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using consoleXstreamX.Configuration;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 
@@ -19,7 +20,7 @@ namespace consoleXstreamX.Output
             CronusmaxPlus.Write(player.Output);
             var report = new CronusmaxPlus.Report();
             if (CronusmaxPlus.Read(ref report) == IntPtr.Zero) return;
-
+            if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
         }
     }
 }

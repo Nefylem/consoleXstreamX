@@ -36,23 +36,25 @@ namespace consoleXstreamX.Capture.GraphBuilder
         public static void Change()
         {
             if (VideoCapture.MediaControl == null) return;
-            VideoCapture.MediaControl.Stop();
-            VideoCapture.ClearGraph();
             VideoCapture.RunGraph();
-            _busy = false;
+
             /*
             VideoCapture.MediaControl.Stop();
-            var pin = new Pin();
-            var hr = ((IAMStreamConfig)pin.Get(VideoCapture.CaptureDevice, VideoCapture.CaptureFeedOut)).SetFormat(targetResolution.MediaType);
-            if (hr != 0)
-            {
-                Debug.Log($"[NG] Failed to set resolution {targetResolution.GetRes()}");
-                Debug.Log("-> " + DsError.GetErrorText(hr));
-                return;
-            }
-            Debug.Log($"[OK] Changed resolution to {targetResolution.GetRes()}");
-            VideoCapture.MediaControl.Run();
             */
+            //VideoCapture.CaptureDevice = pCaptureDevice;
+            //VideoCapture.CaptureFeedOut = pins.Video.Out;
+            /*
+            VideoCapture.MediaControl.Stop();
+            var resolution = new Resolution();
+            resolution.Set(VideoCapture.CaptureDevice, VideoCapture.CaptureFeedOut);
+            var hr = VideoCapture.MediaControl.Run();
+            if (hr < 0)
+            {
+                var error = DsError.GetErrorText(hr);
+                var b = 1;
+            }
+            */
+            _busy = false;
         }
 
     }

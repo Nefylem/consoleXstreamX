@@ -38,7 +38,7 @@ namespace consoleXstreamX.Configuration
         public static int GraphicsCardId;
 
         //Output
-        public static bool UseCronusMax;
+        public static bool UseCronusMaxPlus;
         public static bool UseTitanOne;
         public static bool UseTitanOneApi;
         public static bool UseGimxRemote;
@@ -57,8 +57,12 @@ namespace consoleXstreamX.Configuration
 
         static Settings()
         {
+            UseCronusMaxPlus = true;
+            UseTitanOne = true;
+
             AutoSetDisplayResolution = true;
             AutoSetCaptureResolution = true;
+
             NormalizeControls = true;
             UseShortcutKeys = true;
             StayOnTop = true;
