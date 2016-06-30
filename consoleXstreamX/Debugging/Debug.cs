@@ -72,7 +72,9 @@ namespace consoleXstreamX.Debugging
         private static string SetLogFile(string type)
         {
             if (type.IndexOf(".capture.", StringComparison.CurrentCultureIgnoreCase) > -1) return "video.log";
-            if (type.IndexOf(".titanone.", StringComparison.CurrentCultureIgnoreCase) > -1) return "titanone.log";
+            if (type.IndexOf(".titanone", StringComparison.CurrentCultureIgnoreCase) > -1) return "titanone.log";
+            if (type.IndexOf(".CronusmaxPlus", StringComparison.CurrentCultureIgnoreCase) > -1) return "CronusmaxPlus.log";
+            if (type.IndexOf(".CmPlus", StringComparison.CurrentCultureIgnoreCase) > -1) return "CronusmaxPlus.log";
             return "cxsx.log";
         }
 

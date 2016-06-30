@@ -60,7 +60,7 @@ namespace consoleXstreamX.Configuration
             UseCronusMaxPlus = true;
             UseTitanOne = true;
 
-            AutoSetDisplayResolution = true;
+            AutoSetDisplayResolution = false;
             AutoSetCaptureResolution = true;
 
             NormalizeControls = true;
