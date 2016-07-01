@@ -24,7 +24,7 @@ namespace consoleXstreamX
         private void Form1_Load(object sender, EventArgs e)
         {
             Setup();
-            //timer.Enabled = true;
+            timer.Enabled = true;
         }
 
         private void Setup()
@@ -82,10 +82,27 @@ namespace consoleXstreamX
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            /*
+            if (Settings.UseTitanOne)
+            {
+                if (!TitanOne.CheckedDevices)
+                {
+                    if (TitanOne.CheckWait > 1000)
+                    {
+                        TitanOne.CheckedDevices = true;
+                        TitanOne.FindDevices();
+                        TitanOne.CheckWait = 0;
+                    }
+                    else TitanOne.CheckWait++;
+                    this.Text = TitanOne.CheckWait.ToString();
+                }
+            }
+            */
+            /*
             if (MenuController.Shutdown) CloseApplication();
             CheckResolution();
             CheckControllerInput();
-
+            */
         }
 
         private void CheckResolution()
