@@ -24,18 +24,21 @@ namespace consoleXstreamX
         private void Form1_Load(object sender, EventArgs e)
         {
             Setup();
-            timer.Enabled = true;
+            //timer.Enabled = true;
         }
 
         private void Setup()
         {
+            /*
             //Todo: get the starting display resolution so we can swap back to it when exiting
             new Logging().Cleanup();
             Shortcuts.Load();
             SetWindow();
             KeyHook.Enable();
             VideoCapture.Startup(this);
-            if (Settings.UseCronusMaxPlus) CronusmaxPlus.Open();
+            */
+            //if (Settings.UseCronusMaxPlus) CronusmaxPlus.Open();
+            if (Settings.UseTitanOne) TitanOne.Open();
         }
 
         private void SetWindow()
@@ -119,6 +122,12 @@ namespace consoleXstreamX
                 Bounds = Screen.PrimaryScreen.Bounds;
                 Activate();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //Settings.SaveConfiguration();
+            Settings.LoadConfiguration();
         }
     }
 }

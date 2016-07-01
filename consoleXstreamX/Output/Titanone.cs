@@ -6,7 +6,7 @@ using consoleXstreamX.Debugging;
 
 namespace consoleXstreamX.Output
 {
-    class Titanone
+    internal static class TitanOne
     {
         [DllImport("kernel32.dll")]
         public static extern IntPtr LoadLibrary(string dllToLoad);
@@ -75,7 +75,6 @@ namespace consoleXstreamX.Output
         public static void Open()
         {
             var file = FindDll();
-
             if (string.IsNullOrEmpty(file))
             {
                 Debug.Log("Error loading TitanOne gcdapi.dll");
@@ -160,7 +159,6 @@ namespace consoleXstreamX.Output
         public static void Close()
         {
             Unload?.Invoke();
-
             Connect = null;
             Serial = null;
             Connected = null;

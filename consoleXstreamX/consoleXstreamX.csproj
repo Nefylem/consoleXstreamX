@@ -38,6 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -103,7 +104,7 @@
     <Compile Include="DisplayMenu\SubMenu\ShutterCommand.cs" />
     <Compile Include="DisplayMenu\Tile.cs" />
     <Compile Include="Output\CronusmaxPlus.cs" />
-    <Compile Include="Output\Titanone.cs" />
+    <Compile Include="Output\TitanOne.cs" />
     <Compile Include="Output\CmPlus.cs" />
     <Compile Include="Resolution\DisplayResolution.cs" />
     <Compile Include="Drawing\Draw.cs" />
