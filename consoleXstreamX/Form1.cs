@@ -29,21 +29,24 @@ namespace consoleXstreamX
 
         private void Setup()
         {
+            new Logging().Cleanup();
             /*
             //Todo: get the starting display resolution so we can swap back to it when exiting
-            new Logging().Cleanup();
             Shortcuts.Load();
             SetWindow();
             KeyHook.Enable();
             VideoCapture.Startup(this);
             */
             //if (Settings.UseCronusMaxPlus) CronusmaxPlus.Open();
-            if (Settings.UseTitanOne) TitanOne.Open();
+            if (Settings.UseTitanOne)
+            {
+                TitanOne.Open();
+                TitanOne.FindDevices();
+            }
         }
 
         private void SetWindow()
         {
-            
             WindowState = FormWindowState.Normal;
             FormBorderStyle = FormBorderStyle.None;
             Bounds = Screen.PrimaryScreen.Bounds;
@@ -95,7 +98,7 @@ namespace consoleXstreamX
         private void CheckControllerInput()
         {
             var input = Gamepad.Check(1);
-            CmPlus.Send(input);
+            CronusmaxPlus.Send(input);
             if (KeyHook.GetKey("ESCAPE")) MenuController.Open();
         }
 

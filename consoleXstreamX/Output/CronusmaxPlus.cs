@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using consoleXstreamX.Configuration;
 using consoleXstreamX.Debugging;
+using consoleXstreamX.DisplayMenu;
+using consoleXstreamX.Input;
 
 namespace consoleXstreamX.Output
 {
@@ -83,6 +86,10 @@ namespace consoleXstreamX.Output
         public static GcapiReadCmPtr Read;
         public static GcapiCalcpresstimePtr PressTime;
         public static GcapiUnloadPtr Unload;
+
+        private static bool _notConnected;
+        private static bool _connected;
+        private static bool _notCreated;
 
         public static void Open()
         {
@@ -171,6 +178,42 @@ namespace consoleXstreamX.Output
             var pointer = GetProcAddress(dll, function);
             Debug.Log(pointer == IntPtr.Zero ? $"[0] [NG] {function} alloc fail" : $"[5] [OK] {function}");
             return pointer;
+        }
+
+        public static void Send(Gamepad.GamepadOutput player)
+        {
+            if (Write == null)
+            {
+                if (!_notCreated)
+                {
+                    _notCreated = true;
+                    Debug.Log("Device API not properly created");
+                }
+                return;
+            }
+            if (MenuController.Visible) return;
+            if (Connected() != 1)
+            {
+                if (!_notConnected)
+                {
+                    _notConnected = true;
+                    _connected = false;
+                    Debug.Log("Device not connected");
+                }
+                return;
+            }
+
+            if (!_connected)
+            {
+                _connected = true;
+                _notConnected = false;
+                Debug.Log("Device connected");
+            }
+
+            Write(player.Output);
+            var report = new Report();
+            if (Read(ref report) == IntPtr.Zero) return;
+            if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
         }
 
         public static void Close()

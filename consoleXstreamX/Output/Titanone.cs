@@ -64,6 +64,14 @@ namespace consoleXstreamX.Output
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         public delegate IntPtr GcmapiRead(int device, [In, Out] ref GcmapiReport gcapiReport);
 
+        public enum DevPid
+        {
+            Any = 0x000,
+            ControllerMax = 0x001,
+            Cronus = 0x002,
+            TitanOne = 0x003
+        };
+
         public static GcmapiLoad Load;
         public static GcmapiUnload Unload;
         public static GcmapiConnect Connect;
@@ -154,6 +162,80 @@ namespace consoleXstreamX.Output
                 if (File.Exists(item)) return item;
             }
             return "";
+        }
+
+        public static void FindDevices()
+        {
+            if (Connect == null) return;
+            var deviceCount = Load();
+            Connect((ushort)DevPid.TitanOne);
+            for (var count = 0; count <= deviceCount; count++)
+            {
+                if (Connected(count) == 0) continue;
+                var serial = ReadSerial(count);
+                var b = 1;
+            }
+            var c = 1;
+            /*
+             * var result = _deviceCount;
+            for (var count = 0; count < _deviceCount; count++)
+            {
+                if (_class.MDefine.GcmapiIsConnected(count) == 0) 
+                    result = 0;
+            }
+
+            _timeOut--;
+            if (_timeOut == 0)
+                return -1;
+
+            if (result != 0)
+            {
+                //_class.System.Debug("listAll.log", "result : " + result + " now reading serials");
+                ReadSerials();
+            }
+
+            return result;  
+            */
+            /*
+            for (var count = 0; count < _deviceCount; count++)
+            {
+                var serial = new byte[20];
+                var ret = _class.MDefine.GcmapiGetSerialNumber(count);
+                Marshal.Copy(ret, serial, 0, 20);
+                var disp = "";
+
+                for (var counter = 0; counter < 20; counter++)
+                {
+                    disp += String.Format("{0:X2}", serial[counter]);
+                }
+
+                //Load config on each of these devices
+                _class.MWrite.AddDevice(disp);
+
+                if (_class.FrmMain.ListToDevices == null)
+                    _class.FrmMain.ListToDevices = new List<string>();
+
+                _class.FrmMain.ListToDevices.Add(disp);
+            }
+
+            if (_class.FrmMain.RetrySetTitanOne == null) return;
+            if (_class.FrmMain.RetrySetTitanOne.Length <= 0) return;
+            _class.MWrite.SetDevice(_class.FrmMain.RetrySetTitanOne);
+            _class.FrmMain.RetrySetTitanOne = "";
+            */
+        }
+
+        private static string ReadSerial(int devId)
+        {
+            var serial = new byte[20];
+            var ret = Serial(devId);
+            Marshal.Copy(ret, serial, 0, 20);
+            var serialNo = "";
+            foreach (var item in serial)
+            {
+                serialNo += string.Format("{0:X2}", item);
+            }
+            return serialNo;
         }
 
         public static void Close()
