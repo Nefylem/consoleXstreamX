@@ -24,25 +24,23 @@ namespace consoleXstreamX
         private void Form1_Load(object sender, EventArgs e)
         {
             Setup();
-            timer.Enabled = true;
         }
 
         private void Setup()
         {
             new Logging().Cleanup();
-            /*
-            //Todo: get the starting display resolution so we can swap back to it when exiting
+            Settings.LoadConfiguration();
             Shortcuts.Load();
             SetWindow();
             KeyHook.Enable();
-            VideoCapture.Startup(this);
-            */
-            //if (Settings.UseCronusMaxPlus) CronusmaxPlus.Open();
+            if (Settings.UseCronusMaxPlus) CronusmaxPlus.Open();
             if (Settings.UseTitanOne)
             {
                 TitanOne.Open();
                 TitanOne.FindDevices();
             }
+            VideoCapture.Startup(this);
+            timer.Enabled = true;
         }
 
         private void SetWindow()
@@ -98,11 +96,9 @@ namespace consoleXstreamX
                 }
             }
             */
-            /*
             if (MenuController.Shutdown) CloseApplication();
             CheckResolution();
             CheckControllerInput();
-            */
         }
 
         private void CheckResolution()
@@ -122,6 +118,7 @@ namespace consoleXstreamX
         private void CloseApplication()
         {
             timer.Enabled = false;
+            Application.DoEvents();
             VideoCapture.CloseGraph();
             CronusmaxPlus.Close();
             Application.DoEvents();

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using consoleXstreamX.Capture.Analyse;
 using consoleXstreamX.Capture.GraphBuilder;
+using consoleXstreamX.Capture.Settings;
 using consoleXstreamX.Debugging;
 using DirectShowLib;
 
@@ -12,12 +14,21 @@ namespace consoleXstreamX.Capture
         internal static void Startup(Form1 form1)
         {
             if (form1 != null) Home = form1;
-            new Startup().Execute();
+
+            new VideoInput().Find();
+            new AudioRenderer().Find();
+            new UserSettings().Read();
+            new CaptureResolution().List();
+
+            InitializeGraph = true;
+            RestartGraph = true;
+
+            GraphBuilder.Startup.RunGraph();
         }
 
         public static void RunGraph()
         {
-            new GraphBuilder.Startup().RunGraph();
+            GraphBuilder.Startup.RunGraph();
         }
 
         public static void ChangeCrossbarConnection()
@@ -80,9 +91,6 @@ namespace consoleXstreamX.Capture
         public static string CurrentAudio;
         public static string CurrentResolution;
 
-        public static string CrossbarAudio;
-        public static string CrossbarVideo;
-
         public static List<VideoCaptureDevices> CaptureDevices;
         public static List<string> AudioDevices;
 
@@ -115,6 +123,9 @@ namespace consoleXstreamX.Capture
         public class VideoCaptureDevices
         {
             public string Title;
+
+            public string CrossbarAudio;
+            public string CrossbarVideo;
             public int CurrentResolution;
             public List<VideoCaptureResolution> Resolution;
 

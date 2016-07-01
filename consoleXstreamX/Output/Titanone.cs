@@ -204,12 +204,14 @@ namespace consoleXstreamX.Output
 
             if (Connect == null) return results;
             var deviceCount = Load();
+            Debug.Log($"Number of devices found: {deviceCount}");
             Connect((ushort) DevPid.TitanOne);
             Thread.Sleep(10);
             for (var count = 0; count <= deviceCount; count++)
             {
                 if (Connected(count) == 0) continue;
                 var serial = ReadSerial(count);
+                Debug.Log($"Device found: [ID]{count} [SERIAL]{serial}");
                 results.Add(new TitanDevices()
                 {
                     Id = count,

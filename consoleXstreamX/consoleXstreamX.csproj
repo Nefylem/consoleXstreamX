@@ -73,7 +73,6 @@
     <Compile Include="Capture\GraphBuilder\VideoConnectors.cs" />
     <Compile Include="Capture\GraphBuilder\VideoRender.cs" />
     <Compile Include="Capture\Settings\UserSettings.cs" />
-    <Compile Include="Capture\Startup.cs" />
     <Compile Include="Capture\VideoCapture.cs" />
     <Compile Include="Configuration\MenuSettings.cs" />
     <Compile Include="Configuration\Player.cs" />

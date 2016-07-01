@@ -33,12 +33,16 @@ namespace consoleXstreamX.Configuration
         public static bool EnableKeyboard;
 
         //Capture
+        public static string CaptureDevice;
+        public static string CaptureAudio;
+        public static string CrossbarVideo;
+        public static string CrossbarAudio;
+
         public static bool CheckFps;
         public static bool StayOnTop;
         public static bool AutoSetDisplayResolution;
         public static bool AutoSetCaptureResolution;
         public static bool Fullscreen;
-        public static string CaptureDevice;
         public static string RefreshRate;
         public static string DisplayResolution;
         public static string GraphicsCard;
@@ -141,7 +145,6 @@ namespace consoleXstreamX.Configuration
                 }
             }
             reader.Close();
-            MessageBox.Show(CaptureDevice);
         }
 
         private static bool GetBool(string write)

@@ -62,17 +62,15 @@ namespace consoleXstreamX.Capture.GraphBuilder
         public static void Check()
         {
             if (VideoCapture.XBar == null) return;
-
-            if (!string.IsNullOrEmpty(VideoCapture.CrossbarVideo) && !string.Equals(VideoCapture.CrossbarVideo, "none"))
+            var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
+            if (!string.IsNullOrEmpty(device.CrossbarVideo) && !string.Equals(device.CrossbarVideo, "none"))
             {
-                Set(VideoCapture.CrossbarVideo, "Video");
-                VideoCapture.CrossbarVideo = "";
+                Set(device.CrossbarVideo, "Video");
             }
 
-            if (!string.IsNullOrEmpty(VideoCapture.CrossbarAudio) && !string.Equals(VideoCapture.CrossbarAudio, "none"))
+            if (!string.IsNullOrEmpty(device.CrossbarAudio) && !string.Equals(device.CrossbarAudio, "none"))
             {
-                Set(VideoCapture.CrossbarAudio, "Audio");
-                VideoCapture.CrossbarAudio = "";
+                Set(device.CrossbarAudio, "Audio");
             }
         }
 
@@ -81,7 +79,6 @@ namespace consoleXstreamX.Capture.GraphBuilder
             var changeXbar = Find(type, "");
             Debug.Log($"Change crossbar command ({description}): {changeXbar.Type} / {changeXbar.Pin}");
             Change(changeXbar);
-            VideoCapture.CrossbarVideo = "";
         }
 
         private static CrossbarTarget Find(string type, string description)

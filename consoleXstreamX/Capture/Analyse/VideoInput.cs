@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using consoleXstreamX.Debugging;
 using DirectShowLib;
+using static System.String;
 
 namespace consoleXstreamX.Capture.Analyse
 {
@@ -40,14 +42,7 @@ namespace consoleXstreamX.Capture.Analyse
             }
             Debug.Log("");
 
-            if (!VideoCapture.ActiveVideo) FindCurrent();
         }
 
-        public void FindCurrent()
-        {
-            if (string.IsNullOrEmpty(Configuration.Settings.CaptureDevice)) return;
-            var index = VideoCapture.CaptureDevices.FindIndex(s => s.Title.ToLower() == Configuration.Settings.CaptureDevice);
-            if (index > -1) VideoCapture.CurrentVideoDevice = index;
-        }
     }
 }

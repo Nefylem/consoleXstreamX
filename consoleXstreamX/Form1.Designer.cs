@@ -32,7 +32,6 @@
             this.display = new System.Windows.Forms.PictureBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.wait = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wait)).BeginInit();
             this.SuspendLayout();
@@ -62,22 +61,11 @@
             this.wait.TabStop = false;
             this.wait.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(454, 261);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.wait);
             this.Controls.Add(this.display);
             this.Name = "Form1";
@@ -95,7 +83,6 @@
         public System.Windows.Forms.PictureBox display;
         public System.Windows.Forms.Timer timer;
         public System.Windows.Forms.PictureBox wait;
-        private System.Windows.Forms.Button button1;
     }
 }
 

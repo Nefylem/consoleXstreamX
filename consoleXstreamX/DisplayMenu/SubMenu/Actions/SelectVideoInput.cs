@@ -54,17 +54,21 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
 
         public static void Execute(string command)
         {
+            var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
             MenuCommand.OkWait = 10;
             if (command.IndexOf("Video_", StringComparison.CurrentCultureIgnoreCase) > -1)
             {
-                VideoCapture.CrossbarVideo = command;
-                if (string.Equals(command, "Video_SerialDigital", StringComparison.CurrentCultureIgnoreCase)) VideoCapture.CrossbarAudio = "audio_spdifdigital";
-                if (string.Equals(command, "Video_YrYbY", StringComparison.CurrentCultureIgnoreCase)) VideoCapture.CrossbarAudio = "Audio_Line";
+                device.CrossbarVideo = command;
+                if (string.Equals(command, "Video_SerialDigital", StringComparison.CurrentCultureIgnoreCase)) device.CrossbarAudio = "Audio_SpdifDigital";
+                if (string.Equals(command, "Video_YrYbY", StringComparison.CurrentCultureIgnoreCase)) device.CrossbarAudio = "Audio_Line";
             }
             else
-                VideoCapture.CrossbarAudio = command;
+                device.CrossbarAudio = command;
+            
+            Configuration.Settings.CrossbarVideo = device.CrossbarVideo;
+            Configuration.Settings.CrossbarAudio = device.CrossbarAudio;
+            Configuration.Settings.SaveConfiguration();
 
-            //VideoCapture.MediaControl.StopWhenReady();
             VideoCapture.ChangeCrossbarConnection();
             VideoCapture.MediaControl.Run();
 

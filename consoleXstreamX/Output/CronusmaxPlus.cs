@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using consoleXstreamX.Configuration;
 using consoleXstreamX.Debugging;
 using consoleXstreamX.DisplayMenu;

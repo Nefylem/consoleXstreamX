@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <InternalCapture>False</InternalCapture>
+  <Rumble>False</Rumble>
+  <Ps4ControllerMode>False</Ps4ControllerMode>
+  <NormalizeControls>True</NormalizeControls>
+  <BlockMenuCommand>False</BlockMenuCommand>
+  <UseShortcutKeys>True</UseShortcutKeys>
+  <HideMouse>False</HideMouse>
+  <EnableMouse>False</EnableMouse>
+  <EnableKeyboard>False</EnableKeyboard>
+  <CaptureDevice>AVerMedia U3 Video Capture (1)</CaptureDevice>
+  <CaptureAudio>Default WaveOut Device</CaptureAudio>
+  <CrossbarVideo>Video_SerialDigital</CrossbarVideo>
+  <CrossbarAudio>Audio_SpdifDigital</CrossbarAudio>
+  <CheckFps>True</CheckFps>
+  <StayOnTop>True</StayOnTop>
+  <AutoSetDisplayResolution>False</AutoSetDisplayResolution>
+  <AutoSetCaptureResolution>True</AutoSetCaptureResolution>
+  <Fullscreen>False</Fullscreen>
+  <GraphicsCardId>0</GraphicsCardId>
+  <UseCronusMaxPlus>True</UseCronusMaxPlus>
+  <UseTitanOne>True</UseTitanOne>
+  <UseTitanOneApi>False</UseTitanOneApi>
+  <UseGimxRemote>False</UseGimxRemote>
+  <GimxKeepAlive>0</GimxKeepAlive>
+  <SystemDebugLevel>5</SystemDebugLevel>
+  <DetailedLogs>0</DetailedLogs>
+</Configuration>

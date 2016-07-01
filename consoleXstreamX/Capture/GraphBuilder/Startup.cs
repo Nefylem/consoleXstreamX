@@ -4,9 +4,9 @@ using DirectShowLib;
 
 namespace consoleXstreamX.Capture.GraphBuilder
 {
-    class Startup
+    internal static class Startup
     {
-        public void RunGraph()
+        public static void RunGraph()
         {
             VideoCapture.ActiveVideo = false;
             Debug.Log("[0] Build capture graph");
@@ -52,14 +52,8 @@ namespace consoleXstreamX.Capture.GraphBuilder
 
             VideoCapture.ActiveVideo = true;
             VideoCapture.BuildingGraph = false;
-            /*
-        if (Class.Graph.XBar != null)
-            if (Class.Var.CrossbarInput.Count == 0)
-                Class.Crossbar.Output();
-
-        if (Class.Var.IsRestartGraph)
-            _intRestartGraph = 3;
-            */
+            Configuration.Settings.CaptureDevice = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].Title;
+            Configuration.Settings.SaveConfiguration();
         }
     }
 }
