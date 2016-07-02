@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using System.Xml;
-using System.Xml.Serialization;
-using System.Runtime.Serialization.Formatters.Soap;
 
 namespace consoleXstreamX.Configuration
 {
@@ -49,8 +42,13 @@ namespace consoleXstreamX.Configuration
         public static int GraphicsCardId;
 
         //Output
+        public static bool AllowCronusMaxPlus;
+        public static bool AllowTitanOne;
+        public static bool AllowGimx;
         public static bool UseCronusMaxPlus;
+        public static bool UseControllerMaxApi;
         public static bool UseTitanOne;
+        public static int UseTitanDevice;
         public static bool UseTitanOneApi;
         public static bool UseGimxRemote;
         public static string GimxAddress;
@@ -68,8 +66,12 @@ namespace consoleXstreamX.Configuration
 
         static Settings()
         {
+            AllowCronusMaxPlus = true;
+            AllowTitanOne = true;
+            AllowGimx = true;
+
             UseCronusMaxPlus = true;
-            UseTitanOne = true;
+            UseTitanOne = false;
 
             AutoSetDisplayResolution = false;
             AutoSetCaptureResolution = true;
@@ -78,6 +80,8 @@ namespace consoleXstreamX.Configuration
             UseShortcutKeys = true;
             StayOnTop = true;
             CheckFps = true;
+
+            EnableKeyboard = true;
 
             SystemDebugLevel = 5;
             DetailedLogs = 0;
@@ -93,17 +97,17 @@ namespace consoleXstreamX.Configuration
                 NewLineOnAttributes = true,
                 Indent = true
             };
-            using (XmlWriter writer = XmlWriter.Create("config.xml", xmlWriterSettings))
+            using (var writer = XmlWriter.Create("config.xml", xmlWriterSettings))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("Configuration");
 
-                foreach (FieldInfo field in fields)
+                foreach (var field in fields)
                 {
                     var value = field.GetValue(null);
                     if (value == null) continue;
                     writer.WriteElementString(field.Name, value.ToString());
-                };
+                }
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
@@ -112,6 +116,7 @@ namespace consoleXstreamX.Configuration
 
         public static void LoadConfiguration()
         {
+            if (!File.Exists("config.xml")) return;
             var settings = typeof(Settings);
             var fields = settings.GetFields(BindingFlags.Static | BindingFlags.Public);
 

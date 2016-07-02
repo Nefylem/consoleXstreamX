@@ -64,6 +64,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
         {
             if (OkWait > 0) return;
             OkWait = MenuCommand.SetMoveWait()*3;
+            if (string.Equals(MenuSettings.CurrentMenu, "Controller Output", StringComparison.CurrentCultureIgnoreCase)) SelectControllerOutput.Select(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Device", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDevice.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Display", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDisplay.Execute(Shutter.Selected);

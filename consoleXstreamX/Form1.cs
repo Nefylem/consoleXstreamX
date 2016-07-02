@@ -33,8 +33,8 @@ namespace consoleXstreamX
             Shortcuts.Load();
             SetWindow();
             KeyHook.Enable();
-            if (Settings.UseCronusMaxPlus) CronusmaxPlus.Open();
-            if (Settings.UseTitanOne)
+            if (Settings.AllowCronusMaxPlus) CronusmaxPlus.Open();
+            if (Settings.AllowTitanOne)
             {
                 TitanOne.Open();
                 TitanOne.FindDevices();
@@ -110,8 +110,19 @@ namespace consoleXstreamX
 
         private void CheckControllerInput()
         {
+            label1.Text = Settings.UseCronusMaxPlus.ToString();
+            label1.BringToFront();
+            label2.Text = Settings.UseTitanOne.ToString();
+            label2.BringToFront();
+
             var input = Gamepad.Check(1);
-            CronusmaxPlus.Send(input);
+            if (Settings.UseCronusMaxPlus) CronusmaxPlus.Send(input);
+            if (Settings.UseTitanOne) TitanOne.Send(input);
+            if (Settings.EnableKeyboard && !MenuController.Visible)
+            {
+                if (Settings.UseCronusMaxPlus) CronusmaxPlus.Send(KeyboardInterface.Read());
+                if (Settings.UseTitanOne) TitanOne.Send(KeyboardInterface.Read());
+            }
             if (KeyHook.GetKey("ESCAPE")) MenuController.Open();
         }
 

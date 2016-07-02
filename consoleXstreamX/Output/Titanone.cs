@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using consoleXstreamX.Configuration;
 using consoleXstreamX.Debugging;
+using consoleXstreamX.DisplayMenu;
+using consoleXstreamX.Input;
 
 namespace consoleXstreamX.Output
 {
@@ -28,7 +31,7 @@ namespace consoleXstreamX.Output
             public int PressTv; // Time marker for the button press event
         }
 
-        public struct GcmapiReport
+        public struct Report
         {
             public byte Console; // Receives values established by the #defines CONSOLE_*
             public byte Controller; // Values from #defines CONTROLLER_* and EXTENSION_*
@@ -63,7 +66,7 @@ namespace consoleXstreamX.Output
         public delegate int GcmapiWrite(int device, byte[] output);
 
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public delegate IntPtr GcmapiRead(int device, [In, Out] ref GcmapiReport gcapiReport);
+        public delegate IntPtr GcmapiRead(int device, [In, Out] ref Report report);
 
         public enum DevPid
         {
@@ -81,8 +84,11 @@ namespace consoleXstreamX.Output
         public static GcmapiWrite Write;
         public static GcmapiRead Read;
 
-        public static bool CheckedDevices;
-        public static int CheckWait;            //It doesn't like firing as soon as the app opens
+        //public static bool CheckedDevices;
+        //public static int CheckWait;            //It doesn't like firing as soon as the app opens
+        //Todo: this has to work for multiple TO - change to list<int>()
+        public static bool _notConected;
+        public static bool _connected;
 
         public static void Open()
         {
@@ -203,15 +209,20 @@ namespace consoleXstreamX.Output
             var results = new List<TitanDevices>();
 
             if (Connect == null) return results;
+
             var deviceCount = Load();
             Debug.Log($"Number of devices found: {deviceCount}");
             Connect((ushort) DevPid.TitanOne);
+
             Thread.Sleep(10);
+
             for (var count = 0; count <= deviceCount; count++)
             {
                 if (Connected(count) == 0) continue;
                 var serial = ReadSerial(count);
+
                 Debug.Log($"Device found: [ID]{count} [SERIAL]{serial}");
+
                 results.Add(new TitanDevices()
                 {
                     Id = count,
@@ -232,6 +243,32 @@ namespace consoleXstreamX.Output
                 serialNo += $"{item:X2}";
             }
             return serialNo;
+        }
+
+        public static void Send(Gamepad.GamepadOutput player)
+        {
+            if (MenuController.Visible) return;
+
+            if (Connected(player.Index - 1) != 1)
+            {
+                if (!_notConected) return;
+                _notConected = true;
+                _connected = false;
+                Debug.Log($"TitanOne device {player.Index - 1} not connected");
+                return;
+            }
+
+            if (_connected)
+            {
+                _notConected = false;
+                _connected = true;
+                Debug.Log($"TitanOne device {player.Index - 1} connected");
+            }
+
+            Write(player.Index - 1, player.Output);
+            var report = new Report();
+            if (Read(player.Index - 1, ref report) == IntPtr.Zero) return;
+            if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
         }
 
         public static void Close()

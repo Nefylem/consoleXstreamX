@@ -165,6 +165,19 @@ namespace consoleXstreamX.Output
                 @"Data\CronusmaxPlus\gcdapi.dll"
             };
 
+            if (Settings.UseControllerMaxApi)
+            {
+                files = new List<string>()
+                {
+                    "gcdapi.dll",
+                    "controllerMax_gcdapi.dll",
+                    @"CronusmaxPlus\gcdapi.dll",
+                    @"Data\controllerMax_gcdapi.dll",
+                    @"Data\gcdapi.dll",
+                    @"Data\ControllerMax\gcdapi.dll"
+                };
+            }
+
             foreach (var item in files)
             {
                 if (File.Exists(item)) return item;

@@ -24,8 +24,6 @@ namespace consoleXstreamX.Configuration
         public static List<string> History;
         public static List<List<MenuItems>> Tiles;
 
-
-
         public class MenuItems
         {
             public string Display;

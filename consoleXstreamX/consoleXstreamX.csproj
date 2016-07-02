@@ -85,6 +85,7 @@
     <Compile Include="DisplayMenu\Fps.cs" />
     <Compile Include="DisplayMenu\GamepadInput.cs" />
     <Compile Include="DisplayMenu\KeyboardInput.cs" />
+    <Compile Include="DisplayMenu\SubMenu\Actions\SelectControllerOutput.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectExit.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoDevice.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoDisplay.cs" />
