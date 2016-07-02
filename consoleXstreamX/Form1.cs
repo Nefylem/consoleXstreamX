@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using consoleXstreamX.Capture;
 using consoleXstreamX.Configuration;
 using consoleXstreamX.Debugging;
+using consoleXstreamX.Display;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 using consoleXstreamX.Input.Keyboard;
@@ -59,6 +60,8 @@ namespace consoleXstreamX
 
             wait.Dock = DockStyle.Fill;
             wait.BackColor = Color.Aqua;
+
+            if (Settings.ControlScreenSaver) ScreenSaver.DisableScreenSaver();
         }
 
         public void FocusWindow()
@@ -105,16 +108,11 @@ namespace consoleXstreamX
         {
             var height = 0;
             if (Settings.AutoSetCaptureResolution) height = VideoCapture.CheckResolution();
-            //if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
+            if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
         }
 
         private void CheckControllerInput()
         {
-            label1.Text = Settings.UseCronusMaxPlus.ToString();
-            label1.BringToFront();
-            label2.Text = Settings.UseTitanOne.ToString();
-            label2.BringToFront();
-
             var input = Gamepad.Check(1);
             if (Settings.UseCronusMaxPlus) CronusmaxPlus.Send(input);
             if (Settings.UseTitanOne) TitanOne.Send(input);
@@ -129,9 +127,14 @@ namespace consoleXstreamX
         private void CloseApplication()
         {
             timer.Enabled = false;
+
             Application.DoEvents();
             VideoCapture.CloseGraph();
-            CronusmaxPlus.Close();
+
+            if (Settings.AllowCronusMaxPlus) CronusmaxPlus.Close();
+            if (Settings.AllowTitanOne) TitanOne.Close();
+            if (Settings.ControlScreenSaver) ScreenSaver.EnableScreenSaver();
+
             Application.DoEvents();
             Application.Exit();
         }

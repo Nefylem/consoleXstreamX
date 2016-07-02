@@ -31,6 +31,7 @@ namespace consoleXstreamX.Configuration
         public static string CrossbarVideo;
         public static string CrossbarAudio;
 
+        public static bool ControlScreenSaver;
         public static bool CheckFps;
         public static bool StayOnTop;
         public static bool AutoSetDisplayResolution;
@@ -66,6 +67,7 @@ namespace consoleXstreamX.Configuration
 
         static Settings()
         {
+            ControlScreenSaver = true;
             AllowCronusMaxPlus = true;
             AllowTitanOne = true;
             AllowGimx = true;

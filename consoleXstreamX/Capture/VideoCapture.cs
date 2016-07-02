@@ -57,7 +57,7 @@ namespace consoleXstreamX.Capture
 
         public static void ResetDisplay()
         {
-            new Display().Setup();
+            new GraphBuilder.Display().Setup();
         }
 
         public static void CloseGraph()
