@@ -41,7 +41,6 @@ namespace consoleXstreamX.Capture.Analyse
                 });
             }
             Debug.Log("");
-
         }
 
     }

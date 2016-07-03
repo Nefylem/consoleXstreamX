@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using consoleXstreamX.Configuration;
@@ -84,11 +85,10 @@ namespace consoleXstreamX.Output
         public static GcmapiWrite Write;
         public static GcmapiRead Read;
 
-        //public static bool CheckedDevices;
-        //public static int CheckWait;            //It doesn't like firing as soon as the app opens
-        //Todo: this has to work for multiple TO - change to list<int>()
-        public static bool _notConected;
-        public static bool _connected;
+        private static List<int> _notConnected;
+        private static List<int> _connected; 
+
+        public static List<TitanDevices> DeviceList;
 
         public static void Open()
         {
@@ -160,11 +160,9 @@ namespace consoleXstreamX.Output
                 Load = (GcmapiLoad) Marshal.GetDelegateForFunctionPointer(load, typeof(GcmapiLoad));
                 Unload = (GcmapiUnload) Marshal.GetDelegateForFunctionPointer(unload, typeof(GcmapiUnload));
                 Connect = (GcmapiConnect) Marshal.GetDelegateForFunctionPointer(connect, typeof(GcmapiConnect));
-                Serial =
-                    (GcmapiGetserialnumber) Marshal.GetDelegateForFunctionPointer(serial, typeof(GcmapiGetserialnumber));
+                Serial = (GcmapiGetserialnumber) Marshal.GetDelegateForFunctionPointer(serial, typeof(GcmapiGetserialnumber));
                 Write = (GcmapiWrite) Marshal.GetDelegateForFunctionPointer(write, typeof(GcmapiWrite));
-                Connected =
-                    (GcmapiIsconnected) Marshal.GetDelegateForFunctionPointer(connected, typeof(GcmapiIsconnected));
+                Connected = (GcmapiIsconnected) Marshal.GetDelegateForFunctionPointer(connected, typeof(GcmapiIsconnected));
                 Read = (GcmapiRead) Marshal.GetDelegateForFunctionPointer(read, typeof(GcmapiRead));
             }
             catch (Exception ex)
@@ -226,9 +224,17 @@ namespace consoleXstreamX.Output
                 results.Add(new TitanDevices()
                 {
                     Id = count,
-                    Serial = serial
+                    SerialNo = serial
                 });
             }
+
+            if (!string.IsNullOrEmpty(Settings.TitanOneId))
+            {
+                var record = results.FirstOrDefault(s => s.SerialNo == Settings.TitanOneId);
+                if (record != null) Settings.UseTitanDevice = record.Id;
+            }
+
+            DeviceList = results;
             return results;
         }
 
@@ -248,26 +254,28 @@ namespace consoleXstreamX.Output
         public static void Send(Gamepad.GamepadOutput player)
         {
             if (MenuController.Visible) return;
+            if (_notConnected == null) _notConnected = new List<int>();
+            if (_connected == null) _connected = new List<int>();
 
-            if (Connected(player.Index - 1) != 1)
+            if (Connected(Settings.UseTitanDevice) != 1)
             {
-                if (!_notConected) return;
-                _notConected = true;
-                _connected = false;
-                Debug.Log($"TitanOne device {player.Index - 1} not connected");
+                if (_notConnected.IndexOf(Settings.UseTitanDevice) > -1) return;
+                if (_connected.IndexOf(Settings.UseTitanDevice) > -1) _connected.Remove(Settings.UseTitanDevice);
+                _notConnected.Add(Settings.UseTitanDevice);
+                Debug.Log($"TitanOne device {Settings.UseTitanDevice} not connected");
                 return;
             }
 
-            if (_connected)
+            if (_connected.IndexOf(Settings.UseTitanDevice) == -1)
             {
-                _notConected = false;
-                _connected = true;
-                Debug.Log($"TitanOne device {player.Index - 1} connected");
+                _connected.Add(Settings.UseTitanDevice);
+                if (_notConnected.IndexOf(Settings.UseTitanDevice) > -1) _notConnected.Remove(Settings.UseTitanDevice);
+                Debug.Log($"TitanOne device {Settings.UseTitanDevice} connected");
             }
 
-            Write(player.Index - 1, player.Output);
+            Write(Settings.UseTitanDevice, player.Output);
             var report = new Report();
-            if (Read(player.Index - 1, ref report) == IntPtr.Zero) return;
+            if (Read(Settings.UseTitanDevice, ref report) == IntPtr.Zero) return;
             if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
         }
 
@@ -286,7 +294,7 @@ namespace consoleXstreamX.Output
         public class TitanDevices
         {
             public int Id;
-            public string Serial;
+            public string SerialNo;
         }
     }
 }

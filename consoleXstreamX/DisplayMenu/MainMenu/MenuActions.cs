@@ -13,6 +13,8 @@ namespace consoleXstreamX.DisplayMenu.MainMenu
     {
         public static void Run(string command)
         {
+            if (string.Equals(command, "load profile", StringComparison.CurrentCultureIgnoreCase)) SelectLoadProfile.Show();
+            if (string.Equals(command, "save profile", StringComparison.CurrentCultureIgnoreCase)) SelectSaveProfile.Show();
             if (string.Equals(command, "video input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Show();
             if (string.Equals(command, "video device", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDevice.Show();
             if (string.Equals(command, "video display", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDisplay.Show();

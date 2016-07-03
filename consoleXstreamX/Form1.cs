@@ -154,11 +154,5 @@ namespace consoleXstreamX
                 Activate();
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Settings.SaveConfiguration();
-            Settings.LoadConfiguration();
-        }
     }
 }

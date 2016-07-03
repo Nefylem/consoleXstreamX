@@ -48,9 +48,12 @@ namespace consoleXstreamX.Configuration
         public static bool AllowGimx;
         public static bool UseCronusMaxPlus;
         public static bool UseControllerMaxApi;
+
         public static bool UseTitanOne;
-        public static int UseTitanDevice;
         public static bool UseTitanOneApi;
+        public static int UseTitanDevice;
+        public static string TitanOneId;
+
         public static bool UseGimxRemote;
         public static string GimxAddress;
         public static int GimxKeepAlive;

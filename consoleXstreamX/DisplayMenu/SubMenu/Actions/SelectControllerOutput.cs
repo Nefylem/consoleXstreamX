@@ -2,6 +2,7 @@
 using System.Linq;
 using consoleXstreamX.Configuration;
 using consoleXstreamX.DisplayMenu.MainMenu;
+using consoleXstreamX.Output;
 
 namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
 {
@@ -47,11 +48,43 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
 
         private static void SetTitanOne()
         {
-            //Todo: select which titanone to use
+            ShutterCommand.OkWait = MenuCommand.SetMoveWait() * 3;
+            if (TitanOne.DeviceList.Count == 1)
+            {
+                Settings.UseTitanDevice = 0;
+                if (TitanOne.DeviceList.Count > 0) Settings.TitanOneId = TitanOne.DeviceList[0].SerialNo;
+                Settings.UseCronusMaxPlus = false;
+                Settings.UseTitanOne = true;
+                Settings.SaveConfiguration();
+                ShowSelectedItems();
+                return;
+            }
+            //Todo: come back to the previous menu from here
+            MenuActions.SetMenu("TitanOne Output");
+            MenuActions.ClearSubMenu();
+            foreach (var item in TitanOne.DeviceList)
+            {
+                Shutter.AddItem($"TitanOne ({item.Id})", item.Id.ToString());
+            }
+
+            if (Settings.UseTitanDevice > TitanOne.DeviceList.Count) Settings.UseTitanDevice = 0;
+            Shutter.CheckedItems.Add(Settings.UseTitanDevice.ToString());
+            Shutter.Selected = Settings.UseTitanDevice.ToString();
+        }
+
+        public static void SelectTitanOne(string command)
+        {
+            int devId;
+            int.TryParse(command, out devId);
+
+            Settings.UseTitanDevice = devId;
+            if (TitanOne.DeviceList.Count > devId) Settings.TitanOneId = TitanOne.DeviceList[devId].SerialNo;
             Settings.UseCronusMaxPlus = false;
             Settings.UseTitanOne = true;
             Settings.SaveConfiguration();
-            ShowSelectedItems();
+
+            Shutter.CheckedItems.Clear();
+            Shutter.CheckedItems.Add(Settings.UseTitanDevice.ToString());
         }
     }
 }

@@ -64,6 +64,10 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
         {
             if (OkWait > 0) return;
             OkWait = MenuCommand.SetMoveWait()*3;
+            if (string.Equals(MenuSettings.CurrentMenu, "Save Profile", StringComparison.CurrentCultureIgnoreCase)) SelectSaveProfile.Save(Shutter.Selected);
+            if (string.Equals(MenuSettings.CurrentMenu, "Load Profile", StringComparison.CurrentCultureIgnoreCase)) SelectLoadProfile.Load(Shutter.Selected);
+
+            if (string.Equals(MenuSettings.CurrentMenu, "TitanOne Output", StringComparison.CurrentCultureIgnoreCase)) SelectControllerOutput.SelectTitanOne(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Controller Output", StringComparison.CurrentCultureIgnoreCase)) SelectControllerOutput.Select(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Device", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDevice.Execute(Shutter.Selected);

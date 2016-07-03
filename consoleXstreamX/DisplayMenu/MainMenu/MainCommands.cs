@@ -14,7 +14,7 @@ namespace consoleXstreamX.DisplayMenu.MainMenu
             MenuSettings.Tiles.Clear();
 
             MenuSettings.Tiles.Add(new List<MenuSettings.MenuItems>());
-            AddItem("Load Profile", "console select");
+            AddItem("Load Profile", "load profile");
             AddItem("Save Profile", "save profile");
             AddItem("Power On", "power on");
 
@@ -26,7 +26,7 @@ namespace consoleXstreamX.DisplayMenu.MainMenu
 
             MenuSettings.Tiles.Add(new List<MenuSettings.MenuItems>());
             AddItem("Output", "controller output");
-            AddItem("Controller \n Settings", "output settings");
+            AddItem("Controller \n Settings", "controller settings");
             AddItem("Remap \nInputs", "remap inputs");
             AddItem("Input \nProfile", "input profile");
 

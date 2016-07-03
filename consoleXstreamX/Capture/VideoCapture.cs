@@ -123,7 +123,6 @@ namespace consoleXstreamX.Capture
         public class VideoCaptureDevices
         {
             public string Title;
-
             public string CrossbarAudio;
             public string CrossbarVideo;
             public int CurrentResolution;
