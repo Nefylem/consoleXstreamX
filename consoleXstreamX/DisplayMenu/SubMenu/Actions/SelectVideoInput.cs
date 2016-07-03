@@ -70,7 +70,11 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             Configuration.Settings.SaveConfiguration();
 
             VideoCapture.ChangeCrossbarConnection();
-            VideoCapture.MediaControl.Run();
+
+            if (VideoCapture.MediaControl != null)
+                VideoCapture.MediaControl.Run();
+            else
+                VideoCapture.RunGraph();
 
             ResetSelected();
         }

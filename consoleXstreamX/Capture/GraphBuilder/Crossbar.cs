@@ -65,11 +65,13 @@ namespace consoleXstreamX.Capture.GraphBuilder
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
             if (!string.IsNullOrEmpty(device.CrossbarVideo) && !string.Equals(device.CrossbarVideo, "none"))
             {
+                Configuration.Settings.CrossbarVideo = device.CrossbarVideo;
                 Set(device.CrossbarVideo, "Video");
             }
 
             if (!string.IsNullOrEmpty(device.CrossbarAudio) && !string.Equals(device.CrossbarAudio, "none"))
             {
+                Configuration.Settings.CrossbarAudio = device.CrossbarAudio;
                 Set(device.CrossbarAudio, "Audio");
             }
         }

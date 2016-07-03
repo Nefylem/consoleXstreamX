@@ -23,7 +23,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             Debug.Log($"Using : {device.Title}");
             Debug.Log("");
 
-            if (VideoCapture.MediaControl != null) VideoCapture.MediaControl.Stop();
+            if (VideoCapture.MediaControl != null) VideoCapture.MediaControl.StopWhenReady();
             if (device.Resolution.Count == 0) new CaptureResolution().List();
 
             VideoCapture.ClearGraph();

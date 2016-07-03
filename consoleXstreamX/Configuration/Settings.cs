@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
+using consoleXstreamX.Output;
 
 namespace consoleXstreamX.Configuration
 {
@@ -46,6 +47,7 @@ namespace consoleXstreamX.Configuration
         public static bool AllowCronusMaxPlus;
         public static bool AllowTitanOne;
         public static bool AllowGimx;
+
         public static bool UseCronusMaxPlus;
         public static bool UseControllerMaxApi;
 

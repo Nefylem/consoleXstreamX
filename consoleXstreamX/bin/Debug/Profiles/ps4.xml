@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Profile>
   <VideoCapture>
-    <CaptureDevice>AVerMedia U3 Video Capture (2)</CaptureDevice>
+    <CaptureDevice>AVerMedia U3 Video Capture (1)</CaptureDevice>
     <CaptureAudio>Default WaveOut Device</CaptureAudio>
     <CrossbarVideo>Video_SerialDigital</CrossbarVideo>
     <CrossbarAudio>Audio_SPDIFDigital</CrossbarAudio>
@@ -9,7 +9,7 @@
   <Controller>
     <UseCronusMaxPlus>False</UseCronusMaxPlus>
     <UseTitanOne>True</UseTitanOne>
-    <UseTitanDevice>1</UseTitanDevice>
-    <TitanOneId>ED1B3132C1C440248C5E4C1F229152B0D2B52197</TitanOneId>
+    <UseTitanDevice>0</UseTitanDevice>
+    <TitanOneId>ED1B313205C440248C5E4C4A229150ABD2BF2197</TitanOneId>
   </Controller>
 </Profile>

@@ -228,6 +228,14 @@ namespace consoleXstreamX.Output
             if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
         }
 
+        public static void Set()
+        {
+            Settings.UseCronusMaxPlus = true;
+            Settings.UseTitanOne = false;
+            Settings.UseGimxRemote = false;
+            Settings.SaveConfiguration();
+        }
+
         public static void Close()
         {
             Unload?.Invoke();

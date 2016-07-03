@@ -40,9 +40,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
 
         private static void SetCronusMaxPlus()
         {
-            Settings.UseTitanOne = false;
-            Settings.UseCronusMaxPlus = true;
-            Settings.SaveConfiguration();
+            CronusmaxPlus.Set();
             ShowSelectedItems();
         }
 
@@ -51,11 +49,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             ShutterCommand.OkWait = MenuCommand.SetMoveWait() * 3;
             if (TitanOne.DeviceList.Count == 1)
             {
-                Settings.UseTitanDevice = 0;
-                if (TitanOne.DeviceList.Count > 0) Settings.TitanOneId = TitanOne.DeviceList[0].SerialNo;
-                Settings.UseCronusMaxPlus = false;
-                Settings.UseTitanOne = true;
-                Settings.SaveConfiguration();
+                TitanOne.Set();
                 ShowSelectedItems();
                 return;
             }
@@ -74,15 +68,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
 
         public static void SelectTitanOne(string command)
         {
-            int devId;
-            int.TryParse(command, out devId);
-
-            Settings.UseTitanDevice = devId;
-            if (TitanOne.DeviceList.Count > devId) Settings.TitanOneId = TitanOne.DeviceList[devId].SerialNo;
-            Settings.UseCronusMaxPlus = false;
-            Settings.UseTitanOne = true;
-            Settings.SaveConfiguration();
-
+            TitanOne.Set(command);
             Shutter.CheckedItems.Clear();
             Shutter.CheckedItems.Add(Settings.UseTitanDevice.ToString());
         }

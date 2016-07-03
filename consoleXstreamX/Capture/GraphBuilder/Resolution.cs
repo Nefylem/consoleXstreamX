@@ -5,14 +5,14 @@ using DirectShowLib;
 
 namespace consoleXstreamX.Capture.GraphBuilder
 {
-    class Resolution
+    internal static class Resolution
     {
-        public int Get()
+        public static int Get()
         {
             if (VideoCapture.IamAvd == null) return 0;
             int lineCount;
             VideoCapture.IamAvd.get_NumberOfLines(out lineCount);
-
+            Debug.Log($"LineCount: {lineCount}");
             if (lineCount <= 0) return 0;
 
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
@@ -24,7 +24,7 @@ namespace consoleXstreamX.Capture.GraphBuilder
             return VideoCapture.CurrentResolutionIndex;
         }
 
-        public int Set(IBaseFilter pCaptureDevice, string captureVideoOut)
+        public static int Set(IBaseFilter pCaptureDevice, string captureVideoOut)
         {
             var pin = new Pin();
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];

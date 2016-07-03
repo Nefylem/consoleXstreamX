@@ -93,7 +93,7 @@ namespace consoleXstreamX.Output
         public static void Open()
         {
             var file = FindDll();
-            if (string.IsNullOrEmpty(file))
+            if (String.IsNullOrEmpty(file))
             {
                 Debug.Log("Error loading TitanOne gcdapi.dll");
                 return;
@@ -228,7 +228,7 @@ namespace consoleXstreamX.Output
                 });
             }
 
-            if (!string.IsNullOrEmpty(Settings.TitanOneId))
+            if (!String.IsNullOrEmpty(Settings.TitanOneId))
             {
                 var record = results.FirstOrDefault(s => s.SerialNo == Settings.TitanOneId);
                 if (record != null) Settings.UseTitanDevice = record.Id;
@@ -277,6 +277,49 @@ namespace consoleXstreamX.Output
             var report = new Report();
             if (Read(Settings.UseTitanDevice, ref report) == IntPtr.Zero) return;
             if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
+        }
+
+        public static void Set(string command = "")
+        {
+            int devId;
+            if (!int.TryParse(command, out devId)) devId = 0;
+
+            Settings.UseTitanDevice = devId;
+            Settings.TitanOneId = DeviceList.Count > devId ? DeviceList[devId].SerialNo : "";
+            Settings.UseCronusMaxPlus = false;
+            Settings.UseTitanOne = true;
+            Settings.UseGimxRemote = false;
+            Settings.SaveConfiguration();
+        }
+
+        public static void SetBySerial(string serial = "")
+        {
+            var record = DeviceList.FirstOrDefault(s => string.Equals(s.SerialNo, serial, StringComparison.CurrentCultureIgnoreCase));
+            if (record != null)
+            {
+                Settings.UseTitanDevice = record.Id;
+                Settings.TitanOneId = record.SerialNo;
+            }
+            else
+            {
+                var device = DeviceList.FirstOrDefault();
+                if (device != null)
+                {
+                    Settings.UseTitanDevice = device.Id;
+                    Settings.TitanOneId = device.SerialNo;
+                }
+                else
+                {
+                    Settings.UseTitanDevice = 0;
+                    Settings.TitanOneId = "";
+                }
+            }
+
+            Settings.UseTitanOne = true;
+            Settings.UseCronusMaxPlus = false;
+            Settings.UseGimxRemote = false;
+
+            Settings.SaveConfiguration();
         }
 
         public static void Close()

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using consoleXstreamX.Debugging;
 using DirectShowLib;
 
@@ -13,12 +16,11 @@ namespace consoleXstreamX.Capture.GraphBuilder
         public void Set(IBaseFilter pCaptureDevice, string videoOut)
         {
             Debug.Log("[0] Checking capture resolution");
-            var resolution = new Resolution();
-            var index = resolution.Get();
+            var index = Resolution.Get();
 
             if (index > 0)
             {
-                resolution.Set(pCaptureDevice, videoOut);
+                Resolution.Set(pCaptureDevice, videoOut);
                 return;
             }
             Debug.Log("[0] [WARN] Cant find capture resolution - no input or unknown resolution type");
