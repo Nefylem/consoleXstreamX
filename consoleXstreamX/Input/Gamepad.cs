@@ -2,6 +2,8 @@
 using consoleXstreamX.Configuration;
 using consoleXstreamX.Define;
 using consoleXstreamX.DisplayMenu;
+using consoleXstreamX.Input.Keyboard;
+using consoleXstreamX.Output;
 using consoleXstreamX.Remapping;
 
 namespace consoleXstreamX.Input
@@ -18,10 +20,19 @@ namespace consoleXstreamX.Input
             public PlayerIndex PlayerIndex;
         }
 
+        public static TitanOne.GcmapiStatus[] SetOutput;
         public static GamepadOutput Check(int index)
         {
             if (_xboxButtonCount == 0) _xboxButtonCount = Enum.GetNames(typeof(Xbox)).Length;
             var output = new byte[_xboxButtonCount];
+
+            if (Settings.AllowPassthrough && SetOutput != null)
+            {
+                for (var count = 0; count < SetOutput.Length; count++)
+                {
+                    output[count] = Convert.ToByte(SetOutput[count].Value);
+                }
+            }
 
             var player = FindPlayerIndex(index);
             var controls = GamePad.GetState(player);

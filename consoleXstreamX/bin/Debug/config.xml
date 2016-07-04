@@ -20,6 +20,7 @@
   <AutoSetCaptureResolution>True</AutoSetCaptureResolution>
   <Fullscreen>False</Fullscreen>
   <GraphicsCardId>0</GraphicsCardId>
+  <AllowPassthrough>True</AllowPassthrough>
   <AllowCronusMaxPlus>True</AllowCronusMaxPlus>
   <AllowTitanOne>True</AllowTitanOne>
   <AllowGimx>True</AllowGimx>

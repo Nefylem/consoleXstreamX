@@ -99,16 +99,16 @@ namespace consoleXstreamX
                 }
             }
             */
+            CheckControllerInput();
             if (MenuController.Shutdown) CloseApplication();
             CheckResolution();
-            CheckControllerInput();
         }
 
         private void CheckResolution()
         {
             var height = 0;
             if (Settings.AutoSetCaptureResolution) height = VideoCapture.CheckResolution();
-            if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
+            //if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
         }
 
         private void CheckControllerInput()

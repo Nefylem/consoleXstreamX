@@ -44,6 +44,7 @@ namespace consoleXstreamX.Configuration
         public static int GraphicsCardId;
 
         //Output
+        public static bool AllowPassthrough;
         public static bool AllowCronusMaxPlus;
         public static bool AllowTitanOne;
         public static bool AllowGimx;
@@ -73,6 +74,8 @@ namespace consoleXstreamX.Configuration
         static Settings()
         {
             ControlScreenSaver = true;
+
+            AllowPassthrough = true;
             AllowCronusMaxPlus = true;
             AllowTitanOne = true;
             AllowGimx = true;

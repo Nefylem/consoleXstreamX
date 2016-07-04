@@ -8,6 +8,7 @@ using consoleXstreamX.Configuration;
 using consoleXstreamX.Debugging;
 using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
+using consoleXstreamX.Remapping;
 
 namespace consoleXstreamX.Output
 {
@@ -276,6 +277,7 @@ namespace consoleXstreamX.Output
             Write(Settings.UseTitanDevice, player.Output);
             var report = new Report();
             if (Read(Settings.UseTitanDevice, ref report) == IntPtr.Zero) return;
+            Gamepad.SetOutput = report.Input;
             if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
         }
 
