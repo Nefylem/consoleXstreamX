@@ -9,7 +9,7 @@
   <HideMouse>False</HideMouse>
   <EnableMouse>False</EnableMouse>
   <EnableKeyboard>True</EnableKeyboard>
-  <CaptureDevice>AVerMedia U3 Video Capture (2)</CaptureDevice>
+  <CaptureDevice>AVerMedia U3 Video Capture (1)</CaptureDevice>
   <CaptureAudio>Default WaveOut Device</CaptureAudio>
   <CrossbarVideo>Video_SerialDigital</CrossbarVideo>
   <CrossbarAudio>Audio_SPDIFDigital</CrossbarAudio>
@@ -23,9 +23,9 @@
   <AllowCronusMaxPlus>True</AllowCronusMaxPlus>
   <AllowTitanOne>True</AllowTitanOne>
   <AllowGimx>True</AllowGimx>
-  <UseCronusMaxPlus>True</UseCronusMaxPlus>
+  <UseCronusMaxPlus>False</UseCronusMaxPlus>
   <UseControllerMaxApi>False</UseControllerMaxApi>
-  <UseTitanOne>False</UseTitanOne>
+  <UseTitanOne>True</UseTitanOne>
   <UseTitanOneApi>False</UseTitanOneApi>
   <UseTitanDevice>0</UseTitanDevice>
   <TitanOneId>ED1B313205C440248C5E4C4A229150ABD2BF2197</TitanOneId>

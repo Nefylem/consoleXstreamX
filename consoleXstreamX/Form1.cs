@@ -116,11 +116,13 @@ namespace consoleXstreamX
             var input = Gamepad.Check(1);
             if (Settings.UseCronusMaxPlus) CronusmaxPlus.Send(input);
             if (Settings.UseTitanOne) TitanOne.Send(input);
+            /*
             if (Settings.EnableKeyboard && !MenuController.Visible)
             {
                 if (Settings.UseCronusMaxPlus) CronusmaxPlus.Send(KeyboardInterface.Read());
                 if (Settings.UseTitanOne) TitanOne.Send(KeyboardInterface.Read());
             }
+            */
             if (KeyHook.GetKey("ESCAPE")) MenuController.Open();
         }
 
