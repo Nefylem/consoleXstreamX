@@ -41,7 +41,9 @@ namespace consoleXstreamX
                 TitanOne.FindDevices();
             }
             VideoCapture.Startup(this);
-            timer.Enabled = true;
+            system.Enabled = true;
+            controlPrimary.Enabled = true;
+            controlSecondary.Enabled = true;
         }
 
         private void SetWindow()
@@ -81,28 +83,6 @@ namespace consoleXstreamX
             VideoCapture.ResetDisplay();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            /*
-            if (Settings.UseTitanOne)
-            {
-                if (!TitanOne.CheckedDevices)
-                {
-                    if (TitanOne.CheckWait > 1000)
-                    {
-                        TitanOne.CheckedDevices = true;
-                        TitanOne.FindDevices();
-                        TitanOne.CheckWait = 0;
-                    }
-                    else TitanOne.CheckWait++;
-                    this.Text = TitanOne.CheckWait.ToString();
-                }
-            }
-            */
-            CheckControllerInput();
-            if (MenuController.Shutdown) CloseApplication();
-            CheckResolution();
-        }
 
         private void CheckResolution()
         {
@@ -128,7 +108,9 @@ namespace consoleXstreamX
 
         private void CloseApplication()
         {
-            timer.Enabled = false;
+            system.Enabled = false;
+            controlPrimary.Enabled = false;
+            controlSecondary.Enabled = false;
 
             Application.DoEvents();
             VideoCapture.CloseGraph();
@@ -155,6 +137,23 @@ namespace consoleXstreamX
                 Bounds = Screen.PrimaryScreen.Bounds;
                 Activate();
             }
+        }
+
+        private void system_Tick(object sender, EventArgs e)
+        {
+            //Run system control tasks only. Let the primary and secondary control methods handle the inputs
+            if (MenuController.Shutdown) CloseApplication();
+            CheckResolution();
+        }
+
+        private void controlPrimary_Tick(object sender, EventArgs e)
+        {
+            CheckControllerInput();
+        }
+
+        private void controlSecondary_Tick(object sender, EventArgs e)
+        {
+            CheckControllerInput();
         }
     }
 }

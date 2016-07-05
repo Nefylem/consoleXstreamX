@@ -30,8 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             this.display = new System.Windows.Forms.PictureBox();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.wait = new System.Windows.Forms.PictureBox();
+            this.system = new System.Windows.Forms.Timer(this.components);
+            this.controlPrimary = new System.Windows.Forms.Timer(this.components);
+            this.controlSecondary = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wait)).BeginInit();
             this.SuspendLayout();
@@ -47,11 +49,6 @@
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             // 
-            // timer
-            // 
-            this.timer.Interval = 1;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
             // wait
             // 
             this.wait.Location = new System.Drawing.Point(12, 106);
@@ -60,6 +57,21 @@
             this.wait.TabIndex = 3;
             this.wait.TabStop = false;
             this.wait.Visible = false;
+            // 
+            // system
+            // 
+            this.system.Interval = 1;
+            this.system.Tick += new System.EventHandler(this.system_Tick);
+            // 
+            // controlPrimary
+            // 
+            this.controlPrimary.Interval = 1;
+            this.controlPrimary.Tick += new System.EventHandler(this.controlPrimary_Tick);
+            // 
+            // controlSecondary
+            // 
+            this.controlSecondary.Interval = 1;
+            this.controlSecondary.Tick += new System.EventHandler(this.controlSecondary_Tick);
             // 
             // Form1
             // 
@@ -81,8 +93,10 @@
         #endregion
 
         public System.Windows.Forms.PictureBox display;
-        public System.Windows.Forms.Timer timer;
         public System.Windows.Forms.PictureBox wait;
+        private System.Windows.Forms.Timer system;
+        private System.Windows.Forms.Timer controlPrimary;
+        private System.Windows.Forms.Timer controlSecondary;
     }
 }
 
