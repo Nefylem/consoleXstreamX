@@ -59,6 +59,7 @@ namespace consoleXstreamX.DisplayMenu
             PositionMenu();
             MenuCommand.BackWait = 20;
             menuTimer.Enabled = true;
+            secondaryTimer.Enabled = true;
         }
 
         public void ClosePanel()
@@ -66,6 +67,7 @@ namespace consoleXstreamX.DisplayMenu
             //Todo: fade out
             Shutter.Open = false;
             menuTimer.Enabled = false;
+            secondaryTimer.Enabled = false;
             Hide();
         }
 
@@ -120,6 +122,12 @@ namespace consoleXstreamX.DisplayMenu
              
             display.Image = Draw.GetImage();
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Fps.Check();
+            DrawPanel();
         }
     }
 }

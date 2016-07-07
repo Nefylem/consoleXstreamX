@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.display = new System.Windows.Forms.PictureBox();
             this.menuTimer = new System.Windows.Forms.Timer(this.components);
+            this.secondaryTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,6 +47,11 @@
             // 
             this.menuTimer.Interval = 1;
             this.menuTimer.Tick += new System.EventHandler(this.menuTimer_Tick);
+            // 
+            // secondaryTimer
+            // 
+            this.secondaryTimer.Interval = 1;
+            this.secondaryTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // MenuMain
             // 
@@ -65,5 +71,6 @@
 
         private System.Windows.Forms.PictureBox display;
         private System.Windows.Forms.Timer menuTimer;
+        private System.Windows.Forms.Timer secondaryTimer;
     }
 }

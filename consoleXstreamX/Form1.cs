@@ -153,6 +153,7 @@ namespace consoleXstreamX
 
         private void controlSecondary_Tick(object sender, EventArgs e)
         {
+            //Check for key input
             CheckControllerInput();
         }
     }
