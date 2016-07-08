@@ -9,7 +9,7 @@
   <HideMouse>False</HideMouse>
   <EnableMouse>False</EnableMouse>
   <EnableKeyboard>True</EnableKeyboard>
-  <CaptureDevice>AVerMedia U3 Video Capture (1)</CaptureDevice>
+  <CaptureDevice>AVerMedia U3 Video Capture (2)</CaptureDevice>
   <CaptureAudio>Default WaveOut Device</CaptureAudio>
   <CrossbarVideo>Video_SerialDigital</CrossbarVideo>
   <CrossbarAudio>Audio_SPDIFDigital</CrossbarAudio>
@@ -29,7 +29,6 @@
   <UseTitanOne>True</UseTitanOne>
   <UseTitanOneApi>False</UseTitanOneApi>
   <UseTitanDevice>0</UseTitanDevice>
-  <TitanOneId>ED1B313205C440248C5E4C4A229150ABD2BF2197</TitanOneId>
   <UseGimxRemote>False</UseGimxRemote>
   <GimxKeepAlive>0</GimxKeepAlive>
   <SystemDebugLevel>5</SystemDebugLevel>

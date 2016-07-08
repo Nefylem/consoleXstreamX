@@ -36,9 +36,24 @@ namespace consoleXstreamX.Capture
             Crossbar.Check();
         }
 
-        public static int CheckResolution()
+        public static void CheckResolution()
         {
-            return ResolutionController.Check();
+            if (!Configuration.Settings.AutoSetCaptureResolution) return;
+            var height = ResolutionController.Check();
+            //if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
+        }
+
+        public static void CheckRestart()
+        {
+            if (!RestartGraph) return;
+            RestartGraphDelay--;
+            if (RestartGraphDelay <= 0)
+            {
+                RestartGraph = false;
+                RestartGraphDelay = 0;
+                Debug.Log("Restarting Graph");
+                RunGraph();
+            }
         }
 
         public static void SetWait()
@@ -85,6 +100,7 @@ namespace consoleXstreamX.Capture
         public static int CurrentAudioDevice;
         public static int CurrentActiveDevice;
         public static int CurrentResolutionIndex;
+        public static int RestartGraphDelay;
 
         public static string CurrentVideo;
         public static string CurrentVideoShort;
@@ -102,6 +118,7 @@ namespace consoleXstreamX.Capture
         public static bool BuildingGraph;
         public static bool InitializeGraph;
         public static bool RestartGraph;
+        public static bool SetRestartGraph;
         public static bool ActiveVideo;
         public static bool ActiveCrossbar;
 

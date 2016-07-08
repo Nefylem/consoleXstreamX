@@ -20,17 +20,29 @@ namespace consoleXstreamX.Input
             public PlayerIndex PlayerIndex;
         }
 
-        public static TitanOne.GcmapiStatus[] SetOutput;
+        public static TitanOne.GcmapiStatus[] TitanOutput;
+        public static CronusmaxPlus.GcapiStatus[] CronusOutput;
+
         public static GamepadOutput Check(int index)
         {
             if (_xboxButtonCount == 0) _xboxButtonCount = Enum.GetNames(typeof(Xbox)).Length;
             var output = new byte[_xboxButtonCount];
 
-            if (Settings.AllowPassthrough && SetOutput != null)
+            if (Settings.AllowPassthrough)
             {
-                for (var count = 0; count < SetOutput.Length; count++)
+                if (Settings.UseTitanOne && TitanOutput != null)
                 {
-                    output[count] = Convert.ToByte(SetOutput[count].Value);
+                    for (var count = 0; count < TitanOutput.Length; count++)
+                    {
+                        output[count] = Convert.ToByte(TitanOutput[count].Value);
+                    }
+                }
+                if (Settings.UseCronusMaxPlus && CronusOutput != null)
+                {
+                    for (var count = 0; count < CronusOutput.Length; count++)
+                    {
+                        output[count] = Convert.ToByte(CronusOutput[count].Value);
+                    }
                 }
             }
 

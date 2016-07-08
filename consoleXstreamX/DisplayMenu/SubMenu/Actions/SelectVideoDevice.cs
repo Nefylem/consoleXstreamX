@@ -34,6 +34,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             var index = VideoCapture.CaptureDevices.FindIndex(s => s.Title == command);
             if (index == -1) return;
             VideoCapture.CurrentVideoDevice = index;
+            VideoCapture.SetRestartGraph = true;
             VideoCapture.RunGraph();
         }
     }

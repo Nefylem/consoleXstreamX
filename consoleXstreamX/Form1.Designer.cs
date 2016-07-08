@@ -34,6 +34,7 @@
             this.system = new System.Windows.Forms.Timer(this.components);
             this.controlPrimary = new System.Windows.Forms.Timer(this.components);
             this.controlSecondary = new System.Windows.Forms.Timer(this.components);
+            this.controlTertiary = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.wait)).BeginInit();
             this.SuspendLayout();
@@ -73,6 +74,10 @@
             this.controlSecondary.Interval = 1;
             this.controlSecondary.Tick += new System.EventHandler(this.controlSecondary_Tick);
             // 
+            // controlTertiary
+            // 
+            this.controlTertiary.Tick += new System.EventHandler(this.controlTertiary_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -97,6 +102,7 @@
         private System.Windows.Forms.Timer system;
         private System.Windows.Forms.Timer controlPrimary;
         private System.Windows.Forms.Timer controlSecondary;
+        private System.Windows.Forms.Timer controlTertiary;
     }
 }
 

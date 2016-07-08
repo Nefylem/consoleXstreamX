@@ -9,6 +9,7 @@ using consoleXstreamX.DisplayMenu;
 using consoleXstreamX.Input;
 using consoleXstreamX.Input.Keyboard;
 using consoleXstreamX.Output;
+using consoleXstreamX.PowerOn;
 using consoleXstreamX.Resolution;
 
 namespace consoleXstreamX
@@ -32,6 +33,7 @@ namespace consoleXstreamX
             new Logging().Cleanup();
             Settings.LoadConfiguration();
             Shortcuts.Load();
+            PowerStartup.Create();
             SetWindow();
             KeyHook.Enable();
             if (Settings.AllowCronusMaxPlus) CronusmaxPlus.Open();
@@ -44,6 +46,7 @@ namespace consoleXstreamX
             system.Enabled = true;
             controlPrimary.Enabled = true;
             controlSecondary.Enabled = true;
+            controlTertiary.Enabled = true;
         }
 
         private void SetWindow()
@@ -84,13 +87,6 @@ namespace consoleXstreamX
         }
 
 
-        private void CheckResolution()
-        {
-            var height = 0;
-            if (Settings.AutoSetCaptureResolution) height = VideoCapture.CheckResolution();
-            //if (Settings.AutoSetDisplayResolution && height != 0) DisplayResolution.Change(height);
-        }
-
         private void CheckControllerInput()
         {
             var input = Gamepad.Check(1);
@@ -111,6 +107,7 @@ namespace consoleXstreamX
             system.Enabled = false;
             controlPrimary.Enabled = false;
             controlSecondary.Enabled = false;
+            controlTertiary.Enabled = false;
 
             Application.DoEvents();
             VideoCapture.CloseGraph();
@@ -143,7 +140,8 @@ namespace consoleXstreamX
         {
             //Run system control tasks only. Let the primary and secondary control methods handle the inputs
             if (MenuController.Shutdown) CloseApplication();
-            CheckResolution();
+            VideoCapture.CheckResolution();
+            VideoCapture.CheckRestart();
         }
 
         private void controlPrimary_Tick(object sender, EventArgs e)
@@ -154,6 +152,11 @@ namespace consoleXstreamX
         private void controlSecondary_Tick(object sender, EventArgs e)
         {
             //Check for key input
+            CheckControllerInput();
+        }
+
+        private void controlTertiary_Tick(object sender, EventArgs e)
+        {
             CheckControllerInput();
         }
     }

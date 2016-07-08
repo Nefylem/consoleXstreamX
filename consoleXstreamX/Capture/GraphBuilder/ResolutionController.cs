@@ -21,21 +21,17 @@ namespace consoleXstreamX.Capture.GraphBuilder
             var device = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
             var resolution = device.Resolution[device.CurrentResolution];
             if (lineCount == resolution.Height) return lineCount;
+            if (!Configuration.Settings.AutoSetCaptureResolution) return 0;
             _busy = true;
             Change();
-            /*
-            var targetResolution = device.Resolution.FirstOrDefault(s => s.Height == lineCount);
-            if (targetResolution == null) return;
-            _busy = true;
-            Change(targetResolution);
-            _busy = false;
-            */
+
             return lineCount;
         }
 
         public static void Change()
         {
             if (VideoCapture.MediaControl == null) return;
+            VideoCapture.SetRestartGraph = true;
             VideoCapture.RunGraph();
 
             /*

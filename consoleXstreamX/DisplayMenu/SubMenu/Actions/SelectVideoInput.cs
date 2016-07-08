@@ -74,7 +74,10 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             if (VideoCapture.MediaControl != null)
                 VideoCapture.MediaControl.Run();
             else
+            {
+                VideoCapture.SetRestartGraph = true;
                 VideoCapture.RunGraph();
+            }
 
             ResetSelected();
         }

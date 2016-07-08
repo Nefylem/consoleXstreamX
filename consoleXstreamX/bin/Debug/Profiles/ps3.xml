@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Profile>
+  <VideoCapture>
+    <CaptureDevice>AVerMedia U3 Video Capture (1)</CaptureDevice>
+    <CaptureAudio>Default WaveOut Device</CaptureAudio>
+    <CrossbarVideo>Video_YRYBY</CrossbarVideo>
+    <CrossbarAudio>Audio_Line</CrossbarAudio>
+  </VideoCapture>
+  <Controller>
+    <UseCronusMaxPlus>True</UseCronusMaxPlus>
+    <UseTitanOne>False</UseTitanOne>
+  </Controller>
+</Profile>

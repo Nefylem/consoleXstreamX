@@ -225,6 +225,7 @@ namespace consoleXstreamX.Output
             Write(player.Output);
             var report = new Report();
             if (Read(ref report) == IntPtr.Zero) return;
+            if (Settings.AllowPassthrough) Gamepad.CronusOutput = report.Input;
             if (Settings.Rumble) Gamepad.SetState(player.Index, report.Rumble[0], report.Rumble[1]);
         }
 

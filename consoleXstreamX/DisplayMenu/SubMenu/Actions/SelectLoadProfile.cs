@@ -1,7 +1,5 @@
 ﻿using System;
-using System.CodeDom;
 using System.IO;
-using System.Threading;
 using System.Xml;
 using consoleXstreamX.Capture;
 using consoleXstreamX.Configuration;
@@ -78,18 +76,15 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
 
             if (_changeCaptureDevice && _changeCrossbar)
             {
-                Settings.CaptureDevice = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].Title;
-                VideoCapture.RunGraph();
-                var b = 1;
-                //need to fix this one
-                /*
+                //Settings.CaptureDevice = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].Title;
+                //VideoCapture.RunGraph();
                 var captureDevice = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice];
                 captureDevice.CrossbarAudio = _setCrossbarAudio;
                 captureDevice.CrossbarVideo = _setCrossbarVideo;
                 Settings.SaveConfiguration();
-                VideoCapture.CloseGraph();
-                VideoCapture.ClearGraph();
-                */
+                VideoCapture.SetRestartGraph = true;
+                VideoCapture.RunGraph();
+
                 return;
             }
 
@@ -97,6 +92,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             {
                 Settings.CaptureDevice = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].Title;
                 Settings.SaveConfiguration();
+                VideoCapture.SetRestartGraph = true;
                 VideoCapture.RunGraph();
                 return;
             }
@@ -108,11 +104,14 @@ namespace consoleXstreamX.DisplayMenu.SubMenu.Actions
             Settings.SaveConfiguration();
 
             VideoCapture.ChangeCrossbarConnection();
+            VideoCapture.SetRestartGraph = true;
 
-            if (VideoCapture.MediaControl != null)
-                VideoCapture.MediaControl.Run();
+            if (VideoCapture.MediaControl != null) VideoCapture.MediaControl.Run();
             else
+            {
+                VideoCapture.SetRestartGraph = true;
                 VideoCapture.RunGraph();
+            }
         }
 
         private static void SetValue(string title, string value)

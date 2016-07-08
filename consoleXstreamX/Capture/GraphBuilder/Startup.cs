@@ -54,6 +54,11 @@ namespace consoleXstreamX.Capture.GraphBuilder
             VideoCapture.BuildingGraph = false;
             Configuration.Settings.CaptureDevice = VideoCapture.CaptureDevices[VideoCapture.CurrentVideoDevice].Title;
             Configuration.Settings.SaveConfiguration();
+
+            if (!VideoCapture.SetRestartGraph) return;
+            VideoCapture.SetRestartGraph = false;
+            VideoCapture.RestartGraph = true;
+            VideoCapture.RestartGraphDelay = 3;
         }
     }
 }
