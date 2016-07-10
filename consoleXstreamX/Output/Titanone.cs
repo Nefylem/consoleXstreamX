@@ -275,6 +275,8 @@ namespace consoleXstreamX.Output
             }
 
             Write(Settings.UseTitanDevice, player.Output);
+
+            if (!Settings.Rumble && !Settings.AllowPassthrough) return;
             var report = new Report();
             if (Read(Settings.UseTitanDevice, ref report) == IntPtr.Zero) return;
             if (Settings.AllowPassthrough) Gamepad.TitanOutput = report.Input;

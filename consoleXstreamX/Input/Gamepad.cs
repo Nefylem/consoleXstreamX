@@ -67,10 +67,33 @@ namespace consoleXstreamX.Input
             if (controls.Triggers.Left > 0) { output[GamepadMap.LeftTrigger] = Convert.ToByte(controls.Triggers.Left * 100); }
             if (controls.Triggers.Right > 0) { output[GamepadMap.RightTrigger] = Convert.ToByte(controls.Triggers.Right * 100); }
 
-            double leftX = controls.ThumbSticks.Left.X * 100;
-            double leftY = controls.ThumbSticks.Left.Y * 100;
-            double rightX = controls.ThumbSticks.Right.X * 100;
-            double rightY = controls.ThumbSticks.Right.Y * 100;
+            var leftX = controls.ThumbSticks.Left.X * 100.0;
+            var leftY = controls.ThumbSticks.Left.Y * 100.0;
+            var rightX = controls.ThumbSticks.Right.X * 100.0;
+            var rightY = controls.ThumbSticks.Right.Y * 100.0;
+
+            if (Settings.UseCalibration)
+            {
+                if (leftX > 0)
+                    leftX *= Settings.LeftXMaxRatio;
+                else
+                    leftX *= Settings.LeftXMinRatio;
+
+                if (leftY > 0)
+                    leftY *= Settings.LeftYMaxRatio;
+                else
+                    leftY *= -Settings.LeftYMinRatio;
+
+                if (rightX > 0)
+                    rightX *= Settings.RightXMaxRatio;
+                else
+                    rightX *= Settings.RightXMinRatio;
+
+                if (rightY > 0)
+                    rightY *= Settings.RightYMaxRatio;
+                else
+                    rightY *= -Settings.RightYMinRatio;
+            }
 
             if (Settings.NormalizeControls)
             {
@@ -105,7 +128,7 @@ namespace consoleXstreamX.Input
                         if (MenuController.Delay >= MenuController.DelayLimit) MenuController.Open();
                 }
 
-                if (Settings.Ps4ControllerMode)
+                if (Settings.Ds4ControllerMode)
                     output[GamepadMap.Touch] = Convert.ToByte(100);
                 else
                     output[GamepadMap.Back] = Convert.ToByte(100);

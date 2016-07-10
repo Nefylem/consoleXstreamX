@@ -29,6 +29,10 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
             _leftWait = MenuCommand.SetMoveWait();
             var index = Shutter.Tiles.FindIndex(s => string.Equals(s.Command, Shutter.Selected, StringComparison.CurrentCultureIgnoreCase));
             if (index <= 0) return;
+            if (index - Shutter.Scroll <= 1)
+            {
+                if (Shutter.Scroll > 0) Shutter.Scroll--;
+            }
             index--;
             Shutter.Selected = Shutter.Tiles[index].Command;
         }
@@ -40,12 +44,23 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
 
             var index = Shutter.Tiles.FindIndex(s => string.Equals(s.Command, Shutter.Selected, StringComparison.CurrentCultureIgnoreCase));
             if (index >= Shutter.Tiles.Count - 1) return;
+            var b = Shutter.Scroll;
             index++;
+            if (index - Shutter.Scroll >= 3)
+            {
+                if (Shutter.Scroll + index < Shutter.Tiles.Count) Shutter.Scroll++;
+            }
             Shutter.Selected = Shutter.Tiles[index].Command;
         }
 
         public static void StepBackMenu()
         {
+            if (MenuSettings.CalibrateController)
+            {
+                //Calculate feed ratios
+                MenuSettings.CalibrateController = false;
+                CalibrateController.Calculate();
+            }
             if (_backWait > 0) return;
             if (MenuSettings.History.Count > 0) MenuSettings.History.RemoveAt(MenuSettings.History.Count - 1);
             if (MenuSettings.History.Count == 0)
@@ -69,6 +84,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
 
             if (string.Equals(MenuSettings.CurrentMenu, "TitanOne Output", StringComparison.CurrentCultureIgnoreCase)) SelectControllerOutput.SelectTitanOne(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Controller Output", StringComparison.CurrentCultureIgnoreCase)) SelectControllerOutput.Select(Shutter.Selected);
+            if (string.Equals(MenuSettings.CurrentMenu, "Controller Settings", StringComparison.CurrentCultureIgnoreCase)) SelectControllerSettings.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Input", StringComparison.CurrentCultureIgnoreCase)) SelectVideoInput.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Device", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDevice.Execute(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Video Display", StringComparison.CurrentCultureIgnoreCase)) SelectVideoDisplay.Execute(Shutter.Selected);

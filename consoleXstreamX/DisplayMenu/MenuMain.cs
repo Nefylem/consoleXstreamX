@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using consoleXstreamX.Configuration;
+using consoleXstreamX.Define;
 using consoleXstreamX.DisplayMenu.MainMenu;
 using consoleXstreamX.DisplayMenu.SubMenu;
 using consoleXstreamX.Drawing;
@@ -126,8 +127,24 @@ namespace consoleXstreamX.DisplayMenu
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (MenuSettings.CalibrateController)
+            {
+                var controls = GamePad.GetState(PlayerIndex.One);
+                var left = controls.ThumbSticks.Left;
+                var right = controls.ThumbSticks.Right;
+                CheckThumb(left, ref MenuSettings.MinLeftX, ref MenuSettings.MinLeftY, ref MenuSettings.MaxLeftX, ref MenuSettings.MaxLeftY);
+                CheckThumb(right, ref MenuSettings.MinRightX, ref MenuSettings.MinRightY, ref MenuSettings.MaxRightX, ref MenuSettings.MaxRightY);
+            }
             Fps.Check();
             DrawPanel();
+        }
+
+        private static void CheckThumb(GamePadThumbSticks.StickValue thumb, ref double minX, ref double minY, ref double maxX, ref double maxY)
+        {
+            if (minX > thumb.X) minX = thumb.X;
+            if (minY > thumb.Y) minY = thumb.Y;
+            if (maxX < thumb.X) maxX = thumb.X;
+            if (maxY < thumb.Y) maxY = thumb.Y;
         }
     }
 }

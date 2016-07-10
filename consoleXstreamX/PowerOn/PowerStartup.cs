@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +11,12 @@ namespace consoleXstreamX.PowerOn
 {
     internal static class PowerStartup
     {
+        /*
+            This is the execution strategy for power on.
+            User needs eventghost installed. Then either get them to manually register events, or pass in automatically ( would prefer to auto configure ).
+            Add a config to tell cxs what profile name = what console
+            Then simply use FireEvent to trigger the eventghost Profile
+        */
         public static void Create()
         {
             if (!Directory.Exists("PowerProfiles")) Directory.CreateDirectory("PowerProfiles");
@@ -39,6 +47,16 @@ namespace consoleXstreamX.PowerOn
             var txtOut = new StreamWriter(@"PowerProfiles\xboxOne.txt");
             txtOut.WriteLine("0000 006D 0022 0002 0157 00AC 0015 0016 0015 0016 0015 0016 0015 0016 0015 0016 0015 0016 0015 0016 0015 0041 0015 0016 0015 0016 0015 0016 0015 0041 0015 0041 0015 0016 0015 0041 0015 0041 0015 0016 0015 0041 0015 0016 0015 0041 0015 0016 0015 0041 0015 0016 0015 0016 0015 0041 0015 0016 0015 0041 0015 0016 0015 0041 0015 0016 0015 0041 0015 0041 0015 0689 0157 0056 0015 0E94");
             txtOut.Close();
+        }
+
+        public static void FireEvent(string command)
+        {
+            var eventGhost = Type.GetTypeFromProgID("EventGhost");
+            if (eventGhost == null) return;
+
+            var myObject = Activator.CreateInstance(eventGhost);
+            var Params = new object[] { command, "C# Payload" };
+            eventGhost.InvokeMember("TriggerEvent", BindingFlags.InvokeMethod, null, myObject, Params);
         }
 
     }

@@ -223,6 +223,8 @@ namespace consoleXstreamX.Output
             }
 
             Write(player.Output);
+
+            if (!Settings.AllowPassthrough && !Settings.Rumble) return;
             var report = new Report();
             if (Read(ref report) == IntPtr.Zero) return;
             if (Settings.AllowPassthrough) Gamepad.CronusOutput = report.Input;

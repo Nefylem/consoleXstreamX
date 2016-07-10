@@ -13,9 +13,17 @@ namespace consoleXstreamX.Configuration
 
         //Gamepad
         public static bool Rumble;
-        public static bool Ps4ControllerMode;
+        public static bool Ds4ControllerMode;
         public static bool NormalizeControls;
-
+        public static bool UseCalibration;
+        public static double LeftXMinRatio;
+        public static double LeftXMaxRatio;
+        public static double LeftYMinRatio;
+        public static double LeftYMaxRatio;
+        public static double RightXMinRatio;
+        public static double RightXMaxRatio;
+        public static double RightYMinRatio;
+        public static double RightYMaxRatio;
 
         //CXS Interface controls
         public static bool BlockMenuCommand;
@@ -73,6 +81,15 @@ namespace consoleXstreamX.Configuration
 
         static Settings()
         {
+            LeftXMinRatio = 1.0;
+            LeftXMaxRatio = 1.0;
+            LeftYMinRatio = 1.0;
+            LeftYMaxRatio = 1.0;
+            RightXMinRatio = 1.0;
+            RightXMaxRatio = 1.0;
+            RightYMinRatio = 1.0;
+            RightYMaxRatio = 1.0;
+
             ControlScreenSaver = true;
 
             AllowPassthrough = true;

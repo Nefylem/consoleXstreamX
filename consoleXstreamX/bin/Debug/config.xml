@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Configuration>
   <InternalCapture>False</InternalCapture>
-  <Rumble>False</Rumble>
-  <Ps4ControllerMode>False</Ps4ControllerMode>
+  <Rumble>True</Rumble>
+  <Ds4ControllerMode>True</Ds4ControllerMode>
   <NormalizeControls>True</NormalizeControls>
+  <UseCalibration>False</UseCalibration>
+  <LeftXMinRatio>1</LeftXMinRatio>
+  <LeftXMaxRatio>1</LeftXMaxRatio>
+  <LeftYMinRatio>1</LeftYMinRatio>
+  <LeftYMaxRatio>1</LeftYMaxRatio>
+  <RightXMinRatio>1</RightXMinRatio>
+  <RightXMaxRatio>1</RightXMaxRatio>
+  <RightYMinRatio>1</RightYMinRatio>
+  <RightYMaxRatio>1</RightYMaxRatio>
   <BlockMenuCommand>False</BlockMenuCommand>
   <UseShortcutKeys>True</UseShortcutKeys>
   <HideMouse>False</HideMouse>
@@ -29,6 +38,7 @@
   <UseTitanOne>True</UseTitanOne>
   <UseTitanOneApi>False</UseTitanOneApi>
   <UseTitanDevice>0</UseTitanDevice>
+  <TitanOneId>ED1B3132C1C440248C5E4C1F229152B0D2B52197</TitanOneId>
   <UseGimxRemote>False</UseGimxRemote>
   <GimxKeepAlive>0</GimxKeepAlive>
   <SystemDebugLevel>5</SystemDebugLevel>

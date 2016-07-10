@@ -21,6 +21,16 @@ namespace consoleXstreamX.Configuration
         public static string CurrentMenu;
         public static string Selected;
 
+        public static bool CalibrateController;
+        public static double MinLeftX;
+        public static double MinLeftY;
+        public static double MaxLeftX;
+        public static double MaxLeftY;
+        public static double MinRightX;
+        public static double MinRightY;
+        public static double MaxRightX;
+        public static double MaxRightY;
+
         public static List<string> History;
         public static List<List<MenuItems>> Tiles;
 
