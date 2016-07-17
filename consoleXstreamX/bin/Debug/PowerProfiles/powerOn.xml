@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Profiles>
+  <Console>
+    <EventGhost>ps3</EventGhost>
+    <Display>Playstation 3</Display>
+  </Console>
+  <Console>
+    <EventGhost>x360</EventGhost>
+    <Display>Xbox 360</Display>
+  </Console>
+  <Console>
+    <EventGhost>xOne</EventGhost>
+    <Display>Xbox One</Display>
+  </Console>
+</Profiles>

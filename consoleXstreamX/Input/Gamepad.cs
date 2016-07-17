@@ -34,14 +34,14 @@ namespace consoleXstreamX.Input
                 {
                     for (var count = 0; count < TitanOutput.Length; count++)
                     {
-                        output[count] = Convert.ToByte(TitanOutput[count].Value);
+                        output[count] = TitanOutput[count].Value;
                     }
                 }
                 if (Settings.UseCronusMaxPlus && CronusOutput != null)
                 {
                     for (var count = 0; count < CronusOutput.Length; count++)
                     {
-                        output[count] = Convert.ToByte(CronusOutput[count].Value);
+                        output[count] = CronusOutput[count].Value;
                     }
                 }
             }

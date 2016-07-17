@@ -18,7 +18,7 @@
   <HideMouse>False</HideMouse>
   <EnableMouse>False</EnableMouse>
   <EnableKeyboard>True</EnableKeyboard>
-  <CaptureDevice>AVerMedia U3 Video Capture (2)</CaptureDevice>
+  <CaptureDevice>AVerMedia U3 Video Capture (1)</CaptureDevice>
   <CaptureAudio>Default WaveOut Device</CaptureAudio>
   <CrossbarVideo>Video_SerialDigital</CrossbarVideo>
   <CrossbarAudio>Audio_SPDIFDigital</CrossbarAudio>

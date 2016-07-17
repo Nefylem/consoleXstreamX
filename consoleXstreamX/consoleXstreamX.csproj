@@ -90,6 +90,7 @@
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectControllerSettings.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectExit.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectLoadProfile.cs" />
+    <Compile Include="DisplayMenu\SubMenu\Actions\SelectPowerOn.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectSaveProfile.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoDevice.cs" />
     <Compile Include="DisplayMenu\SubMenu\Actions\SelectVideoDisplay.cs" />

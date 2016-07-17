@@ -81,6 +81,7 @@ namespace consoleXstreamX.DisplayMenu.SubMenu
             OkWait = MenuCommand.SetMoveWait()*3;
             if (string.Equals(MenuSettings.CurrentMenu, "Save Profile", StringComparison.CurrentCultureIgnoreCase)) SelectSaveProfile.Save(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Load Profile", StringComparison.CurrentCultureIgnoreCase)) SelectLoadProfile.Load(Shutter.Selected);
+            if (string.Equals(MenuSettings.CurrentMenu, "Power On", StringComparison.CurrentCultureIgnoreCase)) SelectPowerOn.Run(Shutter.Selected);
 
             if (string.Equals(MenuSettings.CurrentMenu, "TitanOne Output", StringComparison.CurrentCultureIgnoreCase)) SelectControllerOutput.SelectTitanOne(Shutter.Selected);
             if (string.Equals(MenuSettings.CurrentMenu, "Controller Output", StringComparison.CurrentCultureIgnoreCase)) SelectControllerOutput.Select(Shutter.Selected);
